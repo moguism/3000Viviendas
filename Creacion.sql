@@ -67,7 +67,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`vecinos` (
   `idvecinos` INT NOT NULL,
-  `nombreVecino` VARCHAR(45) NULL,
+  `nombreVecino` VARCHAR(45) NOT NULL,
   `Viviendas_idViviendas` INT NOT NULL,
   PRIMARY KEY (`idvecinos`),
   INDEX `fk_vecinos_Viviendas1_idx` (`Viviendas_idViviendas` ASC) VISIBLE,
