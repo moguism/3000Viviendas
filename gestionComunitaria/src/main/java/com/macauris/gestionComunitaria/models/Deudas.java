@@ -29,33 +29,33 @@ public class Deudas {
         return idDeudas;
     }
 
-    public Long getIdTiposDeudas() {
-        return idTiposDeudas;
-    }
-
-    public Long getIdComunidades() {
-        return idComunidades;
-    }
-
-    public Date getCreate_at() {
-        return Create_at;
-    }
-
     public void setIdDeudas(Long idDeudas) {
         this.idDeudas = idDeudas;
     }
 
-    public void setIdTiposDeudas(Long idTiposDeudas) {
-        this.idTiposDeudas = idTiposDeudas;
+    public Long getTiposDeuda_idTipoDeuda() {
+        return TiposDeuda_idTipoDeuda;
     }
 
-    public void setIdComunidades(Long idComunidades) {
-        this.idComunidades = idComunidades;
+    public void setTiposDeuda_idTipoDeuda(Long TiposDeuda_idTipoDeuda) {
+        this.TiposDeuda_idTipoDeuda = TiposDeuda_idTipoDeuda;
     }
 
-    public void setCreate_at(Date Create_at) {
-        this.Create_at = Create_at;
+    public Long getComunidades_idComunidades() {
+        return Comunidades_idComunidades;
     }
-    
+
+    public void setComunidades_idComunidades(Long Comunidades_idComunidades) {
+        this.Comunidades_idComunidades = Comunidades_idComunidades;
+    }
+
+    public Date getCreated_at() {
+        return Created_at;
+    }
+
+    public void setCreated_at(Date Created_at) {
+        this.Created_at = Created_at;
+    }
+
     
 }
