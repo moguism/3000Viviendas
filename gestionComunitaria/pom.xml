@@ -12,7 +12,7 @@
 	<artifactId>gestionComunitaria</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gestionComunitaria</name>
-	<description>Aplicacion para administrar comunidad</description>
+	<description>Aplicación para administrar comunidades</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
