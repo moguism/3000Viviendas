@@ -1,5 +1,3 @@
-DROP DATABASE IF EXISTS mydb;
-
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -9,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `mydb` ;
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -214,15 +213,9 @@ ENGINE = InnoDB;
 -- Table `mydb`.`TiposContrato`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`TiposContrato` (
-  `Comunidades_idComunidades` INT NOT NULL,
   `idTiposContrato` INT NOT NULL,
-  INDEX `fk_TiposContrato_Comunidades1_idx` (`Comunidades_idComunidades` ASC) VISIBLE,
-  PRIMARY KEY (`idTiposContrato`),
-  CONSTRAINT `fk_TiposContrato_Comunidades1`
-    FOREIGN KEY (`Comunidades_idComunidades`)
-    REFERENCES `mydb`.`Comunidades` (`idComunidades`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `NombreTipoContrato` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idTiposContrato`))
 ENGINE = InnoDB;
 
 
@@ -234,9 +227,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
   `Contratante_idContratante` INT NOT NULL,
   `TiposContrato_idTiposContrato` INT NOT NULL,
   `Created_at` DATE NOT NULL,
+  `Comunidades_idComunidades` INT NOT NULL,
   PRIMARY KEY (`idContrato`),
   INDEX `fk_Contrato_Contratante1_idx` (`Contratante_idContratante` ASC) VISIBLE,
   INDEX `fk_Contrato_TiposContrato1_idx` (`TiposContrato_idTiposContrato` ASC) VISIBLE,
+  INDEX `fk_Contrato_Comunidades1_idx` (`Comunidades_idComunidades` ASC) VISIBLE,
   CONSTRAINT `fk_Contrato_Contratante1`
     FOREIGN KEY (`Contratante_idContratante`)
     REFERENCES `mydb`.`Contratante` (`idContratante`)
@@ -245,6 +240,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
   CONSTRAINT `fk_Contrato_TiposContrato1`
     FOREIGN KEY (`TiposContrato_idTiposContrato`)
     REFERENCES `mydb`.`TiposContrato` (`idTiposContrato`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Contrato_Comunidades1`
+    FOREIGN KEY (`Comunidades_idComunidades`)
+    REFERENCES `mydb`.`Comunidades` (`idComunidades`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
