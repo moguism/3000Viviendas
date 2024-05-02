@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class TiposContrato {
+public class TipoContrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long idTiposContrato;

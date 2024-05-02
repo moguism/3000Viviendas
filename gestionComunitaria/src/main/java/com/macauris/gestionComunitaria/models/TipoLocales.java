@@ -4,7 +4,6 @@
  */
 package com.macauris.gestionComunitaria.models;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,31 +11,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name="Eventos")
-
-
-public class Eventos {
+@Table (name="TiposLocales")
+public class TipoLocales {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
-    public Long idEventos;
+    public Long idTiposLocales;
     
-    public String NombreEventos;
+    public String NombreTipo;
 
-    public Long getIdEventos() {
-        return idEventos;
+    public Long getIdTiposLocales() {
+        return idTiposLocales;
     }
 
-    public String getNombreEventos() {
-        return NombreEventos;
+    public String getNombreTipo() {
+        return NombreTipo;
     }
 
-    public void setIdEventos(Long idEventos) {
-        this.idEventos = idEventos;
+    public void setIdTiposLocales(Long idTiposLocales) {
+        this.idTiposLocales = idTiposLocales;
     }
 
-    public void setNombreEventos(String NombreEventos) {
-        this.NombreEventos = NombreEventos;
+    public void setNombreTipo(String NombreTipo) {
+        this.NombreTipo = NombreTipo;
     }
     
     
