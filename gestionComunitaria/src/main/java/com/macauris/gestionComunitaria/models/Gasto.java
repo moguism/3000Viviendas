@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 
 @Entity
 @Table(name="gastos")
-public class gasto {
+public class Gasto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long idgastos;
