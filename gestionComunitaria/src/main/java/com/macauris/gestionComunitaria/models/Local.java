@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table (name="Locales")
-public class Locales {
+public class Local {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
