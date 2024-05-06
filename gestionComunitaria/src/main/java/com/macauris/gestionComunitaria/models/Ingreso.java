@@ -8,29 +8,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-@Table(name="Ingresos")
+@Table(name="ingresos")
 public class Ingreso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long idingresos;
+    public Long id;
     
-    public String NombreIngreso;
+    public String nombre;
 
-    public Long getIdingresos() {
-        return idingresos;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdingresos(Long idingresos) {
-        this.idingresos = idingresos;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNombreIngreso() {
-        return NombreIngreso;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreIngreso(String NombreIngreso) {
-        this.NombreIngreso = NombreIngreso;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
     
 }

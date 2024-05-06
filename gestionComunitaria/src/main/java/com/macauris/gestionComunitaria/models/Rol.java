@@ -7,28 +7,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Roles")
+@Table(name="roles")
 public class Rol {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idRoles;
-    private String NombreRol;
-
-    public Long getIdMensualidades() {
-        return idRoles;
-    }
-
-    public void setIdMensualidades(Long idRoles) {
-        this.idRoles = idRoles;
-    }
-
-    public String getNombreRol() {
-        return NombreRol;
-    }
-
-    public void setNombreRol(String NombreRol) {
-        this.NombreRol = NombreRol;
-    }
+    private Long id;
+    private String nombre;
     
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 }

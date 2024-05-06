@@ -11,32 +11,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name="Eventos")
-
-
+@Table (name="eventos")
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
-    public Long idEventos;
+    public Long id;
     
-    public String NombreEventos;
+    public String nombre;
 
-    public Long getIdEventos() {
-        return idEventos;
+    public Long getId() {
+        return id;
     }
 
-    public String getNombreEventos() {
-        return NombreEventos;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setIdEventos(Long idEventos) {
-        this.idEventos = idEventos;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreEventos(String NombreEventos) {
-        this.NombreEventos = NombreEventos;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
     
 }

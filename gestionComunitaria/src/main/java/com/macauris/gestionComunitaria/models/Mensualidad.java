@@ -8,28 +8,32 @@ import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name="Mensualidades")
+@Table(name="mensualidades")
 public class Mensualidad {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMensualidades;
-    private Date Fecha;
-
-    public Long getIdMensualidades() {
-        return idMensualidades;
-    }
-
-    public void setIdMensualidades(Long idMensualidades) {
-        this.idMensualidades = idMensualidades;
-    }
-
-    public Date getFecha() {
-        return Fecha;
-    }
-
-    public void setFecha(Date Fecha) {
-        this.Fecha = Fecha;
-    }
+    private Long id;
+    private Date fecha;
+    private double cuantia;
     
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Date getFecha() {
+        return fecha;
+    }
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    public double getCuantia() {
+        return cuantia;
+    }
+    public void setCuantia(double cuantia) {
+        this.cuantia = cuantia;
+    }
+
 }

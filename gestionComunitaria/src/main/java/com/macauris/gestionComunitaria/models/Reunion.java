@@ -12,42 +12,41 @@ import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table (name="Reuniones")
+@Table (name="reuniones")
 
 public class Reunion {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
-    public Long idReuniones;
+    public Long id;
     
-    public Long TipoReunion_idTipoReunion;
+    public Long tipo_reunion_id;
     
-    public Date Fecha;
+    public Date fecha;
 
-    public Long getIdReuniones() {
-        return idReuniones;
+    public Long getId() {
+        return id;
     }
 
-    public Long getTipoReunion_idTipoReunion() {
-        return TipoReunion_idTipoReunion;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getTipo_reunion_id() {
+        return tipo_reunion_id;
+    }
+
+    public void setTipo_reunion_id(Long tipo_reunion_id) {
+        this.tipo_reunion_id = tipo_reunion_id;
     }
 
     public Date getFecha() {
-        return Fecha;
+        return fecha;
     }
 
-    public void setIdReuniones(Long idReuniones) {
-        this.idReuniones = idReuniones;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
-
-    public void setTipoReunion_idTipoReunion(Long TipoReunion_idTipoReunion) {
-        this.TipoReunion_idTipoReunion = TipoReunion_idTipoReunion;
-    }
-
-    public void setFecha(Date Fecha) {
-        this.Fecha = Fecha;
-    }
-    
     
 }

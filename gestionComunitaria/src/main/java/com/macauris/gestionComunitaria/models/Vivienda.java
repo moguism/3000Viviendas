@@ -7,97 +7,69 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Viviendas")
+@Table(name = "viviendas")
 public class Vivienda {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long idViviendas;
+    public Long id;
     
-    public Long Bloques_idBloques;
+    public Long bloque_id;
     
-    public String Escalera;
-    
-    public String Planta;
-    
-    public String Puerta;
-    
-    public String Letra;
-    
-    // Getters
+    public String escalera;
 
-    public Long getIdViviendas() {
-        
-        return idViviendas;
-        
+    public String planta;
+    
+    public String puerta;
+    
+    public String letra;
+
+    public Long getId() {
+        return id;
     }
 
-    public Long getBloques_idBloques() {
-        
-        return Bloques_idBloques;
-        
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getBloque_id() {
+        return bloque_id;
+    }
+
+    public void setBloque_id(Long bloque_id) {
+        this.bloque_id = bloque_id;
     }
 
     public String getEscalera() {
-        
-        return Escalera;
-        
+        return escalera;
+    }
+
+    public void setEscalera(String escalera) {
+        this.escalera = escalera;
     }
 
     public String getPlanta() {
-        
-        return Planta;
-        
+        return planta;
+    }
+
+    public void setPlanta(String planta) {
+        this.planta = planta;
     }
 
     public String getPuerta() {
-        
-        return Puerta;
-        
+        return puerta;
+    }
+
+    public void setPuerta(String puerta) {
+        this.puerta = puerta;
     }
 
     public String getLetra() {
-        
-        return Letra;
-        
-    }
-    
-    // Setters
-
-    public void setIdViviendas(Long idViviendas) {
-        
-        this.idViviendas = idViviendas;
-        
+        return letra;
     }
 
-    public void setBloques_idBloques(Long Bloques_idBloques) {
-        
-        this.Bloques_idBloques = Bloques_idBloques;
-        
-    }
-
-    public void setEscalera(String Escalera) {
-        
-        this.Escalera = Escalera;
-        
-    }
-
-    public void setPlanta(String Planta) {
-        
-        this.Planta = Planta;
-        
-    }
-
-    public void setPuerta(String Puerta) {
-        
-        this.Puerta = Puerta;
-        
-    }
-
-    public void setLetra(String Letra) {
-        
-        this.Letra = Letra;
-   
+    public void setLetra(String letra) {
+        this.letra = letra;
     }
     
 }

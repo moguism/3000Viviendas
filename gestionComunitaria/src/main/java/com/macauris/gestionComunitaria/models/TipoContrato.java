@@ -4,30 +4,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "tipos_contratos")
 public class TipoContrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long idTiposContrato;
+    public Long id;
     
-    public String NombreTipoContrato;
+    public String nombre;
 
-    public Long getIdTiposContrato() {
-        return idTiposContrato;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdTiposContrato(Long idTiposContrato) {
-        this.idTiposContrato = idTiposContrato;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNombreTipoContrato() {
-        return NombreTipoContrato;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreTipoContrato(String NombreTipoContrato) {
-        this.NombreTipoContrato = NombreTipoContrato;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
-    
+        
 }

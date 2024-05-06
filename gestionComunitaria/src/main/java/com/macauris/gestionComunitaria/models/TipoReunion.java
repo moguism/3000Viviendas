@@ -12,31 +12,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name="TipoReunion")
+@Table (name="tipos_reuniones")
 
 public class TipoReunion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      
-    public Long idTipoReunion;
+    public Long id;
     
-    public String NombreTipo;
+    public String nombre;
 
-    public Long getIdTipoReunion() {
-        return idTipoReunion;
+    public Long getId() {
+        return id;
     }
 
-    public String getNombreTipo() {
-        return NombreTipo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setIdTipoReunion(Long idTipoReunion) {
-        this.idTipoReunion = idTipoReunion;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreTipo(String NombreTipo) {
-        this.NombreTipo = NombreTipo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
     
 }

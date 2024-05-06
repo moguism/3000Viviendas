@@ -4,39 +4,36 @@
  */
 package com.macauris.gestionComunitaria.models;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table (name="TipoDeudas")
-public class TipoDeudas {
+@Table (name="tipos_locales")
+public class TipoLocal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
-    public Long idTipoDeudas;
+    public Long id;
     
-    public String nombreDeuda;
+    public String nombre;
 
-    public Long getIdTipoDeudas() {
-        return idTipoDeudas;
+    public Long getId() {
+        return id;
     }
 
-    public String getNombreDeuda() {
-        return nombreDeuda;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setIdTipoDeudas(Long idTipoDeudas) {
-        this.idTipoDeudas = idTipoDeudas;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreDeuda(String nombreDeuda) {
-        this.nombreDeuda = nombreDeuda;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
-    
+        
 }

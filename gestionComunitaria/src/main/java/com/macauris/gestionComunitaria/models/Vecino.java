@@ -11,37 +11,32 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Vecinos")
+@Table(name = "vecinos")
 public class Vecino {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idvecinos;
-    private String nombreVecino;
-    private Long Viviendas_idViviendas;
-
-    public Long getIdvecinos() {
-        return idvecinos;
+    private Long id;
+    private String nombre;
+    private Long vivienda_id;
+    
+    public Long getId() {
+        return id;
     }
-
-    public void setIdvecinos(Long idvecinos) {
-        this.idvecinos = idvecinos;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    public String getNombreVecino() {
-        return nombreVecino;
+    public String getNombre() {
+        return nombre;
     }
-
-    public void setNombreVecino(String nombreVecino) {
-        this.nombreVecino = nombreVecino;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-
-    public Long getViviendas_idViviendas() {
-        return Viviendas_idViviendas;
+    public Long getVivienda_id() {
+        return vivienda_id;
     }
-
-    public void setViviendas_idViviendas(Long Viviendas_idViviendas) {
-        this.Viviendas_idViviendas = Viviendas_idViviendas;
+    public void setVivienda_id(Long vivienda_id) {
+        this.vivienda_id = vivienda_id;
     }
     
 }

@@ -12,50 +12,49 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table (name="Locales")
+@Table (name="locales")
 public class Local {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
-    public Long idLocales;
+    public Long id;
     
-    public Long Comunidades_idComunidades;
+    public Long comunidad_id;
     
-    public Long TiposLocales_idTiposLocales;
+    public Long tipo_local_id;
     
-    public String Nombrelocal;
+    public String nombre;
 
-    public Long getIdLocales() {
-        return idLocales;
+    public Long getId() {
+        return id;
     }
 
-    public Long getComunidades_idComunidades() {
-        return Comunidades_idComunidades;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getTiposLocales_idTiposLocales() {
-        return TiposLocales_idTiposLocales;
+    public Long getComunidad_id() {
+        return comunidad_id;
     }
 
-    public String getNombrelocal() {
-        return Nombrelocal;
+    public void setComunidad_id(Long comunidad_id) {
+        this.comunidad_id = comunidad_id;
     }
 
-    public void setIdLocales(Long idLocales) {
-        this.idLocales = idLocales;
+    public Long getTipo_local_id() {
+        return tipo_local_id;
     }
 
-    public void setComunidades_idComunidades(Long Comunidades_idComunidades) {
-        this.Comunidades_idComunidades = Comunidades_idComunidades;
+    public void setTipo_local_id(Long tipo_local_id) {
+        this.tipo_local_id = tipo_local_id;
     }
 
-    public void setTiposLocales_idTiposLocales(Long TiposLocales_idTiposLocales) {
-        this.TiposLocales_idTiposLocales = TiposLocales_idTiposLocales;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombrelocal(String Nombrelocal) {
-        this.Nombrelocal = Nombrelocal;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
     
 }
