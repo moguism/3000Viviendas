@@ -7,8 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 
-
-
 @Entity
 @Table(name="Comunidades")
 public class Comunidad {
@@ -16,11 +14,13 @@ public class Comunidad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long idComunidades;
     
+    //@Column(name = "nombre_comunidad")
     public String nombreComunidad;
     
-    @Column(name="direccionComunidad")
+    //@Column(name = "direccion_comunidad")
     public String direccionComunidad;
 
+    
     public Long getIdComunidades() {
         return idComunidades;
     }
