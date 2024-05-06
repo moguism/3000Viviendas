@@ -1,19 +1,13 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `mydb`;
 
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+USE `mydb`;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Comunidades`
@@ -22,8 +16,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Comunidades` (
   `idComunidades` INT NOT NULL AUTO_INCREMENT,
   `nombreComunidad` VARCHAR(45) NOT NULL,
   `direccionComunidad` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idComunidades`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`idComunidades`));
 
 
 -- -----------------------------------------------------
@@ -38,8 +31,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Bloques` (
     FOREIGN KEY (`Comunidades_idComunidades`)
     REFERENCES `mydb`.`Comunidades` (`idComunidades`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -58,8 +50,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Viviendas` (
     FOREIGN KEY (`Bloques_idBloques`)
     REFERENCES `mydb`.`Bloques` (`idBloques`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -75,8 +66,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`vecinos` (
     FOREIGN KEY (`Viviendas_idViviendas`)
     REFERENCES `mydb`.`Viviendas` (`idViviendas`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -85,8 +75,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`gastos` (
   `idgastos` INT NOT NULL AUTO_INCREMENT,
   `NombreGasto` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idgastos`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`idgastos`));
 
 
 -- -----------------------------------------------------
@@ -96,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Ingresos` (
   `idingresos` INT NOT NULL AUTO_INCREMENT,
   `NombreIngreso` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idingresos`))
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -107,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Mensualidades` (
   `Fecha` DATE NOT NULL,
   PRIMARY KEY (`idMensualidades`),
   UNIQUE INDEX `Fecha_UNIQUE` (`Fecha` ASC) VISIBLE)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -118,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ComisionGestora` (
   `Created_at` DATE NOT NULL,
   `Updated_at` DATE NOT NULL,
   PRIMARY KEY (`idComisionGestora`))
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -128,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Roles` (
   `idRoles` INT NOT NULL AUTO_INCREMENT,
   `NombreRol` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idRoles`))
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -138,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`TiposDeuda` (
   `idTiposDeuda` INT NOT NULL AUTO_INCREMENT,
   `NombreDeuda` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTiposDeuda`))
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -162,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Deudas` (
     REFERENCES `mydb`.`Comunidades` (`idComunidades`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -172,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`TiposLocales` (
   `idTiposLocales` INT NOT NULL AUTO_INCREMENT,
   `NombreTipo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTiposLocales`))
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -196,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Locales` (
     REFERENCES `mydb`.`TiposLocales` (`idTiposLocales`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -206,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contratante` (
   `idContratante` INT NOT NULL AUTO_INCREMENT,
   `NombreContratante` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idContratante`))
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -216,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`TiposContrato` (
   `idTiposContrato` INT NOT NULL AUTO_INCREMENT,
   `NombreTipoContrato` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTiposContrato`))
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -247,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
     REFERENCES `mydb`.`Comunidades` (`idComunidades`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -269,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`vecinos_has_Mensualidades` (
     REFERENCES `mydb`.`Mensualidades` (`idMensualidades`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -291,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Comunidades_has_Ingresos` (
     REFERENCES `mydb`.`Ingresos` (`idingresos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -313,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Comunidades_has_gastos` (
     REFERENCES `mydb`.`gastos` (`idgastos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -323,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`TipoReunion` (
   `idTipoReunion` INT NOT NULL AUTO_INCREMENT,
   `NombreTipo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTipoReunion`))
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -340,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Reuniones` (
     REFERENCES `mydb`.`TipoReunion` (`idTipoReunion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -361,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Reuniones_has_vecinos` (
     REFERENCES `mydb`.`vecinos` (`idvecinos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -372,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Eventos` (
   `NombreEvento` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idEventos`),
   UNIQUE INDEX `NombreEvento_UNIQUE` (`NombreEvento` ASC) VISIBLE)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -393,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Reuniones_has_Eventos` (
     REFERENCES `mydb`.`Eventos` (`idEventos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
 
 -- -----------------------------------------------------
@@ -422,9 +411,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ComisionGestora_has_vecinos` (
     REFERENCES `mydb`.`Roles` (`idRoles`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+;
 
+USE mydb;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+INSERT INTO mydb.Comunidades(nombreComunidad, direccioncomunidad) VALUES ("Prueba", "Prueba");
