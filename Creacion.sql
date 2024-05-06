@@ -19,7 +19,7 @@ USE `mydb` ;
 -- Table `mydb`.`Comunidades`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Comunidades` (
-  `idComunidades` INT NOT NULL,
+  `idComunidades` INT NOT NULL AUTO_INCREMENT,
   `nombreComunidad` VARCHAR(45) NOT NULL,
   `direccionComunidad` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idComunidades`))
@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Bloques`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Bloques` (
-  `idBloques` INT NOT NULL,
+  `idBloques` INT NOT NULL AUTO_INCREMENT,
   `Comunidades_idComunidades` INT NOT NULL,
   PRIMARY KEY (`idBloques`),
   INDEX `fk_Bloques_Comunidades_idx` (`Comunidades_idComunidades` ASC) VISIBLE,
@@ -46,7 +46,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Viviendas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Viviendas` (
-  `idViviendas` INT NOT NULL,
+  `idViviendas` INT NOT NULL AUTO_INCREMENT,
   `Bloques_idBloques` INT NOT NULL,
   `Escalera` VARCHAR(45) NULL,
   `Planta` VARCHAR(45) NULL,
@@ -66,7 +66,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`vecinos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`vecinos` (
-  `idvecinos` INT NOT NULL,
+  `idvecinos` INT NOT NULL AUTO_INCREMENT,
   `nombreVecino` VARCHAR(45) NOT NULL,
   `Viviendas_idViviendas` INT NOT NULL,
   PRIMARY KEY (`idvecinos`),
@@ -83,7 +83,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`gastos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`gastos` (
-  `idgastos` INT NOT NULL,
+  `idgastos` INT NOT NULL AUTO_INCREMENT,
   `NombreGasto` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idgastos`))
 ENGINE = InnoDB;
@@ -93,7 +93,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Ingresos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Ingresos` (
-  `idingresos` INT NOT NULL,
+  `idingresos` INT NOT NULL AUTO_INCREMENT,
   `NombreIngreso` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idingresos`))
 ENGINE = InnoDB;
@@ -103,7 +103,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Mensualidades`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Mensualidades` (
-  `idMensualidades` INT NOT NULL,
+  `idMensualidades` INT NOT NULL AUTO_INCREMENT,
   `Fecha` DATE NOT NULL,
   PRIMARY KEY (`idMensualidades`),
   UNIQUE INDEX `Fecha_UNIQUE` (`Fecha` ASC) VISIBLE)
@@ -114,7 +114,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`ComisionGestora`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`ComisionGestora` (
-  `idComisionGestora` INT NOT NULL,
+  `idComisionGestora` INT NOT NULL AUTO_INCREMENT,
   `Created_at` DATE NOT NULL,
   `Updated_at` DATE NOT NULL,
   PRIMARY KEY (`idComisionGestora`))
@@ -125,7 +125,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Roles`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Roles` (
-  `idRoles` INT NOT NULL,
+  `idRoles` INT NOT NULL AUTO_INCREMENT,
   `NombreRol` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idRoles`))
 ENGINE = InnoDB;
@@ -135,7 +135,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`TiposDeuda`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`TiposDeuda` (
-  `idTiposDeuda` INT NOT NULL,
+  `idTiposDeuda` INT NOT NULL AUTO_INCREMENT,
   `NombreDeuda` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTiposDeuda`))
 ENGINE = InnoDB;
@@ -145,7 +145,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Deudas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Deudas` (
-  `idDeudas` INT NOT NULL,
+  `idDeudas` INT NOT NULL AUTO_INCREMENT,
   `TiposDeuda_idTiposDeuda` INT NOT NULL,
   `Comunidades_idComunidades` INT NOT NULL,
   `Created_at` DATE NOT NULL,
@@ -169,7 +169,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`TiposLocales`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`TiposLocales` (
-  `idTiposLocales` INT NOT NULL,
+  `idTiposLocales` INT NOT NULL AUTO_INCREMENT,
   `NombreTipo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTiposLocales`))
 ENGINE = InnoDB;
@@ -179,7 +179,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Locales`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Locales` (
-  `idLocales` INT NOT NULL,
+  `idLocales` INT NOT NULL AUTO_INCREMENT,
   `Comunidades_idComunidades` INT NOT NULL,
   `TiposLocales_idTiposLocales` INT NOT NULL,
   `NombreLocal` VARCHAR(45) NOT NULL,
@@ -203,7 +203,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Contratante`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Contratante` (
-  `idContratante` INT NOT NULL,
+  `idContratante` INT NOT NULL AUTO_INCREMENT,
   `NombreContratante` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idContratante`))
 ENGINE = InnoDB;
@@ -213,7 +213,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`TiposContrato`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`TiposContrato` (
-  `idTiposContrato` INT NOT NULL,
+  `idTiposContrato` INT NOT NULL AUTO_INCREMENT,
   `NombreTipoContrato` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTiposContrato`))
 ENGINE = InnoDB;
@@ -223,7 +223,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Contrato`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
-  `idContrato` INT NOT NULL,
+  `idContrato` INT NOT NULL AUTO_INCREMENT,
   `Contratante_idContratante` INT NOT NULL,
   `TiposContrato_idTiposContrato` INT NOT NULL,
   `Created_at` DATE NOT NULL,
@@ -320,7 +320,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`TipoReunion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`TipoReunion` (
-  `idTipoReunion` INT NOT NULL,
+  `idTipoReunion` INT NOT NULL AUTO_INCREMENT,
   `NombreTipo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTipoReunion`))
 ENGINE = InnoDB;
@@ -368,7 +368,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Eventos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Eventos` (
-  `idEventos` INT NOT NULL,
+  `idEventos` INT NOT NULL AUTO_INCREMENT,
   `NombreEvento` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idEventos`),
   UNIQUE INDEX `NombreEvento_UNIQUE` (`NombreEvento` ASC) VISIBLE)
