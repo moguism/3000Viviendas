@@ -5,50 +5,51 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "contratos")
 public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long idContrato;
+    public Long id;
     
-    public Long Contratante_idContratante;
+    public Long contratante_id;
     
-    public Long TiposContrato_idTiposContrato;
+    public Long tipo_contrato_id;
     
-    public Long Comunidades_idComunidades;
+    public Long comunidad_id;
 
-    public Long getIdContrato() {
-        return idContrato;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdContrato(Long idContrato) {
-        this.idContrato = idContrato;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getContratante_idContratante() {
-        return Contratante_idContratante;
+    public Long getContratante_id() {
+        return contratante_id;
     }
 
-    public void setContratante_idContratante(Long Contratante_idContratante) {
-        this.Contratante_idContratante = Contratante_idContratante;
+    public void setContratante_id(Long contratante_id) {
+        this.contratante_id = contratante_id;
     }
 
-    public Long getTiposContrato_idTiposContrato() {
-        return TiposContrato_idTiposContrato;
+    public Long getTipo_contrato_id() {
+        return tipo_contrato_id;
     }
 
-    public void setTiposContrato_idTiposContrato(Long TiposContrato_idTiposContrato) {
-        this.TiposContrato_idTiposContrato = TiposContrato_idTiposContrato;
+    public void setTipo_contrato_id(Long tipo_contrato_id) {
+        this.tipo_contrato_id = tipo_contrato_id;
     }
 
-    public Long getComunidades_idComunidades() {
-        return Comunidades_idComunidades;
+    public Long getComunidad_id() {
+        return comunidad_id;
     }
 
-    public void setComunidades_idComunidades(Long Comunidades_idComunidades) {
-        this.Comunidades_idComunidades = Comunidades_idComunidades;
+    public void setComunidad_id(Long comunidad_id) {
+        this.comunidad_id = comunidad_id;
     }
-    
     
 }

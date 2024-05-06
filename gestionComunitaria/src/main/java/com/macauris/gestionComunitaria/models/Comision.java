@@ -8,37 +8,34 @@ import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name="ComisionGestora")
-public class ComisionGestora {
+@Table(name="comisiones")
+public class Comision {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idComisionGestora;
-    private Date Created_at;
-    private Date Updated_at;
-
+    private Date created_at;
+    private Date updated_at;
+    
     public Long getIdComisionGestora() {
         return idComisionGestora;
     }
-
     public void setIdComisionGestora(Long idComisionGestora) {
         this.idComisionGestora = idComisionGestora;
     }
-
     public Date getCreated_at() {
-        return Created_at;
+        return created_at;
     }
-
-    public void setCreated_at(Date Created_at) {
-        this.Created_at = Created_at;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
-
     public Date getUpdated_at() {
-        return Updated_at;
+        return updated_at;
+    }
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
 
-    public void setUpdated_at(Date Updated_at) {
-        this.Updated_at = Updated_at;
-    }
+    
     
 }

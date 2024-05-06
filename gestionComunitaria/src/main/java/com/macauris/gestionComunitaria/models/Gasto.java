@@ -7,33 +7,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-
-
 @Entity
 @Table(name="gastos")
 public class Gasto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long idgastos;
+    public Long id;
     
-    public String NombreGasto;
-    
+    public String nombre;
 
-    public Long getIdgastos() {
-        return idgastos;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdgastos(Long idgastos) {
-        this.idgastos = idgastos;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNombreGasto() {
-        return NombreGasto;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreGasto(String NombreGasto) {
-        this.NombreGasto = NombreGasto;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
     
 }

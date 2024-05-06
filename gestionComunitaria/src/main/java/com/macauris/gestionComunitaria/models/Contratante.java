@@ -6,31 +6,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "contratantes")
 public class Contratante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long idContratante;
+    public Long id;
     
-    public String NombreContratante;
+    public String nombre;
 
-    public Long getIdContratante() {
-        return idContratante;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdContratante(Long idContratante) {
-        this.idContratante = idContratante;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNombreContratante() {
-        return NombreContratante;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreContratante(String NombreContratante) {
-        this.NombreContratante = NombreContratante;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
-    
- 
+
 }

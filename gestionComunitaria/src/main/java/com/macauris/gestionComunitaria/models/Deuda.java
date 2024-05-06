@@ -12,49 +12,68 @@ import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table (name="Deudas")
+@Table (name="deudas")
 public class Deuda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long idDeudas;
+    public Long id;
     
-    public Long TiposDeuda_idTipoDeuda;
+    public Long tipo_deuda_id;
     
-    public Long Comunidades_idComunidades;
+    public Long comunidad_id;
     
-    public Date Created_at;
+    public Date created_at;
 
-    public Long getIdDeudas() {
-        return idDeudas;
+    public Date updated_at;
+
+    public double cuantia;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setIdDeudas(Long idDeudas) {
-        this.idDeudas = idDeudas;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getTiposDeuda_idTipoDeuda() {
-        return TiposDeuda_idTipoDeuda;
+    public Long getTipo_deuda_id() {
+        return tipo_deuda_id;
     }
 
-    public void setTiposDeuda_idTipoDeuda(Long TiposDeuda_idTipoDeuda) {
-        this.TiposDeuda_idTipoDeuda = TiposDeuda_idTipoDeuda;
+    public void setTipo_deuda_id(Long tipo_deuda_id) {
+        this.tipo_deuda_id = tipo_deuda_id;
     }
 
-    public Long getComunidades_idComunidades() {
-        return Comunidades_idComunidades;
+    public Long getComunidad_id() {
+        return comunidad_id;
     }
 
-    public void setComunidades_idComunidades(Long Comunidades_idComunidades) {
-        this.Comunidades_idComunidades = Comunidades_idComunidades;
+    public void setComunidad_id(Long comunidad_id) {
+        this.comunidad_id = comunidad_id;
     }
 
     public Date getCreated_at() {
-        return Created_at;
+        return created_at;
     }
 
-    public void setCreated_at(Date Created_at) {
-        this.Created_at = Created_at;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
-    
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public double getCuantia() {
+        return cuantia;
+    }
+
+    public void setCuantia(double cuantia) {
+        this.cuantia = cuantia;
+    }
+
 }

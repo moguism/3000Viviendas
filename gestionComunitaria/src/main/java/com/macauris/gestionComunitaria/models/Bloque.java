@@ -7,43 +7,33 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Bloques")
+@Table(name="bloques")
 public class Bloque {
     
     // Atributos
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idBloques;
+    private Long id;
     
-    private Long Comunidades_idComunidades;
+    private Long comunidad_id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getComunidad_id() {
+        return comunidad_id;
+    }
+
+    public void setComunidad_id(Long comunidad_id) {
+        this.comunidad_id = comunidad_id;
+    }
     
-    // Getters
-
-    public Long getIdBloques() {
-        
-        return idBloques;
-        
-    }
-
-    public Long getComunidades_idComunidades() {
-        
-        return Comunidades_idComunidades;
-        
-    }
     
-    // Setters
-
-    public void setIdBloques(Long idBloques) {
-        
-        this.idBloques = idBloques;
-        
-    }
-
-    public void setComunidades_idComunidades(Long Comunidades_idComunidades) {
-        
-        this.Comunidades_idComunidades = Comunidades_idComunidades;
-        
-    }
     
 }
