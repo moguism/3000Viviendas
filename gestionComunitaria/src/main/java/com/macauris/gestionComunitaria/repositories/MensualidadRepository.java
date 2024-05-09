@@ -4,10 +4,14 @@
  */
 package com.macauris.gestionComunitaria.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.macauris.gestionComunitaria.models.Mensualidad;
+
 /**
  *
  * @author Santiago Torres
  */
-public interface MensualidadRepository {
+public interface MensualidadRepository extends JpaRepository<Mensualidad, Long>{
     
 }

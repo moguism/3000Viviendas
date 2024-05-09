@@ -4,10 +4,14 @@
  */
 package com.macauris.gestionComunitaria.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.macauris.gestionComunitaria.models.Ingreso;
+
 /**
  *
  * @author Santiago Torres
  */
-public interface IngresoRepository {
+public interface IngresoRepository extends JpaRepository<Ingreso, Long> {
     
 }
