@@ -14,7 +14,6 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 		var datos = JSON.parse_string(body.get_string_from_utf8())
 
 		for dato in datos:
-			print("mongo")
 			print(dato)
 
 			var label_id : Button = Button.new()
