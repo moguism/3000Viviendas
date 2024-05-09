@@ -12,24 +12,24 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
-// PARA QUE ATIENDAN PETICIONES (en este caso, en la dirección establecida)
+// PARA QUE ATIENDAN PETICIONES (en este caso, en la dirección establecida, que es un ENDPOINT)
 @RestController
-@RequestMapping("/api/comunidades") 
+@RequestMapping("/api/comunidades")
 public class ComunidadController {
 
-    @Autowired // PARA QUE CONECTE DIRECTAMENTE CON LA CLASE QUE CONTROLA EL REPOSITORIO
+    @Autowired // PARA QUE CONECTE DIRECTAMENTE CON LA CLASE QUE CONTROLA EL REPOSITORIO (para evitar constructores, el "this", etc.)
     private ComunidadRepository comunidadRepository; 
 
     @GetMapping
     public List<Comunidad> getAllComunidades(){
 
         return comunidadRepository.findAll();
+        
     }
     
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // Esto es LONG TAILING: si la petición llega de "/api/comunidades/" se ejecuta la primera, pero si va a "/api/comunidades/id" (siendo id un número), va a esta
     public ResponseEntity<Comunidad> getComunidadById(@PathVariable Long id) {
         Optional<Comunidad> comunidad = comunidadRepository.findById(id);
         return comunidad.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    
 }
