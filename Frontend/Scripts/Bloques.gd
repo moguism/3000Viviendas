@@ -16,9 +16,8 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 		print(datos)
 
 		for dato in datos:
-			print("mongo")
 			print(dato)
-			
+
 			var label_id : Button = Button.new()
 			var label_comunidad_id : Label = Label.new()
 

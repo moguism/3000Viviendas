@@ -29,7 +29,7 @@ public class ComunidadController {
     
     @GetMapping("/{id}") // Esto es LONG TAILING: si la petición llega de "/api/comunidades/" se ejecuta la primera, pero si va a "/api/comunidades/id" (siendo id un número), va a esta
     public ResponseEntity<Comunidad> getComunidadById(@PathVariable Long id) {
-        Optional<Comunidad> comunidad = comunidadRepository.findById(id);
+        Optional<Comunidad> comunidad = comunidadRepository.findById(id); // "Optional" ES EN CASO DE QUE EXISTA, Y "findById" NO PERMITE FOREIGN KEY
         return comunidad.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
