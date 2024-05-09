@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.macauris.gestionComunitaria.repositories.ComunidadRepository;
 import java.util.List;
+import java.util.Optional;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 // PARA QUE ATIENDAN PETICIONES (en este caso, en la dirección establecida)
 @RestController
@@ -21,6 +24,12 @@ public class ComunidadController {
     public List<Comunidad> getAllComunidades(){
 
         return comunidadRepository.findAll();
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Comunidad> getComunidadById(@PathVariable Long id) {
+        Optional<Comunidad> comunidad = comunidadRepository.findById(id);
+        return comunidad.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     
 }
