@@ -4,9 +4,10 @@ extends Control
 
 @onready var http_request : HTTPRequest = $HTTPRequest
 const URL : String = "http://127.0.0.1:8080"
-var pagina : String = "/api/bloques/"
+var pagina : String = str("/api/bloques/", Singleton.comunidad_id)
 
 func _ready():
+	print(pagina)
 	http_request.request(URL + pagina)
 
 func _on_http_request_request_completed(result, response_code, headers, body):

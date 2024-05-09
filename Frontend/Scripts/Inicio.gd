@@ -22,7 +22,11 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 			var label_direccion : Label = Label.new()
 
 			label_id.text = str(dato.id)
-			label_id.button_up.connect(cambiar_escena)
+			label_id.button_up.connect(
+				func cambiar_escena(): 
+					Singleton.comunidad_id = label_id.text
+					get_tree().change_scene_to_file("res://Escenas/Bloques.tscn")
+			)
 
 			label_nombre.text = str(dato.nombre)
 			label_direccion.text = str(dato.direccion)
@@ -33,7 +37,3 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 			
 	else:
 		print("No se puede conectar")
-
-func cambiar_escena() -> void:
-	Singleton.comunidad_id = contenedor.get_node("Comunidad").text
-	get_tree().change_scene_to_file("res://Escenas/Bloques.tscn")
