@@ -25,9 +25,9 @@ public class BloqueController {
         
     }
     
-    @GetMapping("/{comunidad_id}")
-    public ResponseEntity<Bloque> getBloqueById(@PathVariable Long comunidad_id) {
-        Optional<Bloque> bloque = bloqueRepository.findById(comunidad_id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Bloque> getBloqueById(@PathVariable Long id) {
+        Optional<Bloque> bloque = bloqueRepository.findById(id);
         return bloque.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     
