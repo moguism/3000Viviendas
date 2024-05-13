@@ -7,7 +7,6 @@ const URL : String = "http://127.0.0.1:8080"
 var pagina : String = str("/api/bloques/", Singleton.comunidad_id)
 
 func _ready():
-	print(pagina)
 	http_request.request(URL + pagina)
 
 func _on_http_request_request_completed(result, response_code, headers, body):
@@ -16,8 +15,9 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 		print(datos)
 
 		for dato in datos:
+			print("mongo")
 			print(dato)
-
+			
 			var label_id : Button = Button.new()
 			var label_comunidad_id : Label = Label.new()
 
