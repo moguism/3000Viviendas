@@ -10,10 +10,12 @@ import com.macauris.gestionComunitaria.repositories.ComunidadRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 
 // PARA QUE ATIENDAN PETICIONES (en este caso, en la dirección establecida, que es un ENDPOINT)
 @RestController
+@CrossOrigin(origins = "*") // Permitir todos los orígenes
 @RequestMapping("/api/comunidades")
 public class ComunidadController {
 
