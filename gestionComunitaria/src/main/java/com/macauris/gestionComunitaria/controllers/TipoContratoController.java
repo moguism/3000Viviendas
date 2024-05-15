@@ -9,9 +9,11 @@ import com.macauris.gestionComunitaria.repositories.TipoContratoRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
+@CrossOrigin(origins = "*") // Permitir todos los orígenes
 @RequestMapping("/api/tipo-contratos")
 public class TipoContratoController {
     
