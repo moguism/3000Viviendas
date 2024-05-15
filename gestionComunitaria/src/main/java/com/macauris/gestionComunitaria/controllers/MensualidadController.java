@@ -9,9 +9,11 @@ import com.macauris.gestionComunitaria.repositories.MensualidadRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
+@CrossOrigin(origins = "*") // Permitir todos los orígenes
 @RequestMapping("/api/mensualidades")
 public class MensualidadController {
     

@@ -9,10 +9,12 @@ import com.macauris.gestionComunitaria.repositories.VecinoRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/api/vectorinos")
+@CrossOrigin(origins = "*") // Permitir todos los orígenes
+@RequestMapping("/api/vecinos")
 public class VecinoController {
     
     @Autowired    
