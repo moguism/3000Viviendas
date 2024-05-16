@@ -1,45 +1,30 @@
 <template>
-
-  <h1> {{ id }} </h1>
-  <h1>{{ nombre }}</h1>
-  <h1>{{ direccion }}</h1>
+  <p v-if="loading">Cargando datos...</p>
+  <ul v-else>
+    <li v-for="(community, index) in communities" :key="index">
+      <h3>{{ community.nombre }}</h3>
+      <p>{{ community.direccion }}</p>
+    </li>
+  </ul>
 
 </template>
 
-<script>
+<script lang="ts" setup>
 
-import axios from "axios"
+import { ref, onMounted } from 'vue'
+import type ICommunity from './interfaces/ICommunity.ts'
+import type { Ref } from 'vue'
+import CommunityService from './services/CommunityService'
 
-export default {
+const communities:Ref<Array<ICommunity>>= ref([])
+const communityService = new CommunityService()
+const loading = ref(true)
 
-  data() {
+onMounted( async () => {
+  loading.value = true
+  communities.value = await communityService.listAllCommunities()
+  loading.value = false
+})
 
-    return {
-
-      id : Number,
-      nombre: String,
-      direccion: String
-
-    }
-
-  },
-
-  async mounted() {
-
-    this.id = ""
-    this.nombre = ""
-    this.direccion = ""
-
-    let response = await axios.get("http://127.0.0.1:8080/api/comunidades")
-
-    console.log(response)
-    
-    this.id = response.data[0].id
-    this.nombre = response.data[0].nombre
-    this.direccion = response.data[0].direccion
-
-  }
-
-};
 
 </script>
