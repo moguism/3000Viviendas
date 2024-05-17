@@ -1,8 +1,8 @@
-import './assets/main.css'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
+
+import { createApp } from 'vue' //Da error pero ni puta caso funciona
+import { createPinia } from 'pinia' //Da error pero ni puta caso funciona
+import App from './App.vue' 
 
 const app = createApp(App)
 
