@@ -1,5 +1,5 @@
 export default interface ICommunity {
-    id: number | null;
+    id: number;
     nombre: string;
     direccion: string;
 }

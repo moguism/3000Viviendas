@@ -1,21 +1,21 @@
-import type ICommunity from "@/interfaces/ICommunity.ts"
+import type IBloque from "@interfaces/IBloque.ts"
 
-export default class CommunityService {
+
+export default class BloqueService {
 
     baseUri:string = "http://127.0.0.1:8080/api"
 
-    async listAllCommunities():Promise<Array<ICommunity>> {
-        const uri = `${this.baseUri}/comunidades`
+    async listAllBloques():Promise<Array<IBloque>> {
+        const uri = `${this.baseUri}/bloques`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createCommunity(name:string, address:string) {
-        const data:ICommunity = {
+    async createBloque(comunidad_id:number) {
+        const data:IBloque = {
             id: 0,
-            nombre: name,
-            direccion: address,
+            comunidad_id: comunidad_id,
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
