@@ -7,7 +7,9 @@ package com.macauris.gestionComunitaria.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Id;  
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +21,11 @@ public class Vecino {
     private Long id;
     private String nombre;
     private Long vivienda_id;
-    
+    //Intento Ismael: FK
+    @ManyToOne
+    @JoinColumn(name = "vivienda_id",nullable = false)
+    private Vivienda vivienda; 
+    //
     public Long getId() {
         return id;
     }
@@ -38,5 +44,12 @@ public class Vecino {
     public void setVivienda_id(Long vivienda_id) {
         this.vivienda_id = vivienda_id;
     }
-    
+    //Intento Ismael: FK
+    public Vivienda getVivienda() {
+        return vivienda;
+    }
+    public void setVivienda(Vivienda vivienda) {
+        this.vivienda = vivienda;
+    }
+    //
 }
