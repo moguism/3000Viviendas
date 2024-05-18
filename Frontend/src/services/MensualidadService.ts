@@ -1,27 +1,27 @@
-import type ICommunity from "@/interfaces/ICommunity.ts"
+import type IMensualidad from "@/interfaces/IMensualidad";
 
-export default class CommunityService {
+export default class MensualidadService {
 
-    baseUri:string = "http://127.0.0.1:8080/api/comunidades"
+    baseUri: string = "http://127.0.0.1:8080/api/mensualidades"
 
-    async listAllCommunities():Promise<Array<ICommunity>> {
+    async listAllMensualidades(): Promise<Array<IMensualidad>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async listCommunityById(id:number):Promise<ICommunity> {
+    async listMensualidadById(id: number): Promise<IMensualidad> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createCommunity(name:string, address:string) {
-        const data:ICommunity = {
+    async createMensualidad(fecha: Date, cuantia: number){
+        const data:IMensualidad = {
             id: 0,
-            nombre: name,
-            direccion: address,
+            fecha: fecha,
+            cuantia: cuantia
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -31,8 +31,7 @@ export default class CommunityService {
         return response
     }
 
-    async deleteComunidad(id: number){
-
+    async deleteMensualidad(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -41,13 +40,13 @@ export default class CommunityService {
         return response
     }
 
-    async updateComunidad(id:number, name:string, address:string) {
-        const uri = `${this.baseUri}/${id}`
-        const data:ICommunity = {
-            id : 0,
-            nombre: name,
-            direccion: address,
+    async updateMensualidad(id: number, fecha: Date, cuantia: number){
+        const data:IMensualidad = {
+            id: id,
+            fecha: fecha,
+            cuantia: cuantia
         }
+        const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
             body: JSON.stringify(data)

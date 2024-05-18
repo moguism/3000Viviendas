@@ -1,38 +1,39 @@
-import type ICommunity from "@/interfaces/ICommunity.ts"
+import type ITipoReunion from "@/interfaces/ITipoReunion";
 
-export default class CommunityService {
+export default class TipoReunionService {
 
-    baseUri:string = "http://127.0.0.1:8080/api/comunidades"
+    baseUri: string = "http://127.0.0.1:8080/api/tipos-reunion"
 
-    async listAllCommunities():Promise<Array<ICommunity>> {
+    async listAllTiposReunion(): Promise<Array<ITipoReunion>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async listCommunityById(id:number):Promise<ICommunity> {
+    async listTipoReunionById(id: number): Promise<ITipoReunion> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createCommunity(name:string, address:string) {
-        const data:ICommunity = {
+    async createTipoReunion(name: string) {
+        const data:ITipoReunion = {
             id: 0,
-            nombre: name,
-            direccion: address,
+            nombre: name
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
         const response = await rawResponse.json()
         return response
     }
 
-    async deleteComunidad(id: number){
-
+    async deleteTipoReunion(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -41,13 +42,12 @@ export default class CommunityService {
         return response
     }
 
-    async updateComunidad(id:number, name:string, address:string) {
-        const uri = `${this.baseUri}/${id}`
-        const data:ICommunity = {
-            id : 0,
-            nombre: name,
-            direccion: address,
+    async updateTipoReunion(id: number, name: string) {
+        const data:ITipoReunion = {
+            id: id,
+            nombre: name
         }
+        const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
             body: JSON.stringify(data)

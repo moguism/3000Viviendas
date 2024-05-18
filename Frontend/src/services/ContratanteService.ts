@@ -1,20 +1,26 @@
-import type IBloque from "@/interfaces/IBloque.ts"
+import type IContratante from "@/interfaces/IContratante";
 
+export default class ContratanteService {
 
-export default class BloqueService {
+    baseUri: string = "http://127.0.0.1:8080/api/contratantes"
 
-    baseUri:string = "http://127.0.0.1:8080/api/bloques"
-
-    async listAllBloques():Promise<Array<IBloque>> {
+    async listAllContratantes(): Promise<Array<IContratante>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createBloque(comunidad_id:number) {
-        const data:IBloque = {
+    async listContratanteById(id: number): Promise<IContratante> {
+        const uri = `${this.baseUri}/${id}`
+        const rawResponse = await fetch(uri)
+        const response = await rawResponse.json()
+        return response
+    }
+
+    async createContratante(nombre: string){
+        const data:IContratante = {
             id: 0,
-            comunidad_id: comunidad_id,
+            nombre: nombre,
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -22,9 +28,10 @@ export default class BloqueService {
         })
         const response = await rawResponse.json()
         return response
+
     }
 
-    async deleteBloque(id: number){
+    async deleteContratante(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -33,11 +40,11 @@ export default class BloqueService {
         return response
     }
 
-    async updateBloque(id:number, comunidad_id:number) {
+    async updateContratante(id: number, nombre: string){
         const uri = `${this.baseUri}/${id}`
-        const data:IBloque = {
-            id : 0,
-            comunidad_id: comunidad_id,
+        const data:IContratante = {
+            id: 0,
+            nombre: nombre,
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

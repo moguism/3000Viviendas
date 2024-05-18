@@ -1,20 +1,28 @@
-import type IBloque from "@/interfaces/IBloque.ts"
+import type ILocal from "@/interfaces/ILocal";
 
+export default class LocalService {
 
-export default class BloqueService {
+    baseUri: string = "http://127.0.0.1:8080/api/locales"
 
-    baseUri:string = "http://127.0.0.1:8080/api/bloques"
-
-    async listAllBloques():Promise<Array<IBloque>> {
+    async listAllLocales(): Promise<Array<ILocal>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createBloque(comunidad_id:number) {
-        const data:IBloque = {
+    async listLocalById(id: number): Promise<ILocal> {
+        const uri = `${this.baseUri}/${id}`
+        const rawResponse = await fetch(uri)
+        const response = await rawResponse.json()
+        return response
+    }
+
+    async createLocal(nombre: string, comunidad_id: number, tipo_local_id: number){
+        const data:ILocal = {
             id: 0,
+            nombre: nombre,
             comunidad_id: comunidad_id,
+            tipo_local_id: tipo_local_id
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -24,7 +32,7 @@ export default class BloqueService {
         return response
     }
 
-    async deleteBloque(id: number){
+    async deleteLocal(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -33,11 +41,13 @@ export default class BloqueService {
         return response
     }
 
-    async updateBloque(id:number, comunidad_id:number) {
+    async updateLocal(id: number, nombre: string, comunidad_id: number, tipo_local_id: number){
         const uri = `${this.baseUri}/${id}`
-        const data:IBloque = {
-            id : 0,
+        const data:ILocal = {
+            id: 0,
+            nombre: nombre,
             comunidad_id: comunidad_id,
+            tipo_local_id: tipo_local_id
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

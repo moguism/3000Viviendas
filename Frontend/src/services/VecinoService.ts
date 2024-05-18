@@ -1,27 +1,27 @@
-import type ICommunity from "@/interfaces/ICommunity.ts"
+import type IVecino from "@/interfaces/IVecino";
 
-export default class CommunityService {
+export default class VecinoService {
 
-    baseUri:string = "http://127.0.0.1:8080/api/comunidades"
+    baseUri: string = 'http://127.0.0.1:8080/api/vecinos'
 
-    async listAllCommunities():Promise<Array<ICommunity>> {
-        const rawResponse = await fetch(this.baseUri)
-        const response = await rawResponse.json()
-        return response
+    async listAllVecinos(): Promise<Array<IVecino>> {
+        const response = await fetch(this.baseUri)
+        const vecinos = await response.json()
+        return vecinos
     }
 
-    async listCommunityById(id:number):Promise<ICommunity> {
+    async listVecinoById(id: number): Promise<IVecino> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createCommunity(name:string, address:string) {
-        const data:ICommunity = {
+    async createVecino(name: string, vivienda_id: number) {
+        const data:IVecino = {
             id: 0,
             nombre: name,
-            direccion: address,
+            vivienda_id: vivienda_id
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -31,8 +31,7 @@ export default class CommunityService {
         return response
     }
 
-    async deleteComunidad(id: number){
-
+    async deleteVecino(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -41,13 +40,13 @@ export default class CommunityService {
         return response
     }
 
-    async updateComunidad(id:number, name:string, address:string) {
-        const uri = `${this.baseUri}/${id}`
-        const data:ICommunity = {
-            id : 0,
+    async updateVecino(id: number, name: string, vivienda_id: number) {
+        const data:IVecino = {
+            id: id,
             nombre: name,
-            direccion: address,
+            vivienda_id: vivienda_id
         }
+        const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
             body: JSON.stringify(data)

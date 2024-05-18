@@ -1,20 +1,26 @@
-import type IBloque from "@/interfaces/IBloque.ts"
+import type ITipoLocal from "@/interfaces/ITipoLocal";
 
+export default class TipoLocalService {
+    
+    baseUri: string = "http://127.0.0.1:8080/api/tipos-local"
 
-export default class BloqueService {
-
-    baseUri:string = "http://127.0.0.1:8080/api/bloques"
-
-    async listAllBloques():Promise<Array<IBloque>> {
+    async listAllTiposLocales(): Promise<Array<ITipoLocal>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createBloque(comunidad_id:number) {
-        const data:IBloque = {
+    async listTipoLocalById(id: number): Promise<ITipoLocal> {
+        const uri = `${this.baseUri}/${id}`
+        const rawResponse = await fetch(uri)
+        const response = await rawResponse.json()
+        return response
+    }
+
+    async createTipoLocal(name: string){
+        const data:ITipoLocal = {
             id: 0,
-            comunidad_id: comunidad_id,
+            nombre: name
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -24,7 +30,7 @@ export default class BloqueService {
         return response
     }
 
-    async deleteBloque(id: number){
+    async deleteTipoLocal(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -33,12 +39,12 @@ export default class BloqueService {
         return response
     }
 
-    async updateBloque(id:number, comunidad_id:number) {
-        const uri = `${this.baseUri}/${id}`
-        const data:IBloque = {
-            id : 0,
-            comunidad_id: comunidad_id,
+    async updateTipoLocal(id: number, name: string) {
+        const data:ITipoLocal = {
+            id: id,
+            nombre: name
         }
+        const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
             body: JSON.stringify(data)
