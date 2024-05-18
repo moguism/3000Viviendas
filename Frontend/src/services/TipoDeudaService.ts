@@ -1,20 +1,26 @@
-import type IBloque from "@/interfaces/IBloque.ts"
+import type ITipoDeuda from "@/interfaces/ITipoDeuda";
 
+export default class TipoDeudaService {
 
-export default class BloqueService {
+    baseUri: string = "http://127.0.0.1:8080/api/tipos-deuda"
 
-    baseUri:string = "http://127.0.0.1:8080/api/bloques"
-
-    async listAllBloques():Promise<Array<IBloque>> {
+    async listAllTiposDeuda(): Promise<Array<ITipoDeuda>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createBloque(comunidad_id:number) {
-        const data:IBloque = {
+    async listTipoDeudaById(id: number): Promise<ITipoDeuda> {
+        const uri = `${this.baseUri}/${id}`
+        const rawResponse = await fetch(uri)
+        const response = await rawResponse.json()
+        return response
+    }
+
+    async createTipoDeuda(name: string) {
+        const data:ITipoDeuda = {
             id: 0,
-            comunidad_id: comunidad_id,
+            nombre: name
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -24,7 +30,7 @@ export default class BloqueService {
         return response
     }
 
-    async deleteBloque(id: number){
+    async deleteTipoDeuda(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -33,12 +39,12 @@ export default class BloqueService {
         return response
     }
 
-    async updateBloque(id:number, comunidad_id:number) {
-        const uri = `${this.baseUri}/${id}`
-        const data:IBloque = {
-            id : 0,
-            comunidad_id: comunidad_id,
+    async updateTipoDeuda(id: number, name: string) {
+        const data:ITipoDeuda = {
+            id: id,
+            nombre: name
         }
+        const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
             body: JSON.stringify(data)

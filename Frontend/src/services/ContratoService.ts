@@ -1,27 +1,28 @@
-import type ICommunity from "@/interfaces/ICommunity.ts"
+import type IContrato from "@/interfaces/IContrato";
 
-export default class CommunityService {
+export default class ContratoService {
 
-    baseUri:string = "http://127.0.0.1:8080/api/comunidades"
+    baseUri: string = "http://127.0.0.1:8080/api/contratos"
 
-    async listAllCommunities():Promise<Array<ICommunity>> {
+    async listAllContratos(): Promise<Array<IContrato>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async listCommunityById(id:number):Promise<ICommunity> {
+    async listContratoById(id: number): Promise<IContrato> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createCommunity(name:string, address:string) {
-        const data:ICommunity = {
+    async createContrato(contratante_id: number, tipo_contrato_id: number, comunidad_id: number){
+        const data:IContrato = {
             id: 0,
-            nombre: name,
-            direccion: address,
+            contratante_id: contratante_id,
+            tipo_contrato_id: tipo_contrato_id,
+            comunidad_id: comunidad_id,
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -31,8 +32,7 @@ export default class CommunityService {
         return response
     }
 
-    async deleteComunidad(id: number){
-
+    async deleteContrato(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -41,12 +41,13 @@ export default class CommunityService {
         return response
     }
 
-    async updateComunidad(id:number, name:string, address:string) {
+    async updateContrato(id: number, contratante_id: number, tipo_contrato_id: number, comunidad_id: number){
         const uri = `${this.baseUri}/${id}`
-        const data:ICommunity = {
-            id : 0,
-            nombre: name,
-            direccion: address,
+        const data:IContrato = {
+            id: 0,
+            contratante_id: contratante_id,
+            tipo_contrato_id: tipo_contrato_id,
+            comunidad_id: comunidad_id,
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

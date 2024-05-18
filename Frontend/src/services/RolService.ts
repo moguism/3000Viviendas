@@ -1,20 +1,26 @@
-import type IBloque from "@/interfaces/IBloque.ts"
+import type IRol from "@/interfaces/IRol";
 
+export default class RolService {
 
-export default class BloqueService {
+    baseUri: string = "http://127.0.0.1:8080/api/roles"
 
-    baseUri:string = "http://127.0.0.1:8080/api/bloques"
-
-    async listAllBloques():Promise<Array<IBloque>> {
+    async listAllRoles(): Promise<Array<IRol>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createBloque(comunidad_id:number) {
-        const data:IBloque = {
+    async listRolById(id: number): Promise<IRol> {
+        const uri = `${this.baseUri}/${id}`
+        const rawResponse = await fetch(uri)
+        const response = await rawResponse.json()
+        return response
+    }
+
+    async createRol(nombre: string){
+        const data:IRol = {
             id: 0,
-            comunidad_id: comunidad_id,
+            nombre: nombre,
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -24,7 +30,7 @@ export default class BloqueService {
         return response
     }
 
-    async deleteBloque(id: number){
+    async deleteRol(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -33,11 +39,11 @@ export default class BloqueService {
         return response
     }
 
-    async updateBloque(id:number, comunidad_id:number) {
+    async updateRol(id: number, nombre: string){
         const uri = `${this.baseUri}/${id}`
-        const data:IBloque = {
-            id : 0,
-            comunidad_id: comunidad_id,
+        const data:IRol = {
+            id: 0,
+            nombre: nombre,
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

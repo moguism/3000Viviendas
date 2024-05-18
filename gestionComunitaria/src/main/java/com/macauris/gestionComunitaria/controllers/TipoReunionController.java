@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @CrossOrigin(origins = "*") // Permitir todos los orígenes
-@RequestMapping("/api/tipoReuniones")
+@RequestMapping("/api/tipos-reunion")
 public class TipoReunionController {
 
     @Autowired

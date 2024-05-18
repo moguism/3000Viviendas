@@ -13,15 +13,15 @@ public class Comision {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idComisionGestora;
+    private Long id;
     private Date created_at;
     private Date updated_at;
     
-    public Long getIdComisionGestora() {
-        return idComisionGestora;
+    public Long getId() {
+        return id;
     }
-    public void setIdComisionGestora(Long idComisionGestora) {
-        this.idComisionGestora = idComisionGestora;
+    public void setId(Long id) {
+        this.id = id;
     }
     public Date getCreated_at() {
         return created_at;
@@ -34,12 +34,6 @@ public class Comision {
     }
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public void setId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    
+    }   
     
 }

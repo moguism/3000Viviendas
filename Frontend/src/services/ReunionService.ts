@@ -1,27 +1,27 @@
-import type ICommunity from "@/interfaces/ICommunity.ts"
+import type IReunion from "@/interfaces/IReunion";
 
-export default class CommunityService {
+export default class ReunionService{
 
-    baseUri:string = "http://127.0.0.1:8080/api/comunidades"
+    baseUri: string = "http://127.0.0.1:8080/api/reuniones"
 
-    async listAllCommunities():Promise<Array<ICommunity>> {
+    async listAllReuniones(): Promise<Array<IReunion>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async listCommunityById(id:number):Promise<ICommunity> {
+    async listReunionById(id: number): Promise<IReunion> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createCommunity(name:string, address:string) {
-        const data:ICommunity = {
+    async createReunion(tipo_reunion_id: number, fecha: Date){
+        const data:IReunion = {
             id: 0,
-            nombre: name,
-            direccion: address,
+            tipo_reunion_id: tipo_reunion_id,
+            fecha: fecha
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -31,8 +31,7 @@ export default class CommunityService {
         return response
     }
 
-    async deleteComunidad(id: number){
-
+    async deleteReunion(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -41,13 +40,13 @@ export default class CommunityService {
         return response
     }
 
-    async updateComunidad(id:number, name:string, address:string) {
-        const uri = `${this.baseUri}/${id}`
-        const data:ICommunity = {
-            id : 0,
-            nombre: name,
-            direccion: address,
+    async updateReunion(id: number, tipo_reunion_id: number, fecha: Date){
+        const data:IReunion = {
+            id: id,
+            tipo_reunion_id: tipo_reunion_id,
+            fecha: fecha
         }
+        const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
             body: JSON.stringify(data)
@@ -55,5 +54,5 @@ export default class CommunityService {
         const response = await rawResponse.json()
         return response
     }
-
+    
 }

@@ -1,27 +1,30 @@
-import type ICommunity from "@/interfaces/ICommunity.ts"
+import type IVivienda from "@/interfaces/IVivienda";
 
-export default class CommunityService {
+export default class ViviendaService {
 
-    baseUri:string = "http://127.0.0.1:8080/api/comunidades"
+    baseUri: string = "http://127.0.0.1:8080/api/viviendas"
 
-    async listAllCommunities():Promise<Array<ICommunity>> {
+    async listAllViviendas(): Promise<Array<IVivienda>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async listCommunityById(id:number):Promise<ICommunity> {
+    async listViviendaById(id: number): Promise<IVivienda> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createCommunity(name:string, address:string) {
-        const data:ICommunity = {
+    async createVivienda(bloque_id: number, escalera: string, planta: string, puerta: string, letra: string){
+        const data:IVivienda = {
             id: 0,
-            nombre: name,
-            direccion: address,
+            bloque_id: bloque_id,
+            escalera: escalera,
+            planta: planta,
+            puerta: puerta,
+            letra: letra
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -31,8 +34,7 @@ export default class CommunityService {
         return response
     }
 
-    async deleteComunidad(id: number){
-
+    async deleteVivienda(id: number){
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'DELETE'
@@ -41,13 +43,16 @@ export default class CommunityService {
         return response
     }
 
-    async updateComunidad(id:number, name:string, address:string) {
-        const uri = `${this.baseUri}/${id}`
-        const data:ICommunity = {
-            id : 0,
-            nombre: name,
-            direccion: address,
+    async updateVivienda(id: number, bloque_id: number, escalera: string, planta: string, puerta: string, letra: string){
+        const data:IVivienda = {
+            id: id,
+            bloque_id: bloque_id,
+            escalera: escalera,
+            planta: planta,
+            puerta: puerta,
+            letra: letra
         }
+        const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
             body: JSON.stringify(data)
