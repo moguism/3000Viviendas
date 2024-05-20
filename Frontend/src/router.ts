@@ -17,7 +17,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/'), // Puedes cambiar '/' por la base URL de tu aplicación si es necesario
+  history: createWebHistory('/'), 
   routes
 })
 
