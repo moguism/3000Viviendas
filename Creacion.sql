@@ -16,6 +16,37 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
+-- Table `mydb`.`vecinos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`vecinos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `vivienda_id` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`gastos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`gastos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`ingresos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`ingresos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `mydb`.`comunidades`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`comunidades` (
@@ -39,63 +70,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`bloques` (
     REFERENCES `mydb`.`comunidades` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`viviendas`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `bloque_id` INT NOT NULL,
-  `escalera` VARCHAR(45) NULL,
-  `planta` VARCHAR(45) NULL,
-  `puerta` VARCHAR(45) NULL,
-  `letra` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Viviendas_Bloques1_idx` (`bloque_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Viviendas_Bloques1`
-    FOREIGN KEY (`bloque_id`)
-    REFERENCES `mydb`.`bloques` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`vecinos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`vecinos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  `vivienda_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_vecinos_Viviendas1_idx` (`vivienda_id` ASC) VISIBLE,
-  CONSTRAINT `fk_vecinos_Viviendas1`
-    FOREIGN KEY (`vivienda_id`)
-    REFERENCES `mydb`.`viviendas` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`gastos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`gastos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`ingresos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`ingresos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -423,6 +397,33 @@ CREATE TABLE IF NOT EXISTS `mydb`.`comisiones_vecinos` (
   CONSTRAINT `fk_ComisionGestora_has_vecinos_Roles1`
     FOREIGN KEY (`rol_id`)
     REFERENCES `mydb`.`roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`viviendas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `bloque_id` INT NOT NULL,
+  `escalera` VARCHAR(45) NULL,
+  `planta` VARCHAR(45) NULL,
+  `puerta` VARCHAR(45) NULL,
+  `letra` VARCHAR(45) NULL,
+  `vecino_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Viviendas_Bloques1_idx` (`bloque_id` ASC) VISIBLE,
+  INDEX `fk_viviendas_vecinos1_idx` (`vecino_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Viviendas_Bloques1`
+    FOREIGN KEY (`bloque_id`)
+    REFERENCES `mydb`.`bloques` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_viviendas_vecinos1`
+    FOREIGN KEY (`vecino_id`)
+    REFERENCES `mydb`.`vecinos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
