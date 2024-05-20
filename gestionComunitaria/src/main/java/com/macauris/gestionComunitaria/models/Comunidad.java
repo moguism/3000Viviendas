@@ -20,7 +20,7 @@ public class Comunidad {
 
     //Intento Ismael: FK
     @OneToMany(mappedBy = "comunidad")
-    public Set<Bloque> bloques; // Si lo haces segun documentacion de jakarta, da error.
+    public Set<Bloque> listaBloques; // Si lo haces segun documentacion de jakarta, da error.
     //
 
     public Long getId() {
@@ -49,11 +49,11 @@ public class Comunidad {
     //Intento Ismael: FK
 
     public Set<Bloque> getBloques() {
-        return bloques;
+        return listaBloques;
     }
 
-    public void setBloques(Set<Bloque> bloques) {
-        this.bloques = bloques;
+    public void setBloques(Set<Bloque> listaBloques) {
+        this.listaBloques = listaBloques;
     }
     //
     

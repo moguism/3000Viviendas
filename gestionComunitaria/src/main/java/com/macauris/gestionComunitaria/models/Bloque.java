@@ -1,4 +1,5 @@
 package com.macauris.gestionComunitaria.models;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Set;
-
+//Falta un nombre, y una posible direccion o numero de bloque por si existen varios bloques en la misma calle/comunidad/urbanizacion
 @Entity
 @Table(name="bloques")
 public class Bloque {
@@ -17,13 +18,16 @@ public class Bloque {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //"Indica" que es autoincremental
+    @Column(name = "bloque_id")
     private Long id;
-    //private Long comunidad_id;
+    //private Long comunidad_id;ç
+    @OneToMany(mappedBy = "bloque") //Relacion uno a muchos
+    public Set<Vivienda> listaViviendas; 
     @ManyToOne //Relacion muchos a uno
     @JoinColumn(name = "comunidad_id",nullable = false)
     private Comunidad comunidad;
-    @OneToMany(mappedBy = "bloque")
-    public Set<Vivienda> viviendas; 
+
+    
 
     public Long getId() {
         return id;
@@ -44,21 +48,22 @@ public class Bloque {
     }
  */
 
- //Intento Ismael: FK
+
     public Comunidad getComunidad() {
         return comunidad;
     }
+    
 
     public void setComunidad(Comunidad comunidad) {
         this.comunidad = comunidad;
     }
 
     public Set<Vivienda> getViviendas() {
-        return viviendas;
+        return listaViviendas;
     }
 
-    public void setViviendas(Set<Vivienda> viviendas) {
-        this.viviendas = viviendas;
+    public void setViviendas(Set<Vivienda> listaViviendas) {
+        this.listaViviendas = listaViviendas;
     }
     
     
