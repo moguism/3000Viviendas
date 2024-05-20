@@ -1,55 +1,81 @@
-
 package com.macauris.gestionComunitaria.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "contratos")
 public class Contrato {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-    
-    public Long contratante_id;
-    
-    public Long tipo_contrato_id;
-    
-    public Long comunidad_id;
+    private Long id;
 
-    public Long getId() {
-        return id;
-    }
+    private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comunidad_id")
+    @JsonManagedReference
+    private Comunidad comunidad;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contratante_id")
+    @JsonManagedReference
+    private Contratante contratante;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipo_contrato_id")
+    @JsonManagedReference
+    private TipoContrato tipoContrato;
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getContratante_id() {
-        return contratante_id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setContratante_id(Long contratante_id) {
-        this.contratante_id = contratante_id;
+    public void setComunidad(Comunidad comunidad) {
+        this.comunidad = comunidad;
     }
 
-    public Long getTipo_contrato_id() {
-        return tipo_contrato_id;
+    public void setContratante(Contratante contratante) {
+        this.contratante = contratante;
     }
 
-    public void setTipo_contrato_id(Long tipo_contrato_id) {
-        this.tipo_contrato_id = tipo_contrato_id;
+    public void setTipoContrato(TipoContrato tipoContrato) {
+        this.tipoContrato = tipoContrato;
     }
 
-    public Long getComunidad_id() {
-        return comunidad_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setComunidad_id(Long comunidad_id) {
-        this.comunidad_id = comunidad_id;
+    public String getName() {
+        return name;
     }
+
+    public Comunidad getComunidad() {
+        return comunidad;
+    }
+
+    public Contratante getContratante() {
+        return contratante;
+    }
+
+    public TipoContrato getTipoContrato() {
+        return tipoContrato;
+    }
+    
+    
     
 }

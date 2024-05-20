@@ -5,11 +5,17 @@
 package com.macauris.gestionComunitaria.models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
+import java.util.List;
 
 
 @Entity
@@ -17,10 +23,13 @@ import jakarta.persistence.Table;
 public class TipoDeuda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     public Long id;
     
     public String nombre;
+
+    @OneToMany(mappedBy = "tipo_deuda_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Deuda> deudas;
 
     public Long getId() {
         return id;
@@ -37,5 +46,15 @@ public class TipoDeuda {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public List<Deuda> getDeudas() {
+        return deudas;
+    }
+
+    public void setDeudas(List<Deuda> deudas) {
+        this.deudas = deudas;
+    }
+    
+    
     
 }

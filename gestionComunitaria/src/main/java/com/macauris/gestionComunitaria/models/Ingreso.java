@@ -1,11 +1,16 @@
 
 package com.macauris.gestionComunitaria.models;
 
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 @Table(name="ingresos")
@@ -15,6 +20,10 @@ public class Ingreso {
     public Long id;
     
     public String nombre;
+
+    @ManyToMany(mappedBy = "ingresos")
+    @JsonIgnore
+    private Set<Comunidad> comunidades;
 
     public Long getId() {
         return id;
@@ -30,6 +39,14 @@ public class Ingreso {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Set<Comunidad> getComunidades() {
+        return comunidades;
+    }
+
+    public void setComunidades(Set<Comunidad> comunidades) {
+        this.comunidades = comunidades;
     }
     
 }
