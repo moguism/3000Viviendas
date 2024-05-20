@@ -1,6 +1,7 @@
 package com.macauris.gestionComunitaria.models;
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -8,8 +9,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.Set;
+
+import java.util.List;
 //Falta un nombre, y una posible direccion o numero de bloque por si existen varios bloques en la misma calle/comunidad/urbanizacion
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name="bloques")
 public class Bloque {
@@ -18,16 +22,16 @@ public class Bloque {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //"Indica" que es autoincremental
-    @Column(name = "bloque_id")
     private Long id;
-    //private Long comunidad_id;ç
-    @OneToMany(mappedBy = "bloque") //Relacion uno a muchos
-    public Set<Vivienda> listaViviendas; 
-    @ManyToOne //Relacion muchos a uno
-    @JoinColumn(name = "comunidad_id",nullable = false)
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comunidad_id")
+    @JsonManagedReference
     private Comunidad comunidad;
 
-    
+    @OneToMany(mappedBy = "bloque_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Vivienda> viviendas;
 
     public Long getId() {
         return id;
@@ -37,34 +41,20 @@ public class Bloque {
         this.id = id;
     }
 
-    /*Tecnicamente no hace falta, ya que se hace referencia a la comunidad a traves de la relacion
-
-    public Long getComunidad_id() {
-        return comunidad_id;
-    }
-
-    public void setComunidad(Long comunidad_id) {
-        this.comunidad_id = comunidad_id;
-    }
- */
-
-
     public Comunidad getComunidad() {
         return comunidad;
     }
-    
 
     public void setComunidad(Comunidad comunidad) {
         this.comunidad = comunidad;
     }
 
-    public Set<Vivienda> getViviendas() {
-        return listaViviendas;
+    public List<Vivienda> getViviendas() {
+        return viviendas;
     }
 
-    public void setViviendas(Set<Vivienda> listaViviendas) {
-        this.listaViviendas = listaViviendas;
+    public void setViviendas(List<Vivienda> viviendas) {
+        this.viviendas = viviendas;
     }
-    
-    
+
 }

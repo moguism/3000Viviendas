@@ -5,11 +5,19 @@
 package com.macauris.gestionComunitaria.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table (name="reuniones")
@@ -18,12 +26,23 @@ public class Reunion {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     public Long id;
-    
-    public Long tipo_reunion_id;
-    
+
     public Date fecha;
+
+    @ManyToMany
+    @JoinTable(
+        name = "reuniones_vecinos",
+        joinColumns = @JoinColumn(name = "reunion_id"),
+        inverseJoinColumns = @JoinColumn(name = "vecino_id")
+    )
+    @JsonIgnore
+    private Set<Vecino> vecinos;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipo_reunion_id")
+    @JsonManagedReference
+    private TipoReunion tipoReunion;
 
     public Long getId() {
         return id;
@@ -33,14 +52,6 @@ public class Reunion {
         this.id = id;
     }
 
-    public Long getTipo_reunion_id() {
-        return tipo_reunion_id;
-    }
-
-    public void setTipo_reunion_id(Long tipo_reunion_id) {
-        this.tipo_reunion_id = tipo_reunion_id;
-    }
-
     public Date getFecha() {
         return fecha;
     }
@@ -48,5 +59,23 @@ public class Reunion {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
+    public Set<Vecino> getVecinos() {
+        return vecinos;
+    }
+
+    public void setVecinos(Set<Vecino> vecinos) {
+        this.vecinos = vecinos;
+    }
+
+    public TipoReunion getTipoReunion() {
+        return tipoReunion;
+    }
+
+    public void setTipoReunion(TipoReunion tipoReunion) {
+        this.tipoReunion = tipoReunion;
+    }
+
+    
     
 }

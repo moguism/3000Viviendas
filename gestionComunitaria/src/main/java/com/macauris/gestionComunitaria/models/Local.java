@@ -4,57 +4,65 @@
  */
 package com.macauris.gestionComunitaria.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+import jakarta.persistence.FetchType;
 
 @Entity
-@Table (name="locales")
+@Table(name = "locales")
 public class Local {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     public Long id;
-    
-    public Long comunidad_id;
-    
-    public Long tipo_local_id;
-    
+
     public String nombre;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipo_local_id")
+    @JsonManagedReference
+    private TipoLocal tipoLocal;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comunidad_id")
+    @JsonManagedReference
+    private Comunidad comunidad;
 
-    public Long getComunidad_id() {
-        return comunidad_id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setComunidad_id(Long comunidad_id) {
-        this.comunidad_id = comunidad_id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getTipo_local_id() {
-        return tipo_local_id;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setTipo_local_id(Long tipo_local_id) {
-        this.tipo_local_id = tipo_local_id;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public TipoLocal getTipoLocal() {
+		return tipoLocal;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setTipoLocal(TipoLocal tipoLocal) {
+		this.tipoLocal = tipoLocal;
+	}
+
+	public Comunidad getComunidad() {
+		return comunidad;
+	}
+
+	public void setComunidad(Comunidad comunidad) {
+		this.comunidad = comunidad;
+	}
     
 }
