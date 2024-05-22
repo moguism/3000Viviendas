@@ -4,6 +4,7 @@
  */
 package com.macauris.gestionComunitaria.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,11 +31,13 @@ public class Deuda {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id")
     @JsonManagedReference
+    @JsonIgnore
     private Comunidad comunidad;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_deuda_id")
     @JsonManagedReference
+    @JsonIgnore
     private TipoDeuda tipoDeuda;
 
     public Long getId() {

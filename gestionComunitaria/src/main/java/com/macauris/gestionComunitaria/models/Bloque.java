@@ -1,4 +1,5 @@
 package com.macauris.gestionComunitaria.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,10 +28,12 @@ public class Bloque {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id")
     @JsonManagedReference
+    @JsonIgnore
     private Comunidad comunidad;
 
     @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Vivienda> viviendas;
 
     public Long getId() {

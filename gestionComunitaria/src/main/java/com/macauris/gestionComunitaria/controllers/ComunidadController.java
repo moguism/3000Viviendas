@@ -37,6 +37,7 @@ public class ComunidadController {
         return comunidad.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()); // "buid()" ES PARA CONSTRUIR LA RESPUESTA
     }
     
+    @CrossOrigin(origins = "*")
     @PostMapping // CUANDO RECIBA UNA PETICIÓN POR POST A LA URL EJECUTA ESTO
     public ResponseEntity<Comunidad> createComunidad(@RequestBody Comunidad comunidad){ // "@RequestBody" LE DICE QUE VA A RECIBIR EL OBJETO A TRAVÉS DEL CUERPO DE LA PETICIÓN
         Comunidad savedComunidad = comunidadRepository.save(comunidad);

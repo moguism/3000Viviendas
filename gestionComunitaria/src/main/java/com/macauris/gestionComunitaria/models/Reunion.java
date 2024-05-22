@@ -46,6 +46,7 @@ public class Reunion {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_reunion_id")
     @JsonManagedReference
+    @JsonIgnore
     private TipoReunion tipoReunion;
 
     public Long getId() {
