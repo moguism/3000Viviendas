@@ -24,10 +24,11 @@ export default class TipoReunionService {
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
-            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            mode: 'cors',
+            body: JSON.stringify(data)
         })
         const response = await rawResponse.json()
         return response

@@ -4,6 +4,7 @@
  */
 package com.macauris.gestionComunitaria.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -28,6 +29,7 @@ public class TipoLocal {
 
     @OneToMany(mappedBy = "tipoLocal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Local> locales;
 
     public Long getId() {

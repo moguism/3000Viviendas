@@ -12,19 +12,19 @@
   <div id="insercion">
     <input type="text" v-model="name">
     <input type="text" v-model="address">
+    <button @click="CrearComunidad">Pulsa para crear comunidad</button>
   </div>
 </template>
 
 <script lang="ts" setup>
-
 import { ref, onMounted } from 'vue'
 import type ICommunity from '../interfaces/ICommunity.ts' 
 import type { Ref } from 'vue'
 import CommunityService from '../services/CommunityService'
 import { useRouter } from 'vue-router'
 
-const name = ref(0)
-const address = ref(0)
+const name = ref('')
+const address = ref('')
 
 const communities: Ref<Array<ICommunity>> = ref([])
 const communityService = new CommunityService()
@@ -32,18 +32,22 @@ const loading = ref(true)
 
 const router = useRouter()
 
-onMounted(async () => {
+const fetchCommunities = async () => {
   loading.value = true
   communities.value = await communityService.listAllCommunities()
   loading.value = false
-})
+}
+
+onMounted(fetchCommunities)
 
 const CargarComunidad = (id: number) => {
   router.push({ name: 'Bloque', params: { id } })
 }
 
+const CrearComunidad = async () => {
+  if(!name.value || !address.value) return
+  const response = await communityService.createCommunity(name.value, address.value)
+  console.log(response)
+  await fetchCommunities() // Actualiza el listado de comunidades después de crear una nueva
+}
 </script>
-
-<style>
-  /*Deberiamos de ponerle al div un borde, que sea clickable y te mande al bloque/bloques de la comunidad*/ 
-</style>

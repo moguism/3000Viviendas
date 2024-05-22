@@ -32,6 +32,7 @@ public class Vecino {
 
     @OneToMany(mappedBy = "vecino", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Vivienda> viviendas;
     
     @ManyToMany(mappedBy = "vecinos")

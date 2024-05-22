@@ -1,5 +1,6 @@
 package com.macauris.gestionComunitaria.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -22,6 +23,7 @@ public class TipoContrato {
 
     @OneToMany(mappedBy = "tipoContrato", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Contrato> contratos;
 
     public Long getId() {

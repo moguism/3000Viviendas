@@ -25,6 +25,10 @@ export default class ComisionService {
         }
         const rawResponse = await fetch(this.baseUrl, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors',
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()
