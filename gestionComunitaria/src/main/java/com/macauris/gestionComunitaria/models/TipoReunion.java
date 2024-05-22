@@ -28,7 +28,7 @@ public class TipoReunion {
     
     public String nombre;
 
-    @OneToMany(mappedBy = "tipo_reunion_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tipoReunion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Reunion> reuniones;
 
@@ -46,6 +46,14 @@ public class TipoReunion {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<Reunion> getReuniones() {
+        return reuniones;
+    }
+
+    public void setReuniones(List<Reunion> reuniones) {
+        this.reuniones = reuniones;
     }
 
 }

@@ -22,7 +22,7 @@ public class Vivienda {
     public Long id;
 
     @ManyToOne
-    @JoinColumn(name = "bloque_id", nullable = false)
+    @JoinColumn(name = "bloque_id")
     private Bloque bloque;  //Hace referencia al objeto al que se relaciona no a la tabla en si de la bbdd
     
     @ManyToOne(fetch = FetchType.LAZY)

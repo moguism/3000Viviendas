@@ -29,7 +29,7 @@ public class Bloque {
     @JsonManagedReference
     private Comunidad comunidad;
 
-    @OneToMany(mappedBy = "bloque_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Vivienda> viviendas;
 

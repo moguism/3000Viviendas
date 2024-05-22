@@ -23,23 +23,23 @@ import jakarta.persistence.OneToMany;
 public class Comunidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-    public String nombre;
-    public String direccion;
+    private Long id;
+    private String nombre;
+    private String direccion;
     
-    @OneToMany(mappedBy = "comunidad_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     public List<Bloque> bloques;
 
-    @OneToMany(mappedBy = "comunidad_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     public List<Contrato> contratos;
 
-    @OneToMany(mappedBy = "comunidad_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     public List<Local> locales;
 
-    @OneToMany(mappedBy = "comunidad_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Deuda> deudas;
 
     @ManyToMany

@@ -65,6 +65,4 @@ public class Mensualidad {
         this.vecinos = vecinos;
     }
 
-    
-
 }

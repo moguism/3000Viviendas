@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.sql.Date;
 
 @Entity
 @Table(name = "contratos")
@@ -18,8 +19,8 @@ public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
+    
+    private Date created_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id")
@@ -36,44 +37,44 @@ public class Contrato {
     @JsonManagedReference
     private TipoContrato tipoContrato;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setComunidad(Comunidad comunidad) {
-        this.comunidad = comunidad;
-    }
-
-    public void setContratante(Contratante contratante) {
-        this.contratante = contratante;
-    }
-
-    public void setTipoContrato(TipoContrato tipoContrato) {
-        this.tipoContrato = tipoContrato;
-    }
-
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
     public Comunidad getComunidad() {
         return comunidad;
     }
 
+    public void setComunidad(Comunidad comunidad) {
+        this.comunidad = comunidad;
+    }
+
     public Contratante getContratante() {
         return contratante;
     }
 
+    public void setContratante(Contratante contratante) {
+        this.contratante = contratante;
+    }
+
     public TipoContrato getTipoContrato() {
         return tipoContrato;
+    }
+
+    public void setTipoContrato(TipoContrato tipoContrato) {
+        this.tipoContrato = tipoContrato;
     }
     
     

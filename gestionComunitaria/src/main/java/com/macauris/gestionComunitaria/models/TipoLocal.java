@@ -26,7 +26,7 @@ public class TipoLocal {
     
     public String nombre;
 
-    @OneToMany(mappedBy = "tipo_local_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tipoLocal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Local> locales;
 
