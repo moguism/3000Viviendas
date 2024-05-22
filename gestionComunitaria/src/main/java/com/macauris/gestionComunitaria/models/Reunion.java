@@ -39,6 +39,10 @@ public class Reunion {
     @JsonIgnore
     private Set<Vecino> vecinos;
     
+    @ManyToMany(mappedBy = "reuniones")
+    @JsonIgnore
+    private Set<Evento> eventos;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_reunion_id")
     @JsonManagedReference
@@ -76,6 +80,12 @@ public class Reunion {
         this.tipoReunion = tipoReunion;
     }
 
-    
-    
+    public Set<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(Set<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
 }

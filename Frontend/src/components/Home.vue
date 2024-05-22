@@ -9,6 +9,10 @@
       <p class="dirComunidad">{{ community.direccion }}</p>
     </div>
   </div>
+  <div id="insercion">
+    <input type="text" v-model="name">
+    <input type="text" v-model="adress">
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -18,6 +22,9 @@ import type ICommunity from '../interfaces/ICommunity.ts'
 import type { Ref } from 'vue'
 import CommunityService from '../services/CommunityService'
 import { useRouter } from 'vue-router'
+
+const name = ref(0)
+const adress = ref(0)
 
 const communities: Ref<Array<ICommunity>> = ref([])
 const communityService = new CommunityService()

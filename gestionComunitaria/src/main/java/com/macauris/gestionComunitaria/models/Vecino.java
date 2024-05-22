@@ -30,23 +30,23 @@ public class Vecino {
 
     // private Long vivienda_id;  Esto supuestameno no es necesario, ni la documentacion ni gepeto dice nada
 
-    @OneToMany(mappedBy = "vecino_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "vecino", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Vivienda> viviendas;
     
-    @ManyToMany(mappedBy = "vecino_id")
+    @ManyToMany(mappedBy = "vecinos")
     @JsonIgnore
     private Set<Rol> roles;
 
-    @ManyToMany(mappedBy = "vecino_id")
+    @ManyToMany(mappedBy = "vecinos")
     @JsonIgnore
     private Set<Mensualidad> mensualidades;
 
-    @ManyToMany(mappedBy = "vecino_id")
+    @ManyToMany(mappedBy = "vecinos")
     @JsonIgnore
     private Set<Comision> comisiones;
 
-    @ManyToMany(mappedBy = "vecino_id")
+    @ManyToMany(mappedBy = "vecinos")
     @JsonIgnore
     private Set<Reunion> reuniones;
 
