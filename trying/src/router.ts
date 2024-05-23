@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './components/Home.vue'
-import Bloque from './components/Bloque.vue'
+import Comunidad from './components/Comunidad.vue'
 
 const routes = [
   {
@@ -9,9 +9,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/bloque/:id',
-    name: 'Bloque',
-    component: Bloque,
+    path: '/comunidad/:id',
+    name: 'Comunidad',
+    component: Comunidad,
     props: true
   }
 ]
