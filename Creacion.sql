@@ -256,6 +256,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`comunidades_ingresos` (
   `comunidad_id` INT NOT NULL,
   `ingreso_id` INT NOT NULL,
   `created_at` DATE NOT NULL,
+  `monto` DOUBLE NOT NULL,
   INDEX `fk_Comunidades_has_Ingresos_Ingresos1_idx` (`ingreso_id` ASC) VISIBLE,
   INDEX `fk_Comunidades_has_Ingresos_Comunidades1_idx` (`comunidad_id` ASC) VISIBLE,
   CONSTRAINT `fk_Comunidades_has_Ingresos_Comunidades1`
@@ -278,6 +279,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`comunidades_gastos` (
   `comunidad_id` INT NOT NULL,
   `gasto_id` INT NOT NULL,
   `created_at` DATE NOT NULL,
+  `monto` DOUBLE NOT NULL,
   INDEX `fk_Comunidades_has_gastos_gastos1_idx` (`gasto_id` ASC) VISIBLE,
   INDEX `fk_Comunidades_has_gastos_Comunidades1_idx` (`comunidad_id` ASC) VISIBLE,
   CONSTRAINT `fk_Comunidades_has_gastos_Comunidades1`
