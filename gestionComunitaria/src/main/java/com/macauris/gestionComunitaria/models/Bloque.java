@@ -28,7 +28,7 @@ public class Bloque {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id")
     @JsonManagedReference
-    //@JsonIgnore
+    @JsonIgnore
     private Comunidad comunidad;
 
     @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
