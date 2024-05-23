@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://curb8w7wsc7i4"]
+
+[ext_resource type="Script" path="res://Scripts/Comunidad.gd" id="1_4104h"]
+
+[node name="Comunidad" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("1_4104h")
+
+[node name="Ingresos" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -19.0
+offset_top = 197.0
+offset_right = 21.0
+offset_bottom = 237.0
+grow_horizontal = 2
+columns = 3
+
+[node name="Ingreso_ID" type="Label" parent="Ingresos"]
+layout_mode = 2
+text = "TIPO INGRESO"
+
+[node name="Monto" type="Label" parent="Ingresos"]
+layout_mode = 2
+text = "MONTO"
+
+[node name="Fecha" type="Label" parent="Ingresos"]
+layout_mode = 2
+text = "FECHA"
+
+[node name="Contenedor" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="Bloques" type="Label" parent="Contenedor"]
+layout_mode = 2
+text = "Bloques"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

@@ -68,6 +68,7 @@ const fetchCommunities = async () => {
   community.value = await communityService.listCommunityById(Number(id.value))
   console.log(community.value.nombre)
   console.log(community.value.direccion)
+  console.log(community.value.bloques)
   nombre.value = community.value.nombre
   direccion.value = community.value.direccion
   loading.value = false
