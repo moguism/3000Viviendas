@@ -35,12 +35,10 @@ const address = ref('')
 const communities: Ref<Array<ICommunity>> = ref([])
 const communityService = new CommunityService()
 const loading = ref(true)
-let cantidaComunidad: number
 
 const router = useRouter()
 
 const fetchCommunities = async () => {
-  loading.value = true
   communities.value = await communityService.listAllCommunities()
   loading.value = false
 }
@@ -49,7 +47,6 @@ onMounted(fetchCommunities)
 
 const CargarComunidad = (id: number) => {
   router.push({ name: 'Comunidad', params: { id } })
-  cantidaComunidad++;
 }
 
 const CrearComunidad = async () => {

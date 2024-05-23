@@ -29,7 +29,7 @@ public class Comunidad {
     
     @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    @JsonIgnore
+    //@JsonIgnore
     public List<Bloque> bloques;
 
     @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
