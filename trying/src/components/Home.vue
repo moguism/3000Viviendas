@@ -2,22 +2,24 @@
   <p v-if="loading">Cargando datos...</p>
 
   <div id="Comunidades" v-else>
+    <div class="añadirComunidad">
+      <img class="imgAñadirComunidad" src="C:\Users\Digitech\OneDrive - GM Quality Technology S.L\Desktop\1ºDAM\Base de datos\3000Viviendas\trying\src\assets\building-fill-add.svg">
+      <div id="insercion">
+        <input class="insertar" type="text" placeholder="Nombre" v-model="name"> <br>
+        <div id="lineaInferior">
+          <input class="insertar" type="text" placeholder="Direccion" v-model="address"> <br>
+          <button id="BotonComunidad" @click="CrearComunidad"><img src="C:\Users\Digitech\OneDrive - GM Quality Technology S.L\Desktop\1ºDAM\Base de datos\3000Viviendas\trying\src\assets\arrow-return-left.svg"></button>
+        </div>
+      </div>
+    </div>
     <div class="Comunidad" v-for="community in communities" :key="community.id">
       <img class="imgComunidad1" src="../assets/building.svg" @click="CargarComunidad(community.id)">
       <p class="idComunidad">{{ community.id }}</p>
       <h3 class="nombreComunidad">{{ community.nombre }}</h3>
       <p class="dirComunidad">{{ community.direccion }}</p>
     </div>
-    <div class="añadirComunidad">
-      <img class="imgComunidad1" src="../assets/building.svg">
-      
-    </div>
   </div>
-  <div id="insercion">
-    <input class="insertar" type="text" v-model="name">
-    <input class="insertar" type="text" v-model="address">
-    <button id="BotonComunidad" @click="CrearComunidad">Pulsa para crear comunidad</button>
-  </div>
+  
 </template>
 
 <script lang="ts" setup>
@@ -63,12 +65,23 @@ const CrearComunidad = async () => {
   .imgComunidad1{
     width: 75px;
   }
+  .imgAñadirComunidad{
+    width: 75px;
+    margin-top: 11px;
+    margin-left: 12px;
+  }
+  #insercion{
+    margin-top: 10px;
+  }
+  #lineaInferior{
+    display:flex;
+  }
   #Comunidades{
     display: flex;
     margin-top: 40px;
-    background-color: skyblue;
     flex-wrap: wrap;
     justify-content: center;
+    
   }
   .Comunidad{
     width: 100px;
@@ -94,21 +107,31 @@ const CrearComunidad = async () => {
     margin-top: 10px;
   }
   #BotonComunidad{
-    background-color: aquamarine;
+    background-color: rgb(245, 149, 80);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-style: groove;
     border-radius: 4px;
-  
+    width: 30px;
+    border-color: rgb(245, 149, 80);
+    border-style: double;
   }
+  
   .añadirComunidad{
-    flex-wrap: wrap;
-    display: flex;
-    margin-top: -56px;
-    margin-left: 30px;
+   
+    display: grid;
+    width: 100px;
+    height: 160px;
+    margin-left: 20px;
   }
   .insertar{
-    border-style: groove;
+    border-color: rgb(245, 149, 80);
     border-radius: 4px;
+    width: 92%;
+    height: 19px;
+
     
+  }
+  ::placeholder{
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
 </style>
