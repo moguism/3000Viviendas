@@ -3,7 +3,6 @@
     <h1>Comunidad ID: {{ id }}</h1>
     <p v-if="loading">Cargando datos...</p>
     <div v-else>
-      <p>Hola</p>
       <h2>{{ nombre }}</h2>
       <h3>{{ direccion }}</h3>
     </div>

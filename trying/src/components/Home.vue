@@ -3,12 +3,12 @@
 
   <div id="Comunidades" v-else>
     <div class="añadirComunidad">
-      <img class="imgAñadirComunidad" src="C:\Users\Digitech\OneDrive - GM Quality Technology S.L\Desktop\1ºDAM\Base de datos\3000Viviendas\trying\src\assets\building-fill-add.svg">
+      <img class="imgAñadirComunidad" src="../assets/building-fill-add.svg">
       <div id="insercion">
         <input class="insertar" type="text" placeholder="Nombre" v-model="name"> <br>
         <div id="lineaInferior">
           <input class="insertar" type="text" placeholder="Direccion" v-model="address"> <br>
-          <button id="BotonComunidad" @click="CrearComunidad"><img src="C:\Users\Digitech\OneDrive - GM Quality Technology S.L\Desktop\1ºDAM\Base de datos\3000Viviendas\trying\src\assets\arrow-return-left.svg"></button>
+          <button id="BotonComunidad" @click="CrearComunidad"><img src="../assets/arrow-return-left.svg"></button>
         </div>
       </div>
     </div>
