@@ -1,8 +1,6 @@
 
 package com.macauris.gestionComunitaria.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,8 +24,7 @@ public class Contratante {
     public String nombre;
 
     @OneToMany(mappedBy = "contratante", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference(value = "contratante-contrato")
     private List<Contrato> contratos;
 
     public Long getId() {

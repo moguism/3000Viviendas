@@ -45,7 +45,11 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 			var label_direccion : Label = Label.new()
 			
 			label_id.text = str(datos.id)
-			label_id.button_up.connect(cambiar_escena)
+			label_id.button_up.connect(
+				func prueba():
+					Singleton.comunidad_id = label_id.text
+					get_tree().change_scene_to_file("res://Escenas/Comunidad.tscn")
+			)
 
 			label_nombre.text = str(datos.nombre)
 			label_direccion.text = str(datos.direccion)
@@ -59,10 +63,6 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 		
 func conexion() -> void:
 	http_request.request(URL + pagina)
-
-func cambiar_escena() -> void:
-	Singleton.comunidad_id = contenedor.get_node("Comunidad").text
-	get_tree().change_scene_to_file("res://Escenas/Comunidad.tscn")
 
 func _on_enviar_button_down():
 	if name_edit.text != "" && address_edit.text != "":

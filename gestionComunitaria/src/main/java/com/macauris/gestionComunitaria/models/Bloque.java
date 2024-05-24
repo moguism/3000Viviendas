@@ -1,6 +1,5 @@
 package com.macauris.gestionComunitaria.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,8 +31,7 @@ public class Bloque {
     private Comunidad comunidad;
 
     @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference(value = "bloque-vivienda")
     private List<Vivienda> viviendas;
 
     public Long getId() {

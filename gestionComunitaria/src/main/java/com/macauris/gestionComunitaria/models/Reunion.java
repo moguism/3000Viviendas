@@ -16,6 +16,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -36,7 +38,7 @@ public class Reunion {
         joinColumns = @JoinColumn(name = "reunion_id"),
         inverseJoinColumns = @JoinColumn(name = "vecino_id")
     )
-    @JsonIgnore
+    @JsonManagedReference(value = "reunion-vecino")
     private Set<Vecino> vecinos;
     
     @ManyToMany(mappedBy = "reuniones")
@@ -45,8 +47,7 @@ public class Reunion {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_reunion_id")
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonBackReference(value = "tipo-reunion")
     private TipoReunion tipoReunion;
 
     public Long getId() {

@@ -4,8 +4,6 @@
  */
 package com.macauris.gestionComunitaria.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -29,8 +27,7 @@ public class TipoGasto {
     public String nombre;
 
     @OneToMany(mappedBy = "tipoGasto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference(value = "tipo-gasto")
     private List<Gasto> gastos;
 
     public Long getId() {

@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.Date;
 import java.util.Set;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "mensualidades")
@@ -30,7 +30,7 @@ public class Mensualidad {
         joinColumns = @JoinColumn(name = "mensualidad_id"),
         inverseJoinColumns = @JoinColumn(name = "vecino_id")
     )
-    @JsonIgnore
+    @JsonManagedReference(value = "mensualidad-vecino")
     private Set<Vecino> vecinos;
 
     public Long getId() {

@@ -4,7 +4,7 @@
  */
 package com.macauris.gestionComunitaria.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +32,7 @@ public class Evento {
         joinColumns = @JoinColumn(name = "evento_id"),
         inverseJoinColumns = @JoinColumn(name = "reunion_id")
     )
-    @JsonIgnore
+    @JsonManagedReference(value = "evento-reunion")
     private Set<Reunion> reuniones;
 
     public Long getId() {

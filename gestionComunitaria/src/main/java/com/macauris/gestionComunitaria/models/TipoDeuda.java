@@ -27,7 +27,6 @@ public class TipoDeuda {
 
     @OneToMany(mappedBy = "tipoDeuda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference(value="tipo-deuda")
-    //@JsonIgnore
     private List<Deuda> deudas;
 
     public Long getId() {
