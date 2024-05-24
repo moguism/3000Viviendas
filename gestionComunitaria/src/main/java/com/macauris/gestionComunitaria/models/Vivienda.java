@@ -1,7 +1,6 @@
 package com.macauris.gestionComunitaria.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,14 +23,12 @@ public class Vivienda {
 
     @ManyToOne
     @JoinColumn(name = "bloque_id")
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonBackReference(value = "bloque-vivienda")
     private Bloque bloque;  //Hace referencia al objeto al que se relaciona no a la tabla en si de la bbdd
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vecino_id")
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonBackReference(value = "vecino-vivienda")
     private Vecino vecino;
 
     public Long getId() {

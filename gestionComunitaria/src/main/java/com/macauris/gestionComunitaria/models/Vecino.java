@@ -35,8 +35,7 @@ public class Vecino {
     // private Long vivienda_id;  Esto supuestameno no es necesario, ni la documentacion ni gepeto dice nada
 
     @OneToMany(mappedBy = "vecino", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference(value = "vecino-vivienda")
     private List<Vivienda> viviendas;
 
     @ManyToMany(mappedBy = "vecinos")
@@ -45,8 +44,12 @@ public class Vecino {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rol_id")
-    @JsonBackReference
+    @JsonBackReference(value = "rol-vecino")
     private Rol rol;
+
+    @ManyToMany
+    @JsonIgnore
+    private Set<Reunion> reuniones;
 
     public Long getId() {
         return id;
@@ -86,6 +89,14 @@ public class Vecino {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public Set<Reunion> getReuniones() {
+        return reuniones;
+    }
+
+    public void setReuniones(Set<Reunion> reuniones) {
+        this.reuniones = reuniones;
     }
    
 }

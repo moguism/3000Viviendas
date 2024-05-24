@@ -4,8 +4,6 @@
  */
 package com.macauris.gestionComunitaria.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -30,8 +28,7 @@ public class TipoReunion {
     public String nombre;
 
     @OneToMany(mappedBy = "tipoReunion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference(value = "tipo-reunion")
     private List<Reunion> reuniones;
 
     public Long getId() {

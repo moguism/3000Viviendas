@@ -24,7 +24,7 @@ public class Rol {
     private String nombre;
 
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "rol-vecino")
     public List<Vecino> vecinos;
 
     public Long getId() {

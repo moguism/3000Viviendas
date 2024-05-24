@@ -7,6 +7,7 @@ const URL : String = "http://127.0.0.1:8080/api/comunidades/"
 var pagina : String = str(Singleton.comunidad_id)
 
 func _ready():
+	print(URL+pagina)
 	http_request.request(URL + pagina)
 
 func _on_http_request_request_completed(result, response_code, headers, body):

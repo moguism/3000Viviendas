@@ -1,7 +1,6 @@
 package com.macauris.gestionComunitaria.models;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -40,13 +39,11 @@ public class Comunidad {
     public List<Deuda> deudas;
 
     @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference(value = "comunidad-ingreso")
     public List<Ingreso> ingresos;
 
     @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference(value = "comunidad-gasto")
     public List<Gasto> gastos;
 
     public Long getId() {
