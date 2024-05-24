@@ -1,16 +1,19 @@
 
 package com.macauris.gestionComunitaria.models;
 
-import java.util.Set;
+import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @Table(name="ingresos")
@@ -18,12 +21,21 @@ public class Ingreso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-    
-    public String nombre;
 
-    @ManyToMany(mappedBy = "ingresos")
+    private double monto;
+    private Date fecha;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comunidad_id")
+    @JsonManagedReference
     @JsonIgnore
-    private Set<Comunidad> comunidades;
+    private Comunidad comunidad;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipo_ingreso_id")
+    @JsonManagedReference
+    @JsonIgnore
+    private TipoIngreso tipoIngreso;
 
     public Long getId() {
         return id;
@@ -33,20 +45,36 @@ public class Ingreso {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Comunidad getComunidad() {
+        return comunidad;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setComunidad(Comunidad comunidad) {
+        this.comunidad = comunidad;
     }
 
-    public Set<Comunidad> getComunidades() {
-        return comunidades;
+    public TipoIngreso getTipoIngreso() {
+        return tipoIngreso;
     }
 
-    public void setComunidades(Set<Comunidad> comunidades) {
-        this.comunidades = comunidades;
+    public void setTipoIngreso(TipoIngreso tipoIngreso) {
+        this.tipoIngreso = tipoIngreso;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
     
 }

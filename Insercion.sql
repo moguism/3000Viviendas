@@ -1,177 +1,118 @@
--- -----------------------------------------------------
--- Data for table `mydb`.`comunidades`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`comunidades` (`nombre`, `direccion`) VALUES 
-('Comunidad A', 'Direccion A'),
-('Comunidad B', 'Direccion B');
+-- Inserciones para la tabla roles
+INSERT INTO `mydb`.`roles` (`nombre`) VALUES 
+('Presidente'),
+('Secretario'),
+('Tesorero'),
+('Vocal');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`bloques`
--- -----------------------------------------------------
+-- Inserciones para la tabla tipos_gastos
+INSERT INTO `mydb`.`tipos_gastos` (`nombre`) VALUES 
+('Mantenimiento'),
+('Limpieza'),
+('Seguridad');
+
+-- Inserciones para la tabla tipos_ingresos
+INSERT INTO `mydb`.`tipos_ingresos` (`nombre`) VALUES 
+('Cuota Mensual'),
+('Donación'),
+('Subvención');
+
+-- Inserciones para la tabla comunidades
+INSERT INTO `mydb`.`comunidades` (`nombre`, `direccion`) VALUES 
+('Comunidad A', 'Calle Falsa 123'),
+('Comunidad B', 'Avenida Siempre Viva 742');
+
+-- Inserciones para la tabla bloques
 INSERT INTO `mydb`.`bloques` (`comunidad_id`) VALUES 
-(1),
 (1),
 (2);
 
--- -----------------------------------------------------
--- Data for table `mydb`.`vecinos`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`vecinos` (`nombre`, `vivienda_id`) VALUES 
-('Vecino 1', 1),
-('Vecino 2', 2),
-('Vecino 3', 3);
-
--- -----------------------------------------------------
--- Data for table `mydb`.`gastos`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`gastos` (`nombre`) VALUES 
-('Gasto 1'),
-('Gasto 2');
-
--- -----------------------------------------------------
--- Data for table `mydb`.`ingresos`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`ingresos` (`nombre`) VALUES 
-('Ingreso 1'),
-('Ingreso 2');
-
--- -----------------------------------------------------
--- Data for table `mydb`.`mensualidades`
--- -----------------------------------------------------
+-- Inserciones para la tabla mensualidades
 INSERT INTO `mydb`.`mensualidades` (`fecha`, `cuantia`) VALUES 
-('2024-01-01', 100.00),
-('2024-02-01', 150.00);
+('2024-01-01', 50.00),
+('2024-02-01', 50.00);
 
--- -----------------------------------------------------
--- Data for table `mydb`.`comisiones`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`comisiones` (`created_at`, `updated_at`) VALUES 
-('2024-01-01', '2024-01-01'),
-('2024-02-01', '2024-02-01');
-
--- -----------------------------------------------------
--- Data for table `mydb`.`roles`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`roles` (`nombre`) VALUES 
-('Rol 1'),
-('Rol 2');
-
--- -----------------------------------------------------
--- Data for table `mydb`.`tipos_deudas`
--- -----------------------------------------------------
+-- Inserciones para la tabla tipos_deudas
 INSERT INTO `mydb`.`tipos_deudas` (`nombre`) VALUES 
-('Tipo Deuda 1'),
-('Tipo Deuda 2');
+('Deuda Mantenimiento'),
+('Deuda Limpieza');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`deudas`
--- -----------------------------------------------------
+-- Inserciones para la tabla deudas
 INSERT INTO `mydb`.`deudas` (`tipo_deuda_id`, `comunidad_id`, `created_at`, `cuantia`, `updated_at`) VALUES 
 (1, 1, '2024-01-01', 200.00, '2024-01-01'),
-(2, 2, '2024-02-01', 300.00, '2024-02-01');
+(2, 2, '2024-02-01', 150.00, '2024-02-01');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`tipos_locales`
--- -----------------------------------------------------
+-- Inserciones para la tabla tipos_locales
 INSERT INTO `mydb`.`tipos_locales` (`nombre`) VALUES 
-('Tipo Local 1'),
-('Tipo Local 2');
+('Comercial'),
+('Residencial');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`locales`
--- -----------------------------------------------------
+-- Inserciones para la tabla locales
 INSERT INTO `mydb`.`locales` (`comunidad_id`, `tipo_local_id`, `nombre`) VALUES 
-(1, 1, 'Local 1'),
-(2, 2, 'Local 2');
+(1, 1, 'Tienda A'),
+(2, 2, 'Departamento B');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`contratantes`
--- -----------------------------------------------------
+-- Inserciones para la tabla contratantes
 INSERT INTO `mydb`.`contratantes` (`nombre`) VALUES 
-('Contratante 1'),
-('Contratante 2');
+('Empresa A'),
+('Empresa B');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`tipos_contratos`
--- -----------------------------------------------------
+-- Inserciones para la tabla tipos_contratos
 INSERT INTO `mydb`.`tipos_contratos` (`nombre`) VALUES 
-('Tipo Contrato 1'),
-('Tipo Contrato 2');
+('Contrato Limpieza'),
+('Contrato Seguridad');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`contratos`
--- -----------------------------------------------------
+-- Inserciones para la tabla contratos
 INSERT INTO `mydb`.`contratos` (`contratante_id`, `tipo_contrato_id`, `created_at`, `comunidad_id`) VALUES 
 (1, 1, '2024-01-01', 1),
 (2, 2, '2024-02-01', 2);
 
--- -----------------------------------------------------
--- Data for table `mydb`.`vecinos_mensualidades`
--- -----------------------------------------------------
+-- Inserciones para la tabla vecinos
+INSERT INTO `mydb`.`vecinos` (`nombre`, `vivienda_id`, `rol_id`) VALUES 
+('Vecino 1', 1, 1),
+('Vecino 2', 2, 2);
+
+-- Inserciones para la tabla viviendas
+INSERT INTO `mydb`.`viviendas` (`bloque_id`, `escalera`, `planta`, `puerta`, `letra`, `vecino_id`) VALUES 
+(1, 'A', '1', '1', 'A', 1),
+(2, 'B', '2', '2', 'B', 2);
+
+-- Inserciones para la tabla vecinos_mensualidades
 INSERT INTO `mydb`.`vecinos_mensualidades` (`vecino_id`, `mensualidad_id`, `fecha_pago`) VALUES 
-(1, 1, '2024-01-10'),
-(2, 2, '2024-02-10');
+(1, 1, '2024-01-05'),
+(2, 2, '2024-02-05');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`comunidades_ingresos`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`comunidades_ingresos` (`comunidad_id`, `ingreso_id`, `created_at`, `monto`) VALUES 
-(1, 1, '2024-01-01', 500.00),
-(2, 2, '2024-02-01', 700.00);
-
--- -----------------------------------------------------
--- Data for table `mydb`.`comunidades_gastos`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`comunidades_gastos` (`comunidad_id`, `gasto_id`, `created_at`, `monto`) VALUES 
-(1, 1, '2024-01-01', 400.00),
-(2, 2, '2024-02-01', 600.00);
-
--- -----------------------------------------------------
--- Data for table `mydb`.`tipos_reuniones`
--- -----------------------------------------------------
+-- Inserciones para la tabla tipos_reuniones
 INSERT INTO `mydb`.`tipos_reuniones` (`nombre`) VALUES 
-('Tipo Reunión 1'),
-('Tipo Reunión 2');
+('Ordinaria'),
+('Extraordinaria');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`reuniones`
--- -----------------------------------------------------
+-- Inserciones para la tabla reuniones
 INSERT INTO `mydb`.`reuniones` (`tipo_reunion_id`, `fecha`) VALUES 
-(1, '2024-01-15'),
-(2, '2024-02-15');
+(1, '2024-01-10'),
+(2, '2024-02-10');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`reuniones_vecinos`
--- -----------------------------------------------------
+-- Inserciones para la tabla reuniones_vecinos
 INSERT INTO `mydb`.`reuniones_vecinos` (`reunion_id`, `vecino_id`) VALUES 
 (1, 1),
 (2, 2);
 
--- -----------------------------------------------------
--- Data for table `mydb`.`eventos`
--- -----------------------------------------------------
+-- Inserciones para la tabla eventos
 INSERT INTO `mydb`.`eventos` (`nombre`) VALUES 
-('Evento 1'),
-('Evento 2');
+('Evento A'),
+('Evento B');
 
--- -----------------------------------------------------
--- Data for table `mydb`.`reuniones_eventos`
--- -----------------------------------------------------
+-- Inserciones para la tabla reuniones_eventos
 INSERT INTO `mydb`.`reuniones_eventos` (`reunion_id`, `evento_id`) VALUES 
 (1, 1),
 (2, 2);
 
--- -----------------------------------------------------
--- Data for table `mydb`.`comisiones_vecinos`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`comisiones_vecinos` (`comision_id`, `vecino_id`, `rol_id`, `created_at`) VALUES 
-(1, 1, 1, '2024-01-01'),
-(2, 2, 2, '2024-02-01');
+-- Inserciones para la tabla ingresos
+INSERT INTO `mydb`.`ingresos` (`monto`, `fecha`, `tipo_ingreso_id`, `comunidad_id`) VALUES 
+(1000.00, '2024-01-15', 1, 1),
+(500.00, '2024-02-15', 2, 2);
 
--- -----------------------------------------------------
--- Data for table `mydb`.`viviendas`
--- -----------------------------------------------------
-INSERT INTO `mydb`.`viviendas` (`bloque_id`, `escalera`, `planta`, `puerta`, `letra`, `vecino_id`) VALUES 
-(1, 'Escalera 1', 'Planta 1', 'Puerta 1', 'A', 1),
-(2, 'Escalera 2', 'Planta 2', 'Puerta 2', 'B', 2),
-(3, 'Escalera 3', 'Planta 3', 'Puerta 3', 'C', 3);
+-- Inserciones para la tabla gastos
+INSERT INTO `mydb`.`gastos` (`monto`, `fecha`, `tipo_gasto_id`, `comunidad_id`) VALUES 
+(200.00, '2024-01-20', 1, 1),
+(150.00, '2024-02-20', 2, 2);

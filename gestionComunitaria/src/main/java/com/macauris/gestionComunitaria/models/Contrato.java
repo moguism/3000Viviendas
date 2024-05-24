@@ -1,5 +1,6 @@
 package com.macauris.gestionComunitaria.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.sql.Date;
 
 @Entity
@@ -25,19 +25,18 @@ public class Contrato {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id")
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonBackReference(value = "comunidad-contrato")
     private Comunidad comunidad;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contratante_id")
-    @JsonManagedReference
+    @JsonBackReference
     @JsonIgnore
     private Contratante contratante;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_contrato_id")
-    @JsonManagedReference
+    @JsonBackReference
     @JsonIgnore
     private TipoContrato tipoContrato;
 

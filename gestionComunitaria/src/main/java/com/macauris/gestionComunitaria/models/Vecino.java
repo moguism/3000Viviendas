@@ -3,14 +3,18 @@ package com.macauris.gestionComunitaria.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;  
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import java.util.Set;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -34,22 +38,15 @@ public class Vecino {
     @JsonManagedReference
     @JsonIgnore
     private List<Vivienda> viviendas;
-    
-    @ManyToMany(mappedBy = "vecinos")
-    @JsonIgnore
-    private Set<Rol> roles;
 
     @ManyToMany(mappedBy = "vecinos")
     @JsonIgnore
     private Set<Mensualidad> mensualidades;
 
-    @ManyToMany(mappedBy = "vecinos")
-    @JsonIgnore
-    private Set<Comision> comisiones;
-
-    @ManyToMany(mappedBy = "vecinos")
-    @JsonIgnore
-    private Set<Reunion> reuniones;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rol_id")
+    @JsonBackReference
+    private Rol rol;
 
     public Long getId() {
         return id;
@@ -75,14 +72,6 @@ public class Vecino {
         this.viviendas = viviendas;
     }
 
-    public Set<Rol> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Rol> roles) {
-        this.roles = roles;
-    }
-
     public Set<Mensualidad> getMensualidades() {
         return mensualidades;
     }
@@ -91,20 +80,12 @@ public class Vecino {
         this.mensualidades = mensualidades;
     }
 
-    public Set<Comision> getComisiones() {
-        return comisiones;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setComisiones(Set<Comision> comisiones) {
-        this.comisiones = comisiones;
-    }
-
-    public Set<Reunion> getReuniones() {
-        return reuniones;
-    }
-
-    public void setReuniones(Set<Reunion> reuniones) {
-        this.reuniones = reuniones;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
    
 }
