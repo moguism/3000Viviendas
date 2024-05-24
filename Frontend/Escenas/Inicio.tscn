@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://by0xqgkr5g30u"]
+[gd_scene load_steps=2 format=3 uid="uid://byrovsgoi1d1e"]
 
 [ext_resource type="Script" path="res://Scripts/Inicio.gd" id="1_c130f"]
 
@@ -13,65 +13,43 @@ offset_bottom = 40.0
 grow_horizontal = 2
 script = ExtResource("1_c130f")
 
-[node name="Contenedor" type="GridContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.5
+offset_right = 117.5
+offset_bottom = 40.0
 grow_horizontal = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer"]
+layout_mode = 2
 columns = 3
 
-[node name="Comunidad" type="Label" parent="Contenedor"]
+[node name="ID" type="Label" parent="CenterContainer/GridContainer"]
 layout_mode = 2
 text = "Comunidad"
 
-[node name="Nombre" type="Label" parent="Contenedor"]
+[node name="Nombre" type="Label" parent="CenterContainer/GridContainer"]
 layout_mode = 2
 text = "Nombre"
 
-[node name="Dirección" type="Label" parent="Contenedor"]
+[node name="Direccion" type="Label" parent="CenterContainer/GridContainer"]
 layout_mode = 2
 text = "Dirección"
 
+[node name="Enviar" type="Button" parent="CenterContainer/GridContainer"]
+layout_mode = 2
+text = "Enviar"
+
+[node name="NombreField" type="TextEdit" parent="CenterContainer/GridContainer"]
+layout_mode = 2
+
+[node name="DireccionField" type="TextEdit" parent="CenterContainer/GridContainer"]
+layout_mode = 2
+
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
-[node name="AddressLabel" type="Label" parent="."]
-layout_mode = 2
-offset_left = -523.0
-offset_top = 245.0
-offset_right = -350.0
-offset_bottom = 268.0
-text = "Introduce la dirección:"
-
-[node name="Address" type="TextEdit" parent="."]
-layout_mode = 2
-offset_left = -520.0
-offset_top = 277.0
-offset_right = -347.0
-offset_bottom = 379.0
-
-[node name="NameLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = -318.0
-offset_top = 247.0
-offset_right = -145.0
-offset_bottom = 270.0
-text = "Introduce el nombre:"
-
-[node name="Name" type="TextEdit" parent="."]
-layout_mode = 0
-offset_left = -315.0
-offset_top = 279.0
-offset_right = -142.0
-offset_bottom = 381.0
-
-[node name="Enviar" type="Button" parent="."]
-layout_mode = 1
-offset_left = -60.0
-offset_top = 311.0
-offset_right = 107.0
-offset_bottom = 342.0
-text = "Púlsame para enviar"
-
+[connection signal="button_down" from="CenterContainer/GridContainer/Enviar" to="." method="_on_enviar_button_down"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
-[connection signal="button_down" from="Enviar" to="." method="_on_enviar_button_down"]

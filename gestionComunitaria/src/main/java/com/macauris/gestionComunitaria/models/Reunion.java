@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -31,6 +30,7 @@ public class Reunion {
     public Long id;
 
     public Date fecha;
+    public String descripcion;
 
     @ManyToMany
     @JoinTable(
@@ -40,10 +40,7 @@ public class Reunion {
     )
     @JsonManagedReference(value = "reunion-vecino")
     private Set<Vecino> vecinos;
-    
-    @ManyToMany(mappedBy = "reuniones")
-    @JsonIgnore
-    private Set<Evento> eventos;
+
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_reunion_id")
@@ -82,12 +79,12 @@ public class Reunion {
         this.tipoReunion = tipoReunion;
     }
 
-    public Set<Evento> getEventos() {
-        return eventos;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setEventos(Set<Evento> eventos) {
-        this.eventos = eventos;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
 }

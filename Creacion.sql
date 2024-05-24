@@ -262,6 +262,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`reuniones` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `tipo_reunion_id` INT NOT NULL,
   `fecha` DATE NOT NULL,
+  `descripcion` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Reuniones_TipoReunion1_idx` (`tipo_reunion_id` ASC) VISIBLE,
   CONSTRAINT `fk_Reuniones_TipoReunion1`
@@ -291,39 +292,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`reuniones_vecinos` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`eventos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`eventos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `NombreEvento_UNIQUE` (`nombre` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`reuniones_eventos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`reuniones_eventos` (
-  `reunion_id` INT NOT NULL,
-  `evento_id` INT NOT NULL,
-  INDEX `fk_Reuniones_has_Eventos_Eventos1_idx` (`evento_id` ASC) VISIBLE,
-  INDEX `fk_Reuniones_has_Eventos_Reuniones1_idx` (`reunion_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Reuniones_has_Eventos_Reuniones1`
-    FOREIGN KEY (`reunion_id`)
-    REFERENCES `mydb`.`reuniones` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Reuniones_has_Eventos_Eventos1`
-    FOREIGN KEY (`evento_id`)
-    REFERENCES `mydb`.`eventos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `mydb`.`viviendas`

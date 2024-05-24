@@ -1,5 +1,5 @@
 extends Node
 
-var comunidad_id : String
-var bloque_id : String
-var vivienda_id : String
+var comunidad_id : int
+var bloque_id : int
+var vivienda_id : int
