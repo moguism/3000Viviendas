@@ -34,9 +34,16 @@
         </div>
       </div>
     </div>
+    <h1 style="display: flex; justify-content: center;">Bloques</h1>
     <div id="Bloques">
-
+      <div class="Bloque" v-for="bloque in bloques" :key="bloque.id">
+        <img class="imgComunidad1" src="../assets/building.svg">
+        <p class="idComunidad">{{ bloque.id }}</p>
+        <h3 class="nombreComunidad">{{ bloque.id }}</h3>
+      </div>
     </div>
+    <button @click="CargarLocales()">Pulsa aquí para acceder a los locales</button>
+    <button>Pulsa aquí para acceder a los contratos</button>
   </div>
 </template>
   
@@ -44,12 +51,12 @@
 import { toRefs } from 'vue'
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue' 
-import type ICommunity from '../interfaces/ICommunity.ts' 
 import type IBloque from '../interfaces/IBloque.ts' 
 import type { Ref } from 'vue'
 import CommunityService from '../services/CommunityService'
 import BloqueService from '../services/BloqueService'
 import { useRouter } from 'vue-router'
+import type ILocal from '@/interfaces/ILocal.js'
   
 const route = useRoute()
 const { id } = toRefs(route.params)
@@ -58,19 +65,23 @@ const community = ref()
 const nombre = ref('')
 const direccion = ref('')
 
+const locales = ref()
+
 const communityService = new CommunityService()
 const loading = ref(true)
 
 const bloques: Ref<Array<IBloque>> = ref([])
-const bloqueService = new BloqueService()
+
+const router = useRouter()
+
 
 const fetchCommunities = async () => {
   community.value = await communityService.listCommunityById(Number(id.value))
-  console.log(community.value.nombre)
-  console.log(community.value.direccion)
-  console.log(community.value.bloques)
+  console.log(community.value)
   nombre.value = community.value.nombre
   direccion.value = community.value.direccion
+  bloques.value = community.value.bloques
+  locales.value = community.value.locales
   loading.value = false
 }
 const ingresos = ref('')
@@ -78,6 +89,11 @@ const ingresosComunidad = async() =>{
   
 }
 onMounted(fetchCommunities)
+
+const CargarLocales = () => {
+  const localesString = JSON.stringify(locales.value)
+  router.push({ name: 'Local', params: { localesString } })
+}
 
 </script>
 

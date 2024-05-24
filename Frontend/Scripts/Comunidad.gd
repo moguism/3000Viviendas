@@ -33,6 +33,9 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 				label_id.text = str(dato.id)
 
 				contenedor.add_child(label_id)
+				
+			for dato in datos.ingresos:
+				print(dato)
 
 			for ingresos in datos.ingresos: # TODO: Ponerlo por pantalla también
 				print("Siguiente ingreso:")

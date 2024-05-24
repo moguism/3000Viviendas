@@ -11,6 +11,13 @@ export default class BloqueService {
         return response
     }
 
+    async listBloqueById(id: number): Promise<IBloque> {
+        const uri = `${this.baseUri}/${id}`
+        const rawResponse = await fetch(uri)
+        const response = await rawResponse.json()
+        return response
+    }
+
     async createBloque(comunidad_id:number) {
         const data:IBloque = {
             id: 0,

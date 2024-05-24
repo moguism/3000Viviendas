@@ -30,7 +30,7 @@ public class Local {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id")
-	@JsonBackReference(value = "comunidad-local")
+    @JsonBackReference(value = "comunidad-local")
     private Comunidad comunidad;
 
 	public Long getId() {
