@@ -30,7 +30,7 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 				label_id.text = str(dato.id)
 				label_id.button_up.connect(
 					func prueba():
-						Singleton.comunidad_id = int(label_id.text)
+						Singleton.comunidad_id = label_id.text
 						get_tree().change_scene_to_file("res://Escenas/Comunidad.tscn")
 				)
 
@@ -48,7 +48,7 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 			label_id.text = str(datos.id)
 			label_id.button_up.connect(
 				func prueba():
-					Singleton.comunidad_id = int(label_id.text)
+					Singleton.comunidad_id = label_id.text
 					get_tree().change_scene_to_file("res://Escenas/Comunidad.tscn")
 			)
 
@@ -58,6 +58,7 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 			contenedor.add_child(label_id)
 			contenedor.add_child(label_nombre)
 			contenedor.add_child(label_direccion)
+
 	else:
 		print("No se puede conectar")
 		

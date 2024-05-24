@@ -88,22 +88,12 @@ INSERT INTO `mydb`.`tipos_reuniones` (`nombre`) VALUES
 ('Extraordinaria');
 
 -- Inserciones para la tabla reuniones
-INSERT INTO `mydb`.`reuniones` (`tipo_reunion_id`, `fecha`) VALUES 
-(1, '2024-01-10'),
-(2, '2024-02-10');
+INSERT INTO `mydb`.`reuniones` (`tipo_reunion_id`, `fecha`, `descripcion`) VALUES 
+(1, '2024-01-10', `Hola`),
+(2, '2024-02-10', `Hola`);
 
 -- Inserciones para la tabla reuniones_vecinos
 INSERT INTO `mydb`.`reuniones_vecinos` (`reunion_id`, `vecino_id`) VALUES 
-(1, 1),
-(2, 2);
-
--- Inserciones para la tabla eventos
-INSERT INTO `mydb`.`eventos` (`nombre`) VALUES 
-('Evento A'),
-('Evento B');
-
--- Inserciones para la tabla reuniones_eventos
-INSERT INTO `mydb`.`reuniones_eventos` (`reunion_id`, `evento_id`) VALUES 
 (1, 1),
 (2, 2);
 
