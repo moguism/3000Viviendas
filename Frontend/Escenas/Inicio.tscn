@@ -51,6 +51,7 @@ offset_right = -347.0
 offset_bottom = 379.0
 
 [node name="NameLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = -318.0
 offset_top = 247.0
 offset_right = -145.0
@@ -58,6 +59,7 @@ offset_bottom = 270.0
 text = "Introduce el nombre:"
 
 [node name="Name" type="TextEdit" parent="."]
+layout_mode = 0
 offset_left = -315.0
 offset_top = 279.0
 offset_right = -142.0

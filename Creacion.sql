@@ -16,20 +16,37 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
+-- Table `mydb`.`roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`roles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `mydb`.`vecinos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`vecinos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `vivienda_id` INT NOT NULL,
-  PRIMARY KEY (`id`))
+  `rol_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_vecinos_roles1_idx` (`rol_id` ASC) VISIBLE,
+  CONSTRAINT `fk_vecinos_roles1`
+    FOREIGN KEY (`rol_id`)
+    REFERENCES `mydb`.`roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`gastos`
+-- Table `mydb`.`tipos_gastos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`gastos` (
+CREATE TABLE IF NOT EXISTS `mydb`.`tipos_gastos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -37,9 +54,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`ingresos`
+-- Table `mydb`.`tipos_ingresos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`ingresos` (
+CREATE TABLE IF NOT EXISTS `mydb`.`tipos_ingresos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -82,27 +99,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`mensualidades` (
   `cuantia` DOUBLE NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `fecha_UNIQUE` (`fecha` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`comisiones`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`comisiones` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `created_at` DATE NOT NULL,
-  `updated_at` DATE NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`roles`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`roles` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -250,52 +246,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`comunidades_ingresos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`comunidades_ingresos` (
-  `comunidad_id` INT NOT NULL,
-  `ingreso_id` INT NOT NULL,
-  `created_at` DATE NOT NULL,
-  `monto` DOUBLE NOT NULL,
-  INDEX `fk_Comunidades_has_Ingresos_Ingresos1_idx` (`ingreso_id` ASC) VISIBLE,
-  INDEX `fk_Comunidades_has_Ingresos_Comunidades1_idx` (`comunidad_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Comunidades_has_Ingresos_Comunidades1`
-    FOREIGN KEY (`comunidad_id`)
-    REFERENCES `mydb`.`comunidades` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Comunidades_has_Ingresos_Ingresos1`
-    FOREIGN KEY (`ingreso_id`)
-    REFERENCES `mydb`.`ingresos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`comunidades_gastos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`comunidades_gastos` (
-  `comunidad_id` INT NOT NULL,
-  `gasto_id` INT NOT NULL,
-  `created_at` DATE NOT NULL,
-  `monto` DOUBLE NOT NULL,
-  INDEX `fk_Comunidades_has_gastos_gastos1_idx` (`gasto_id` ASC) VISIBLE,
-  INDEX `fk_Comunidades_has_gastos_Comunidades1_idx` (`comunidad_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Comunidades_has_gastos_Comunidades1`
-    FOREIGN KEY (`comunidad_id`)
-    REFERENCES `mydb`.`comunidades` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Comunidades_has_gastos_gastos1`
-    FOREIGN KEY (`gasto_id`)
-    REFERENCES `mydb`.`gastos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mydb`.`tipos_reuniones`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`tipos_reuniones` (
@@ -376,35 +326,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`comisiones_vecinos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`comisiones_vecinos` (
-  `comision_id` INT NOT NULL,
-  `vecino_id` INT NOT NULL,
-  `rol_id` INT NOT NULL,
-  `created_at` DATE NOT NULL,
-  INDEX `fk_ComisionGestora_has_vecinos_vecinos1_idx` (`vecino_id` ASC) VISIBLE,
-  INDEX `fk_ComisionGestora_has_vecinos_ComisionGestora1_idx` (`comision_id` ASC) VISIBLE,
-  INDEX `fk_ComisionGestora_has_vecinos_Roles1_idx` (`rol_id` ASC) VISIBLE,
-  CONSTRAINT `fk_ComisionGestora_has_vecinos_ComisionGestora1`
-    FOREIGN KEY (`comision_id`)
-    REFERENCES `mydb`.`comisiones` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ComisionGestora_has_vecinos_vecinos1`
-    FOREIGN KEY (`vecino_id`)
-    REFERENCES `mydb`.`vecinos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ComisionGestora_has_vecinos_Roles1`
-    FOREIGN KEY (`rol_id`)
-    REFERENCES `mydb`.`roles` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mydb`.`viviendas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
@@ -426,6 +347,56 @@ CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
   CONSTRAINT `fk_viviendas_vecinos1`
     FOREIGN KEY (`vecino_id`)
     REFERENCES `mydb`.`vecinos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`ingresos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`ingresos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `monto` DOUBLE NOT NULL,
+  `fecha` DATE NOT NULL,
+  `tipo_ingreso_id` INT NOT NULL,
+  `comunidad_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_ingresos_tipos_ingresos1_idx` (`tipo_ingreso_id` ASC) VISIBLE,
+  INDEX `fk_ingresos_comunidades1_idx` (`comunidad_id` ASC) VISIBLE,
+  CONSTRAINT `fk_ingresos_tipos_ingresos1`
+    FOREIGN KEY (`tipo_ingreso_id`)
+    REFERENCES `mydb`.`tipos_ingresos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ingresos_comunidades1`
+    FOREIGN KEY (`comunidad_id`)
+    REFERENCES `mydb`.`comunidades` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`gastos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`gastos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `monto` DOUBLE NOT NULL,
+  `fecha` DATE NOT NULL,
+  `tipo_gasto_id` INT NOT NULL,
+  `comunidad_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_gastos_tipos_gastos1_idx` (`tipo_gasto_id` ASC) VISIBLE,
+  INDEX `fk_gastos_comunidades1_idx` (`comunidad_id` ASC) VISIBLE,
+  CONSTRAINT `fk_gastos_tipos_gastos1`
+    FOREIGN KEY (`tipo_gasto_id`)
+    REFERENCES `mydb`.`tipos_gastos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gastos_comunidades1`
+    FOREIGN KEY (`comunidad_id`)
+    REFERENCES `mydb`.`comunidades` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
