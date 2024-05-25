@@ -1,4 +1,5 @@
 import type IIngreso from "@/interfaces/IIngreso";
+import type ITipoIngreso from "@/interfaces/ITipoIngreso";
 
 export default class IngresoService {
 
@@ -17,10 +18,12 @@ export default class IngresoService {
         return response
     }
 
-    async createIngreso(nombre: string){
+    async createIngreso(monto: number, fecha: Date, tipoIngreso: ITipoIngreso) {
         const data:IIngreso = {
             id: 0,
-            nombre: nombre,
+            monto: monto,
+            fecha: fecha,
+            tipoIngreso: tipoIngreso
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -43,11 +46,13 @@ export default class IngresoService {
         return response
     }
 
-    async updateIngreso(id: number, nombre: string){
+    async updateIngreso(id: number, monto: number, fecha: Date, tipoIngreso: ITipoIngreso){
         const uri = `${this.baseUri}/${id}`
         const data:IIngreso = {
             id: 0,
-            nombre: nombre,
+            monto: monto,
+            fecha: fecha,
+            tipoIngreso: tipoIngreso
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

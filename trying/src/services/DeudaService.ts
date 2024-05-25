@@ -40,11 +40,9 @@ export default class DeudaService {
 
     async deleteDeuda(id: number){
         const uri = `${this.baseUri}/${id}`
-        const rawResponse = await fetch(uri, {
+        await fetch(uri, {
             method: 'DELETE'
         })
-        const response = await rawResponse.json()
-        return response
     }
 
     async updateDeuda(id: number, tipo_deuda_id: number, comunidad_id: number, creado_en: Date, actualizado_en: Date, cuantia: number){
@@ -59,6 +57,9 @@ export default class DeudaService {
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()

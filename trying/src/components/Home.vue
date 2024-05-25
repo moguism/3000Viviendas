@@ -17,6 +17,8 @@
       <p class="idComunidad">{{ community.id }}</p>
       <h3 class="nombreComunidad">{{ community.nombre }}</h3>
       <p class="dirComunidad">{{ community.direccion }}</p>
+      <button @click="BorrarComunidad(community.id)">Borrar</button>
+      <button @click="ModificarComunidad(community.id)">Modificar</button>
     </div>
   </div>
   
@@ -51,9 +53,41 @@ const CargarComunidad = (id: number) => {
 
 const CrearComunidad = async () => {
   if(!name.value || !address.value) return
-  const response = await communityService.createCommunity(name.value, address.value)
+  let bloques: any = []
+  let locales: any = []
+  let contratos: any = []
+  let ingresos: any = []
+  let gastos: any = []
+  let deudas: any = []
+  const response = await communityService.createCommunity(name.value, address.value, bloques, locales, contratos, ingresos, gastos, deudas)
   console.log(response)
   await fetchCommunities() // Actualiza el listado de comunidades después de crear una nueva
+}
+
+const BorrarComunidad = async(id: number) => {
+  await communityService.deleteComunidad(id)
+  await fetchCommunities()
+
+}
+
+const ModificarComunidad = async(id: number) => {
+  let nombre = prompt('Introduce el nuevo nombre de la comunidad')
+  while (!nombre) {
+    nombre = prompt('El nombre no puede estar vacío, introduce un nuevo nombre')
+  }  
+  let direccion = prompt('Introduce la nueva direccion de la comunidad')
+  while (!direccion) {
+    direccion = prompt('La direccion no puede estar vacío, introduce una nueva')
+  }
+  let bloques: any = []
+  let locales: any = []
+  let contratos: any = []
+  let ingresos: any = []
+  let gastos: any = []
+  let deudas: any = []
+  const response = await communityService.updateComunidad(id, nombre, direccion, bloques, locales, contratos, ingresos, gastos, deudas)
+  console.log(response)
+  await fetchCommunities()
 }
 
 </script>

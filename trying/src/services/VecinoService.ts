@@ -17,11 +17,10 @@ export default class VecinoService {
         return response
     }
 
-    async createVecino(name: string, vivienda_id: number) {
+    async createVecino(name: string) {
         const data:IVecino = {
             id: 0,
-            nombre: name,
-            vivienda_id: vivienda_id
+            nombre: name
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -37,22 +36,22 @@ export default class VecinoService {
 
     async deleteVecino(id: number){
         const uri = `${this.baseUri}/${id}`
-        const rawResponse = await fetch(uri, {
+        await fetch(uri, {
             method: 'DELETE'
         })
-        const response = await rawResponse.json()
-        return response
     }
 
-    async updateVecino(id: number, name: string, vivienda_id: number) {
+    async updateVecino(id: number, name: string) {
         const data:IVecino = {
             id: id,
-            nombre: name,
-            vivienda_id: vivienda_id
+            nombre: name
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()

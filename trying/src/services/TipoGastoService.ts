@@ -1,26 +1,26 @@
-import type IEvento from "@/interfaces/IEvento";
+import type ITipoGasto from "@/interfaces/ITipoGasto";
 
-export default class EventoService {
+export default class TipoGastoService {
 
-    baseUri: string = "http://127.0.0.1:8080/api/eventos"
+    baseUri: string = "http://127.0.0.1:8080/api/tipos-gasto"
 
-    async listAllEventos(): Promise<Array<IEvento>> {
+    async listAllTiposGasto(): Promise<Array<ITipoGasto>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
 
-    async listEventoById(id: number): Promise<IEvento> {
+    async listTipoGastoById(id: number): Promise<ITipoGasto> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
 
-    async createEvento(nombre: string){
-        const data:IEvento = {
+    async createTipoGasto(name: string) {
+        const data:ITipoGasto = {
             id: 0,
-            nombre: nombre,
+            nombre: name
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -34,23 +34,24 @@ export default class EventoService {
         return response
     }
 
-    async deleteEvento(id: number){
+    async deleteTipoGasto(id: number){
         const uri = `${this.baseUri}/${id}`
-        const rawResponse = await fetch(uri, {
+        await fetch(uri, {
             method: 'DELETE'
         })
-        const response = await rawResponse.json()
-        return response
     }
 
-    async updateEvento(id: number, nombre: string){
-        const uri = `${this.baseUri}/${id}`
-        const data:IEvento = {
-            id: 0,
-            nombre: nombre,
+    async updateTipoGasto(id: number, name: string) {
+        const data:ITipoGasto = {
+            id: id,
+            nombre: name
         }
+        const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()

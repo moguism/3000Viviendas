@@ -36,11 +36,9 @@ export default class TipoReunionService {
 
     async deleteTipoReunion(id: number){
         const uri = `${this.baseUri}/${id}`
-        const rawResponse = await fetch(uri, {
+        await fetch(uri, {
             method: 'DELETE'
         })
-        const response = await rawResponse.json()
-        return response
     }
 
     async updateTipoReunion(id: number, name: string) {
@@ -51,6 +49,9 @@ export default class TipoReunionService {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()

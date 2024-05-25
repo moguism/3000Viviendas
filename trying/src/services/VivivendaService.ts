@@ -1,3 +1,4 @@
+import type IVecino from "@/interfaces/IVecino";
 import type IVivienda from "@/interfaces/IVivienda";
 
 export default class ViviendaService {
@@ -17,14 +18,15 @@ export default class ViviendaService {
         return response
     }
 
-    async createVivienda(bloque_id: number, escalera: string, planta: string, puerta: string, letra: string){
+    async createVivienda(bloque_id: number, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino){
         const data:IVivienda = {
             id: 0,
             bloque_id: bloque_id,
             escalera: escalera,
             planta: planta,
             puerta: puerta,
-            letra: letra
+            letra: letra,
+            vecino: vecino
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -40,25 +42,27 @@ export default class ViviendaService {
 
     async deleteVivienda(id: number){
         const uri = `${this.baseUri}/${id}`
-        const rawResponse = await fetch(uri, {
+        await fetch(uri, {
             method: 'DELETE'
         })
-        const response = await rawResponse.json()
-        return response
     }
 
-    async updateVivienda(id: number, bloque_id: number, escalera: string, planta: string, puerta: string, letra: string){
+    async updateVivienda(id: number, bloque_id: number, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino){
         const data:IVivienda = {
             id: id,
             bloque_id: bloque_id,
             escalera: escalera,
             planta: planta,
             puerta: puerta,
-            letra: letra
+            letra: letra,
+            vecino: vecino
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()

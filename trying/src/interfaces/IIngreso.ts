@@ -1,4 +1,8 @@
+import type ITipoIngreso from "./ITipoIngreso"
+
 export default interface IIngreso {
     id: number,
-    nombre: string
+    monto: number
+    fecha: Date,
+    tipoIngreso: ITipoIngreso
 }
