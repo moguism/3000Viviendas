@@ -1,4 +1,8 @@
+import type ITipoGasto from "./ITipoGasto"
+
 export default interface IGasto {
     id: number,
-    nombre: string
+    monto: number
+    fecha: Date,
+    tipoGasto: ITipoGasto
 }

@@ -38,11 +38,9 @@ export default class LocalService {
 
     async deleteLocal(id: number){
         const uri = `${this.baseUri}/${id}`
-        const rawResponse = await fetch(uri, {
+        await fetch(uri, {
             method: 'DELETE'
         })
-        const response = await rawResponse.json()
-        return response
     }
 
     async updateLocal(id: number, nombre: string, comunidad_id: number, tipo_local_id: number){
@@ -55,6 +53,9 @@ export default class LocalService {
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()

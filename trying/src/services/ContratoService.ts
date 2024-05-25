@@ -38,11 +38,9 @@ export default class ContratoService {
 
     async deleteContrato(id: number){
         const uri = `${this.baseUri}/${id}`
-        const rawResponse = await fetch(uri, {
+        await fetch(uri, {
             method: 'DELETE'
         })
-        const response = await rawResponse.json()
-        return response
     }
 
     async updateContrato(id: number, contratante_id: number, tipo_contrato_id: number, comunidad_id: number){
@@ -55,6 +53,9 @@ export default class ContratoService {
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()

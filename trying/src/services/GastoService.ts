@@ -1,4 +1,5 @@
-import type IGasto from "@/interfaces/IGasto"
+import type IGasto from "@/interfaces/IGasto";
+import type ITipoGasto from "@/interfaces/ITipoGasto";
 
 export default class GastoService {
 
@@ -17,10 +18,12 @@ export default class GastoService {
         return response
     }
 
-    async createGasto(nombre: string){  
+    async createGasto(monto: number, fecha: Date, tipoGasto: ITipoGasto) {
         const data:IGasto = {
             id: 0,
-            nombre: nombre,
+            monto: monto,
+            fecha: fecha,
+            tipoGasto: tipoGasto
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -43,11 +46,13 @@ export default class GastoService {
         return response
     }
 
-    async updateGasto(id: number, nombre: string){
+    async updateGasto(id: number, monto: number, fecha: Date, tipoGasto: ITipoGasto){
         const uri = `${this.baseUri}/${id}`
         const data:IGasto = {
             id: 0,
-            nombre: nombre,
+            monto: monto,
+            fecha: fecha,
+            tipoGasto: tipoGasto
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',
