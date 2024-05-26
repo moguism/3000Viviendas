@@ -30,9 +30,9 @@
           </div>
         </div>
         <div class="bloque" v-for="bloque in bloques" :key="bloque.id">
-          <img class="bloque-icon" src="../assets/building.svg">
-          <p class="id-bloque">{{ bloque.id }}</p>
+          <img @click="CargarBloque(bloque.id)" class="bloque-icon" src="../assets/building.svg">
           <h3 class="nombre-bloque">{{ bloque.id }}</h3>
+          <button @click="BorrarBloque(bloque.id)">Eliminar</button>
         </div>
       </div>
     </div>
@@ -132,12 +132,7 @@
   width: 75px;
 }
 
-.id-bloque {
-  visibility: hidden;
-}
-
 .nombre-bloque {
-  margin-top: -15px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 </style>
@@ -194,11 +189,23 @@ const CargarContratos = () => {
   router.push({ name: 'Contrato', params: { comunidad_id } })
 }
 
+const CargarBloque = (bloque_id: number) => {
+  router.push({ name: 'Bloque', params: { bloque_id } })
+}
+
 const CrearBloque = async () => {
   console.log(comunidad_id)
   const comunidad = await communityService.listCommunityById(comunidad_id)
-  const response = await bloqueService.createBloque(comunidad)
+  let viviendas: any = []
+  const response = await bloqueService.createBloque(comunidad, viviendas)
   console.log(response)
   await fetchCommunities()
 }
+
+const BorrarBloque = async (id: number) => {
+  const response = await bloqueService.deleteBloque(id)
+  console.log(response)
+  await fetchCommunities()
+}
+
 </script>

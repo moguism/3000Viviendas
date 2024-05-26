@@ -27,7 +27,8 @@ export default class ViviendaService {
             planta: planta,
             puerta: puerta,
             letra: letra,
-            vecino: vecino
+            vecino: vecino,
+            nombreVecino: vecino.nombre
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -56,7 +57,8 @@ export default class ViviendaService {
             planta: planta,
             puerta: puerta,
             letra: letra,
-            vecino: vecino
+            vecino: vecino,
+            nombreVecino: vecino.nombre
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
