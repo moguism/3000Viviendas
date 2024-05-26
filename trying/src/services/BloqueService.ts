@@ -21,7 +21,9 @@ export default class BloqueService {
     async createBloque(comunidad_id:number) {
         const data:IBloque = {
             id: 0,
-            comunidad_id: comunidad_id,
+            comunidad: {
+                id: comunidad_id
+            }
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -33,7 +35,7 @@ export default class BloqueService {
         })
         const response = await rawResponse.json()
         return response
-    }
+    }    
 
     async deleteBloque(id: number){
         const uri = `${this.baseUri}/${id}`
@@ -46,7 +48,9 @@ export default class BloqueService {
         const uri = `${this.baseUri}/${id}`
         const data:IBloque = {
             id : 0,
-            comunidad_id: comunidad_id,
+            comunidad: {
+                id: comunidad_id
+            }
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',
