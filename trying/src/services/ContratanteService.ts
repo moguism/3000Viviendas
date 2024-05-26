@@ -1,4 +1,5 @@
 import type IContratante from "@/interfaces/IContratante";
+import type IContrato from "@/interfaces/IContrato";
 
 export default class ContratanteService {
 
@@ -17,10 +18,11 @@ export default class ContratanteService {
         return response
     }
 
-    async createContratante(nombre: string){
+    async createContratante(nombre: string, contratos: Array<IContrato>){
         const data:IContratante = {
             id: 0,
             nombre: nombre,
+            contratos: contratos
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -42,11 +44,12 @@ export default class ContratanteService {
         })
     }
 
-    async updateContratante(id: number, nombre: string){
+    async updateContratante(id: number, nombre: string, contratos: Array<IContrato>){
         const uri = `${this.baseUri}/${id}`
         const data:IContratante = {
             id: 0,
             nombre: nombre,
+            contratos: contratos
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

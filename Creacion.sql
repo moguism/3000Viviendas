@@ -181,6 +181,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contratantes` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+
 -- -----------------------------------------------------
 -- Table `mydb`.`contratos`
 -- -----------------------------------------------------
@@ -191,7 +192,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contratos` (
   `comunidad_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Contrato_Contratante1_idx` (`contratante_id` ASC) VISIBLE,
-  INDEX `fk_Contrato_TiposContrato1_idx` (`tipo_contrato_id` ASC) VISIBLE,
   INDEX `fk_Contrato_Comunidades1_idx` (`comunidad_id` ASC) VISIBLE,
   CONSTRAINT `fk_Contrato_Contratante1`
     FOREIGN KEY (`contratante_id`)
@@ -275,6 +275,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`reuniones_vecinos` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `mydb`.`viviendas`

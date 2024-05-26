@@ -84,12 +84,13 @@ const ModificarComunidad = async(id: number) => {
     alert('La dirección no puede estar vacía')
     return
   }
-  let bloques: any = []
-  let locales: any = []
-  let contratos: any = []
-  let ingresos: any = []
-  let gastos: any = []
-  let deudas: any = []
+  let comunidad = await communityService.listCommunityById(id)
+  let bloques: any = comunidad.bloques
+  let locales: any = comunidad.locales
+  let contratos: any = comunidad.contratos
+  let ingresos: any = comunidad.ingresos
+  let gastos: any = comunidad.gastos
+  let deudas: any = comunidad.deudas
   const response = await communityService.updateComunidad(id, nombre, direccion, bloques, locales, contratos, ingresos, gastos, deudas)
   console.log(response)
   await fetchCommunities()

@@ -1,4 +1,7 @@
+import type IContrato from "./IContrato";
+
 export default interface IContratante {
     id: number,
-    nombre: string
+    nombre: string,
+    contratos: Array<IContrato>
 }

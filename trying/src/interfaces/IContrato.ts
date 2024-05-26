@@ -4,5 +4,6 @@ import type IContratante from "./IContratante";
 export default interface IContrato {
     id: number,
     contratante: IContratante,
-    comunidad: ICommunity
+    comunidad: ICommunity,
+    created_at: Date
 }

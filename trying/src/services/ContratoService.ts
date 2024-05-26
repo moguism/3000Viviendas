@@ -19,11 +19,12 @@ export default class ContratoService {
         return response
     }
 
-    async createContrato(contratante: IContratante, comunidad: ICommunity){
+    async createContrato(contratante: IContratante, comunidad: ICommunity, created_at: Date){
         const data:IContrato = {
             id: 0,
             contratante: contratante,
             comunidad: comunidad,
+            created_at: created_at
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -44,12 +45,13 @@ export default class ContratoService {
         })
     }
 
-    async updateContrato(id: number, contratante: IContratante, comunidad: ICommunity){
+    async updateContrato(id: number, contratante: IContratante, comunidad: ICommunity, created_at: Date){
         const uri = `${this.baseUri}/${id}`
         const data:IContrato = {
             id: 0,
             contratante: contratante,
             comunidad: comunidad,
+            created_at: created_at
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

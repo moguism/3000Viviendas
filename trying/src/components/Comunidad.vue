@@ -19,7 +19,7 @@
       </div>
       <div class="botones">
         <button @click="CargarLocales" class="boton">Pulsa aquí para acceder a los locales</button>
-        <button class="boton">Pulsa aquí para acceder a los contratos</button>
+        <button @click="CargarContratos" class="boton">Pulsa aquí para acceder a los contratos</button>
       </div>
       <h1 class="bloques-title">Bloques</h1>
       <div class="bloques">
@@ -188,6 +188,10 @@ onMounted(fetchCommunities)
 
 const CargarLocales = () => {
   router.push({ name: 'Local', params: { comunidad_id } })
+}
+
+const CargarContratos = () => {
+  router.push({ name: 'Contrato', params: { comunidad_id } })
 }
 
 const CrearBloque = async () => {
