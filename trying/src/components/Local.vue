@@ -239,7 +239,7 @@ const ModificarLocal = async (id: number) => {
 const ModificarTipoLocal = async (id: number) => {
   let nombre = prompt('Introduce el nuevo nombre del tipo de local')
   while (!nombre) {
-    alert('El nombre no puede estar vacío, introduce un nuevo nombre')
+    alert('El nombre no puede estar vacío')
     return    
   }
   let valido = true
