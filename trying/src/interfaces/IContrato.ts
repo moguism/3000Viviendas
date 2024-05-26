@@ -1,6 +1,8 @@
+import type ICommunity from "./ICommunity";
+import type IContratante from "./IContratante";
+
 export default interface IContrato {
     id: number,
-    contratante_id: number,
-    tipo_contrato_id: number,
-    comunidad_id: number
+    contratante: IContratante,
+    comunidad: ICommunity
 }

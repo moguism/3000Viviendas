@@ -1,4 +1,6 @@
+import type ICommunity from "@/interfaces/ICommunity";
 import type IDeuda from "@/interfaces/IDeuda";
+import type ITipoDeuda from "@/interfaces/ITipoDeuda";
 
 export default class DeudaService {
 
@@ -17,11 +19,11 @@ export default class DeudaService {
         return response
     }
 
-    async createDeuda(tipo_deuda_id: number, comunidad_id: number, creado_en: Date, actualizado_en: Date, cuantia: number){
+    async createDeuda(tipoDeuda: ITipoDeuda, comunidad: ICommunity, creado_en: Date, actualizado_en: Date, cuantia: number){
         const data:IDeuda = {
             id: 0,
-            tipo_deuda_id: tipo_deuda_id,
-            comunidad_id: comunidad_id,
+            tipoDeuda: tipoDeuda,
+            comunidad: comunidad,
             created_at: creado_en,
             updated_at: actualizado_en,
             cuantia: cuantia
@@ -45,12 +47,12 @@ export default class DeudaService {
         })
     }
 
-    async updateDeuda(id: number, tipo_deuda_id: number, comunidad_id: number, creado_en: Date, actualizado_en: Date, cuantia: number){
+    async updateDeuda(id: number, tipoDeuda: ITipoDeuda, comunidad: ICommunity, creado_en: Date, actualizado_en: Date, cuantia: number){
         const uri = `${this.baseUri}/${id}`
         const data:IDeuda = {
             id: 0,
-            tipo_deuda_id: tipo_deuda_id,
-            comunidad_id: comunidad_id,
+            tipoDeuda: tipoDeuda,
+            comunidad: comunidad,
             created_at: creado_en,
             updated_at: actualizado_en,
             cuantia: cuantia

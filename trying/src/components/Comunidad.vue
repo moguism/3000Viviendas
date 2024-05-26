@@ -64,7 +64,6 @@ import type { Ref } from 'vue'
 import CommunityService from '../services/CommunityService'
 import BloqueService from '../services/BloqueService'
 import { useRouter } from 'vue-router'
-import type ILocal from '@/interfaces/ILocal.js'
 
 const route = useRoute()
 const { id } = toRefs(route.params)
@@ -103,13 +102,13 @@ const ingresosComunidad = async () => {
 onMounted(fetchCommunities)
 
 const CargarLocales = () => {
-  const localesString = JSON.stringify(locales.value)
-  router.push({ name: 'Local', params: { localesString } })
+  router.push({ name: 'Local', params: { comunidad_id } })
 }
 
 const CrearBloque = async () => {
   console.log(comunidad_id)
-  const response = await bloqueService.createBloque(comunidad_id)
+  const comunidad = await communityService.listCommunityById(comunidad_id)
+  const response = await bloqueService.createBloque(comunidad)
   console.log(response)
   await fetchCommunities()
 }

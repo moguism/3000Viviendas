@@ -1,4 +1,6 @@
+import type ICommunity from "@/interfaces/ICommunity";
 import type ILocal from "@/interfaces/ILocal";
+import type ITipoLocal from "@/interfaces/ITipoLocal";
 
 export default class LocalService {
 
@@ -17,12 +19,13 @@ export default class LocalService {
         return response
     }
 
-    async createLocal(nombre: string, comunidad_id: number, tipo_local_id: number){
+    async createLocal(nombre: string, comunidad: ICommunity, tipo_local: ITipoLocal){
         const data:ILocal = {
             id: 0,
             nombre: nombre,
-            comunidad_id: comunidad_id,
-            tipo_local_id: tipo_local_id
+            comunidad: comunidad,
+            tipoLocal: tipo_local,
+            nombreTipo: tipo_local.nombre
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -43,13 +46,14 @@ export default class LocalService {
         })
     }
 
-    async updateLocal(id: number, nombre: string, comunidad_id: number, tipo_local_id: number){
+    async updateLocal(id: number, nombre: string, comunidad: ICommunity, tipo_local: ITipoLocal){
         const uri = `${this.baseUri}/${id}`
         const data:ILocal = {
             id: 0,
             nombre: nombre,
-            comunidad_id: comunidad_id,
-            tipo_local_id: tipo_local_id
+            comunidad: comunidad,
+            tipoLocal: tipo_local,
+            nombreTipo: tipo_local.nombre
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

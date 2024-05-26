@@ -1,3 +1,4 @@
+import type ICommunity from "@/interfaces/ICommunity";
 import type IGasto from "@/interfaces/IGasto";
 import type ITipoGasto from "@/interfaces/ITipoGasto";
 
@@ -18,12 +19,13 @@ export default class GastoService {
         return response
     }
 
-    async createGasto(monto: number, fecha: Date, tipoGasto: ITipoGasto) {
+    async createGasto(monto: number, fecha: Date, tipoGasto: ITipoGasto, comunidad: ICommunity) {
         const data:IGasto = {
             id: 0,
             monto: monto,
             fecha: fecha,
-            tipoGasto: tipoGasto
+            tipoGasto: tipoGasto,
+            comunidad: comunidad
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -46,13 +48,14 @@ export default class GastoService {
         return response
     }
 
-    async updateGasto(id: number, monto: number, fecha: Date, tipoGasto: ITipoGasto){
+    async updateGasto(id: number, monto: number, fecha: Date, tipoGasto: ITipoGasto, comunidad: ICommunity){
         const uri = `${this.baseUri}/${id}`
         const data:IGasto = {
             id: 0,
             monto: monto,
             fecha: fecha,
-            tipoGasto: tipoGasto
+            tipoGasto: tipoGasto,
+            comunidad: comunidad
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

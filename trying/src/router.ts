@@ -16,7 +16,7 @@ const routes = [
     props: true
   },
   {
-    path: '/locales/:localesString',
+    path: '/locales/:comunidad_id',
     name: 'Local',
     component: Local,
     props: true

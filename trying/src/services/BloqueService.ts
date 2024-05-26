@@ -1,4 +1,5 @@
 import type IBloque from "@/interfaces/IBloque.ts"
+import type ICommunity from "@/interfaces/ICommunity"
 
 
 export default class BloqueService {
@@ -18,12 +19,10 @@ export default class BloqueService {
         return response
     }
 
-    async createBloque(comunidad_id:number) {
+    async createBloque(comunidad: ICommunity) {
         const data:IBloque = {
             id: 0,
-            comunidad: {
-                id: comunidad_id
-            }
+            comunidad: comunidad
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -44,13 +43,11 @@ export default class BloqueService {
         })
     }
 
-    async updateBloque(id:number, comunidad_id:number) {
+    async updateBloque(id:number, comunidad: ICommunity) {
         const uri = `${this.baseUri}/${id}`
         const data:IBloque = {
             id : 0,
-            comunidad: {
-                id: comunidad_id
-            }
+            comunidad: comunidad
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

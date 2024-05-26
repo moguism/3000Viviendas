@@ -1,5 +1,7 @@
+import type ITipoReunion from "./ITipoReunion";
+
 export default interface IReunion {
     id: number,
-    tipo_reunion_id: number,
+    tipoReunion: ITipoReunion,
     fecha: Date
 }
