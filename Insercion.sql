@@ -57,15 +57,10 @@ INSERT INTO `mydb`.`contratantes` (`nombre`) VALUES
 ('Empresa A'),
 ('Empresa B');
 
--- Inserciones para la tabla tipos_contratos
-INSERT INTO `mydb`.`tipos_contratos` (`nombre`) VALUES 
-('Contrato Limpieza'),
-('Contrato Seguridad');
-
 -- Inserciones para la tabla contratos
-INSERT INTO `mydb`.`contratos` (`contratante_id`, `tipo_contrato_id`, `created_at`, `comunidad_id`) VALUES 
-(1, 1, '2024-01-01', 1),
-(2, 2, '2024-02-01', 2);
+INSERT INTO `mydb`.`contratos` (`contratante_id`, `created_at`, `comunidad_id`) VALUES 
+(1, '2024-01-01', 1),
+(2, '2024-02-01', 2);
 
 -- Inserciones para la tabla vecinos
 INSERT INTO `mydb`.`vecinos` (`nombre`, `vivienda_id`, `rol_id`) VALUES 
@@ -89,8 +84,8 @@ INSERT INTO `mydb`.`tipos_reuniones` (`nombre`) VALUES
 
 -- Inserciones para la tabla reuniones
 INSERT INTO `mydb`.`reuniones` (`tipo_reunion_id`, `fecha`, `descripcion`) VALUES 
-(1, '2024-01-10', `Hola`),
-(2, '2024-02-10', `Hola`);
+(1, '2024-01-10', "Hola"),
+(2, '2024-02-10', "Hola");
 
 -- Inserciones para la tabla reuniones_vecinos
 INSERT INTO `mydb`.`reuniones_vecinos` (`reunion_id`, `vecino_id`) VALUES 

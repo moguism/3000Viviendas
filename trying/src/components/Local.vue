@@ -253,7 +253,8 @@ const ModificarTipoLocal = async (id: number) => {
     alert('El tipo ya existe')
     return
   }
-  let locales: any = []
+  let tipo = await tipoLocalService.listTipoLocalById(id)
+  let locales: any = tipo.locales
   const response = await tipoLocalService.updateTipoLocal(id, nombre, locales)
   console.log(response)
   await fetchLocales()
@@ -301,7 +302,7 @@ const CrearTipoLocal = async () => {
     alert('El tipo ya existe')
     return
   }
-  let locales: any = []
+  let locales: any = [] // Aquí sí va vacío porque lo estoy creando
   const response = await tipoLocalService.createTipoLocal(nombreTipo.value, locales)
   console.log(response)
   await fetchLocales()

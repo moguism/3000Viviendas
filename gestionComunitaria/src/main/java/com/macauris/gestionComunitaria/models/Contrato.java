@@ -32,11 +32,6 @@ public class Contrato {
     @JsonBackReference(value = "contratante-contrato")
     private Contratante contratante;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipo_contrato_id")
-    @JsonBackReference(value = "tipo-contrato")
-    private TipoContrato tipoContrato;
-
     public Long getId() {
         return id;
     }
@@ -68,15 +63,5 @@ public class Contrato {
     public void setContratante(Contratante contratante) {
         this.contratante = contratante;
     }
-
-    public TipoContrato getTipoContrato() {
-        return tipoContrato;
-    }
-
-    public void setTipoContrato(TipoContrato tipoContrato) {
-        this.tipoContrato = tipoContrato;
-    }
-    
-    
     
 }
