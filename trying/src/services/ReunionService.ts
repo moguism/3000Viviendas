@@ -1,4 +1,5 @@
 import type IReunion from "@/interfaces/IReunion";
+import type ITipoReunion from "@/interfaces/ITipoReunion";
 
 export default class ReunionService{
 
@@ -17,10 +18,10 @@ export default class ReunionService{
         return response
     }
 
-    async createReunion(tipo_reunion_id: number, fecha: Date){
+    async createReunion(tipoReunion: ITipoReunion, fecha: Date){
         const data:IReunion = {
             id: 0,
-            tipo_reunion_id: tipo_reunion_id,
+            tipoReunion: tipoReunion,
             fecha: fecha
         }
         const rawResponse = await fetch(this.baseUri, {
@@ -42,10 +43,10 @@ export default class ReunionService{
         })
     }
 
-    async updateReunion(id: number, tipo_reunion_id: number, fecha: Date){
+    async updateReunion(id: number, tipoReunion: ITipoReunion, fecha: Date){
         const data:IReunion = {
             id: id,
-            tipo_reunion_id: tipo_reunion_id,
+            tipoReunion: tipoReunion,
             fecha: fecha
         }
         const uri = `${this.baseUri}/${id}`

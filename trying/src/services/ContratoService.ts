@@ -1,3 +1,5 @@
+import type ICommunity from "@/interfaces/ICommunity";
+import type IContratante from "@/interfaces/IContratante";
 import type IContrato from "@/interfaces/IContrato";
 
 export default class ContratoService {
@@ -17,12 +19,11 @@ export default class ContratoService {
         return response
     }
 
-    async createContrato(contratante_id: number, tipo_contrato_id: number, comunidad_id: number){
+    async createContrato(contratante: IContratante, comunidad: ICommunity){
         const data:IContrato = {
             id: 0,
-            contratante_id: contratante_id,
-            tipo_contrato_id: tipo_contrato_id,
-            comunidad_id: comunidad_id,
+            contratante: contratante,
+            comunidad: comunidad,
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -43,13 +44,12 @@ export default class ContratoService {
         })
     }
 
-    async updateContrato(id: number, contratante_id: number, tipo_contrato_id: number, comunidad_id: number){
+    async updateContrato(id: number, contratante: IContratante, comunidad: ICommunity){
         const uri = `${this.baseUri}/${id}`
         const data:IContrato = {
             id: 0,
-            contratante_id: contratante_id,
-            tipo_contrato_id: tipo_contrato_id,
-            comunidad_id: comunidad_id,
+            contratante: contratante,
+            comunidad: comunidad,
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

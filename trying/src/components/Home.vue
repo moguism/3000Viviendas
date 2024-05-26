@@ -52,7 +52,10 @@ const CargarComunidad = (id: number) => {
 }
 
 const CrearComunidad = async () => {
-  if(!name.value || !address.value) return
+  if(!name.value || !address.value){
+    alert('No puede haber campos vacios')
+    return
+  }
   let bloques: any = []
   let locales: any = []
   let contratos: any = []

@@ -1,6 +1,10 @@
+import type ICommunity from "./ICommunity";
+import type ITipoLocal from "./ITipoLocal";
+
 export default interface ILocal {
     id: number,
     nombre: string,
-    comunidad_id: number,
-    tipo_local_id: number
+    comunidad: ICommunity,
+    tipoLocal: ITipoLocal,
+    nombreTipo: string
 }

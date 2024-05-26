@@ -1,5 +1,6 @@
 import type IIngreso from "@/interfaces/IIngreso";
 import type ITipoIngreso from "@/interfaces/ITipoIngreso";
+import type ICommunity from "@/interfaces/ICommunity";
 
 export default class IngresoService {
 
@@ -18,12 +19,13 @@ export default class IngresoService {
         return response
     }
 
-    async createIngreso(monto: number, fecha: Date, tipoIngreso: ITipoIngreso) {
+    async createIngreso(monto: number, fecha: Date, tipoIngreso: ITipoIngreso, comunidad: ICommunity) {
         const data:IIngreso = {
             id: 0,
             monto: monto,
             fecha: fecha,
-            tipoIngreso: tipoIngreso
+            tipoIngreso: tipoIngreso,
+            comunidad: comunidad
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -46,13 +48,14 @@ export default class IngresoService {
         return response
     }
 
-    async updateIngreso(id: number, monto: number, fecha: Date, tipoIngreso: ITipoIngreso){
+    async updateIngreso(id: number, monto: number, fecha: Date, tipoIngreso: ITipoIngreso, comunidad: ICommunity){
         const uri = `${this.baseUri}/${id}`
         const data:IIngreso = {
             id: 0,
             monto: monto,
             fecha: fecha,
-            tipoIngreso: tipoIngreso
+            tipoIngreso: tipoIngreso,
+            comunidad: comunidad
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

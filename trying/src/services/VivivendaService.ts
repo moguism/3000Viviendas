@@ -1,3 +1,4 @@
+import type IBloque from "@/interfaces/IBloque";
 import type IVecino from "@/interfaces/IVecino";
 import type IVivienda from "@/interfaces/IVivienda";
 
@@ -18,10 +19,10 @@ export default class ViviendaService {
         return response
     }
 
-    async createVivienda(bloque_id: number, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino){
+    async createVivienda(bloque: IBloque, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino){
         const data:IVivienda = {
             id: 0,
-            bloque_id: bloque_id,
+            bloque: bloque,
             escalera: escalera,
             planta: planta,
             puerta: puerta,
@@ -47,10 +48,10 @@ export default class ViviendaService {
         })
     }
 
-    async updateVivienda(id: number, bloque_id: number, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino){
+    async updateVivienda(id: number, bloque: IBloque, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino){
         const data:IVivienda = {
             id: id,
-            bloque_id: bloque_id,
+            bloque: bloque,
             escalera: escalera,
             planta: planta,
             puerta: puerta,
