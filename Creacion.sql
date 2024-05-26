@@ -181,24 +181,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contratantes` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `mydb`.`tipos_contratos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`tipos_contratos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`contratos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`contratos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `contratante_id` INT NOT NULL,
-  `tipo_contrato_id` INT NOT NULL,
   `created_at` DATE NOT NULL,
   `comunidad_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -208,11 +196,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contratos` (
   CONSTRAINT `fk_Contrato_Contratante1`
     FOREIGN KEY (`contratante_id`)
     REFERENCES `mydb`.`contratantes` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Contrato_TiposContrato1`
-    FOREIGN KEY (`tipo_contrato_id`)
-    REFERENCES `mydb`.`tipos_contratos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Contrato_Comunidades1`

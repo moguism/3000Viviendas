@@ -1,61 +1,148 @@
 <template>
-  <div>
-    <h1>Comunidad ID: {{ id }}</h1>
-    <p v-if="loading">Cargando datos...</p>
+  <div class="comunidad-container">
+    <h1 class="comunidad-title">Comunidad ID: {{ id }}</h1>
+    <p v-if="loading" class="loading-message">Cargando datos...</p>
     <div v-else>
-      <h2>{{ nombre }}</h2>
-      <h3>{{ direccion }}</h3>
-      <div id="TopCads">
-        <div id="TCard1">
-          <p>(var IngresoTotal)</p>
-          <p>Ingresos</p>
+      <div class="comunidad-details">
+        <h2>Nombre: {{ nombre }}</h2>
+        <h3 class="direccion">Dirección: {{ direccion }}</h3>
+        <div class="top-cards">
+          <div class="card">
+            <p>(var IngresoTotal)</p>
+            <p>Ingresos</p>
+          </div>
+          <!-- Resto de las tarjetas -->
         </div>
-        <div id="TCard2">
-          <p>(var CosteTotal)</p>
-          <p>Costes</p>
-        </div>
-        <div id="TCard3">
-          <p>(var CosteTotal)</p>
-          <p>Costes</p>
+        <div class="bottom-cards">
+          <!-- Tarjetas inferiores -->
         </div>
       </div>
-      <div id="BottomCads">
-        <div id="BCard1">
-          <p>(var IngresoTotal)</p>
-          <p>Ingresos</p>
-        </div>
-        <div id="BCard2">
-          <p>(var CosteTotal)</p>
-          <p>Costes</p>
-        </div>
-        <div id="BCard3">
-          <p>(var CosteTotal)</p>
-          <p>Costes</p>
-        </div>
+      <div class="botones">
+        <button @click="CargarLocales" class="boton">Pulsa aquí para acceder a los locales</button>
+        <button class="boton">Pulsa aquí para acceder a los contratos</button>
       </div>
-    </div>
-    <div id="botones">
-      <button @click="CargarLocales()">Pulsa aquí para acceder a los locales</button>
-      <button>Pulsa aquí para acceder a los contratos</button>
-    </div>
-    <h1 style="display: flex; justify-content: center;">Bloques</h1>
-    <div id="Bloques">
-      <div class="añadirComunidad">
-        <img class="imgAñadirComunidad" src="../assets/building-fill-add.svg">
-        <div id="insercion">
-          <button id="BotonBloque" @click="CrearBloque"><img src="../assets/arrow-return-left.svg"></button>
+      <h1 class="bloques-title">Bloques</h1>
+      <div class="bloques">
+        <div class="añadir-bloque">
+          <img class="añadir-bloque-icon" src="../assets/building-fill-add.svg">
+          <div class="insercion">
+            <button class="boton-bloque" @click="CrearBloque"><img src="../assets/arrow-return-left.svg"></button>
+          </div>
         </div>
-        <div class="Bloque" v-for="bloque in bloques" :key="bloque.id">
-          <img class="imgComunidad1" src="../assets/building.svg">
-          <p class="idComunidad">{{ bloque.id }}</p>
-          <h3 class="nombreComunidad">{{ bloque.id }}</h3>
+        <div class="bloque" v-for="bloque in bloques" :key="bloque.id">
+          <img class="bloque-icon" src="../assets/building.svg">
+          <p class="id-bloque">{{ bloque.id }}</p>
+          <h3 class="nombre-bloque">{{ bloque.id }}</h3>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
+<style scoped>
+.comunidad-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+}
+
+.comunidad-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.loading-message {
+  font-style: italic;
+}
+
+.comunidad-details {
+  margin-bottom: 30px;
+}
+
+.direccion {
+  font-style: normal;
+}
+
+.top-cards,
+.bottom-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: calc(33.33% - 10px);
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.botones {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.boton {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.bloques-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.bloques {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.añadir-bloque {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.añadir-bloque-icon {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.insercion {
+  margin-top: 10px;
+}
+
+.bloque {
+  width: 100px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.bloque-icon {
+  width: 75px;
+}
+
+.id-bloque {
+  visibility: hidden;
+}
+
+.nombre-bloque {
+  margin-top: -15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+</style>
+
+<script setup lang="ts">
 import { toRefs } from 'vue'
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
@@ -69,7 +156,7 @@ const route = useRoute()
 const { id } = toRefs(route.params)
 
 const community = ref()
-let comunidad_id:number
+let comunidad_id: number
 
 const nombre = ref('')
 const direccion = ref('')
@@ -84,7 +171,6 @@ const bloques: Ref<Array<IBloque>> = ref([])
 
 const router = useRouter()
 
-
 const fetchCommunities = async () => {
   community.value = await communityService.listCommunityById(Number(id.value))
   console.log(community.value)
@@ -96,9 +182,8 @@ const fetchCommunities = async () => {
   loading.value = false
 }
 const ingresos = ref('')
-const ingresosComunidad = async () => {
+const ingresosComunidad = async () => {}
 
-}
 onMounted(fetchCommunities)
 
 const CargarLocales = () => {
@@ -112,93 +197,4 @@ const CrearBloque = async () => {
   console.log(response)
   await fetchCommunities()
 }
-
 </script>
-
-<style>
-.imgComunidad1 {
-  width: 75px;
-}
-
-.imgAñadirComunidad {
-  width: 75px;
-  margin-top: 11px;
-  margin-left: 12px;
-}
-
-#insercion {
-  margin-top: 10px;
-}
-
-#lineaInferior {
-  display: flex;
-}
-
-#Bloques {
-  display: flex;
-  margin-top: 40px;
-  flex-wrap: wrap;
-  justify-content: center;
-
-}
-
-.Bloque {
-  width: 100px;
-  margin-left: 20px;
-  text-align: center;
-}
-
-.dirComunidad {
-  font-family: monospace;
-}
-
-.Bloque p {
-  margin: 5px;
-  font-style: italic;
-}
-
-.idComunidad {
-  visibility: collapse;
-}
-
-.Bloque h3 {
-  margin: 5px;
-  margin-top: -15px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.Bloque img {
-  margin-top: 10px;
-}
-
-#BotonComunidad {
-  background-color: rgb(245, 149, 80);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  border-style: groove;
-  border-radius: 4px;
-  width: 30px;
-  border-color: rgb(245, 149, 80);
-  border-style: double;
-}
-
-.añadirComunidad {
-
-  display: grid;
-  width: 100px;
-  height: 160px;
-  margin-left: 20px;
-}
-
-.insertar {
-  border-color: rgb(245, 149, 80);
-  border-radius: 4px;
-  width: 92%;
-  height: 19px;
-
-
-}
-
-::placeholder {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-}
-</style>

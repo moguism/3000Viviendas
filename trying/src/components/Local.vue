@@ -1,52 +1,153 @@
 <template>
-  <h1 v-if="!loading">
-    <div id="Locales">
-      <div class="añadirComunidad">
-        <img class="imgAñadirComunidad" src="../assets/building-fill-add.svg">
-        <div id="insercion">
-          <input class="insertar" type="text" placeholder="Nombre" v-model="nombreInsertar"> <br>
-          <div id="lineaInferior">
-            <input class="insertar" type="text" placeholder="Tipo" v-model="tipoInsertar"> <br>
-            <button id="BotonLocal" @click="CrearLocal"><img src="../assets/arrow-return-left.svg"></button>
+  <div>
+    <h1 v-if="!loading" class="container">
+      <div class="section">
+        <div class="addCommunity">
+          <img class="addIcon" src="../assets/building-fill-add.svg" alt="Add Community">
+          <div class="insertion">
+            <input class="insertField" type="text" placeholder="Nombre" v-model="nombreInsertar">
+            <input class="insertField" type="text" placeholder="Tipo" v-model="tipoInsertar">
+            <button class="actionButton" @click="CrearLocal">Crear Local</button>
+          </div>
+        </div>
+        <div class="communityList">
+          <div class="community" v-for="local in locales" :key="local.id">
+            <img class="communityIcon" src="../assets/building.svg" alt="Community Icon">
+            <div class="info">
+              <p class="communityID">ID: {{ local.id }}</p>
+              <h3 class="communityName">Nombre: {{ local.nombre }}</h3>
+              <p class="communityType">Tipo de Local: {{ local.nombreTipo }}</p>
+            </div>
+            <div class="actions">
+              <button @click="BorrarLocal(local.id)">Borrar</button>
+              <button @click="ModificarLocal(local.id)">Modificar</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="Local" v-for="local in locales" :key="local.id">
-        <img class="imgComunidad1" src="../assets/building.svg">
-        <p class="idLocal">ID: {{ local.id }}</p>
-        <h3 class="nombreLocal">Nombre: {{ local.nombre }}</h3>
-        <p class="tipoLocal">Tipo de Local: {{ local.nombreTipo }}</p>
-        <button @click="BorrarLocal(local.id)">Borrar</button>
-        <button @click="ModificarLocal(local.id)">Modificar</button>
-      </div>
-    </div>
-    <div id="TiposLocales">
-      <div class="añadirComunidad">
-        <img class="imgAñadirComunidad" src="../assets/building-fill-add.svg">
-        <div id="insercion">
-          <input class="insertar" type="text" placeholder="Nombre" v-model="nombreTipo"><br>
-          <div id="lineaInferior">
-            <button id="BotonLocal" @click="CrearTipoLocal"><img src="../assets/arrow-return-left.svg"></button>
+      <div class="section">
+        <div class="addCommunity">
+          <img class="addIcon" src="../assets/building-fill-add.svg" alt="Add Community">
+          <div class="insertion">
+            <input class="insertField" type="text" placeholder="Nombre" v-model="nombreTipo">
+            <button class="actionButton" @click="CrearTipoLocal">Crear Tipo de Local</button>
+          </div>
+        </div>
+        <div class="typeList">
+          <div class="type" v-for="tipoLocal in tipoLocales" :key="tipoLocal.id">
+            <img class="typeIcon" src="../assets/building.svg" alt="Type Icon">
+            <div class="info">
+              <p class="typeID">ID: {{ tipoLocal.id }}</p>
+              <h3 class="typeName">Nombre: {{ tipoLocal.nombre }}</h3>
+            </div>
+            <div class="actions">
+              <button @click="BorrarTipoLocal(tipoLocal.id)">Borrar</button>
+              <button @click="ModificarTipoLocal(tipoLocal.id)">Modificar</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="TipoLocal" v-for="tipoLocal in tipoLocales" :key="tipoLocal.id">
-        <img class="imgComunidad1" src="../assets/building.svg">
-        <p class="idLocal">ID: {{ tipoLocal.id }}</p>
-        <h3 class="nombreLocal">Nombre: {{ tipoLocal.nombre }}</h3>
-        <button @click="BorrarTipoLocal(tipoLocal.id)">Borrar</button>
-        <button @click="ModificarTipoLocal(tipoLocal.id)">Modificar</button>
-      </div>
-    </div>
-  </h1>
-  <h1 v-else>Cargando datos</h1>
+    </h1>
+    <h1 v-else>Cargando datos</h1>
+  </div>
 </template>
 
-<script lang="ts" setup>
+<style scoped>
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.section {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.addCommunity {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.addIcon {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.insertion {
+  display: flex;
+  align-items: center;
+}
+
+.insertField {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.actionButton {
+  background-color: #f59550;
+  border: 1px solid #f59550;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.community {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.communityIcon {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.info {
+  flex: 1;
+}
+
+.actions button {
+  background-color: #f59550;
+  border: 1px solid #f59550;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.typeList {
+  margin-top: 40px;
+}
+
+.type {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.typeIcon {
+  width: 50px;
+  margin-right: 10px;
+}
+
+</style>
+
+<script setup lang="ts">
 import { toRefs } from 'vue'
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import TipoLocalService from '@/services/TipoLocalService'
 import CommunityService from '../services/CommunityService'
 import LocalService from '@/services/LocalService'
@@ -68,11 +169,11 @@ const nombreTipo = ref('')
 
 const loading = ref(true)
 
-const getTipo = async(id: number) => {
+const getTipo = async (id: number) => {
   const tipos = await tipoLocalService.listAllTiposLocales()
-  for(const tipo of tipos) {
-    for(const local of tipo.locales) {
-      if(local.id == id) {
+  for (const tipo of tipos) {
+    for (const local of tipo.locales) {
+      if (local.id == id) {
         console.log(tipo.nombre)
         return tipo.nombre
       }
@@ -83,7 +184,7 @@ const getTipo = async(id: number) => {
 const fetchLocales = async () => {
   const comunidad = await communityService.listCommunityById(Number(comunidad_id.value))
   locales.value = comunidad.locales
-  for(const local of locales.value) {
+  for (const local of locales.value) {
     local.nombreTipo = await getTipo(local.id)
   }
   fetchTipoLocales()
@@ -152,7 +253,7 @@ const ModificarTipoLocal = async (id: number) => {
 }
 
 const CrearLocal = async () => {
-  if(!nombreInsertar.value || !tipoInsertar.value){
+  if (!nombreInsertar.value || !tipoInsertar.value) {
     alert('No puede haber campos vacios')
     return
   }
@@ -178,7 +279,7 @@ const CrearLocal = async () => {
 }
 
 const CrearTipoLocal = async () => {
-  if(!nombreTipo.value){
+  if (!nombreTipo.value) {
     alert('No puede haber campos vacios')
     return
   }
@@ -189,91 +290,3 @@ const CrearTipoLocal = async () => {
 }
 
 </script>
-
-<style>
-.imgComunidad1 {
-  width: 75px;
-}
-
-.imgAñadirComunidad {
-  width: 75px;
-  margin-top: 11px;
-  margin-left: 12px;
-}
-
-#insercion {
-  margin-top: 10px;
-}
-
-#lineaInferior {
-  display: flex;
-}
-
-#Locales {
-  display: flex;
-  margin-top: 40px;
-  flex-wrap: wrap;
-  justify-content: center;
-
-}
-
-.Local {
-  width: 100px;
-  margin-left: 20px;
-  text-align: center;
-}
-
-.tipoLocal {
-  font-family: monospace;
-}
-
-.Bloque p {
-  margin: 5px;
-  font-style: italic;
-}
-
-.idLocal {
-  visibility: collapse;
-}
-
-.Bloque h3 {
-  margin: 5px;
-  margin-top: -15px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.Bloque img {
-  margin-top: 10px;
-}
-
-#BotonLocal {
-  background-color: rgb(245, 149, 80);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  border-style: groove;
-  border-radius: 4px;
-  width: 30px;
-  border-color: rgb(245, 149, 80);
-  border-style: double;
-}
-
-.añadirComunidad {
-
-  display: grid;
-  width: 100px;
-  height: 160px;
-  margin-left: 20px;
-}
-
-.insertar {
-  border-color: rgb(245, 149, 80);
-  border-radius: 4px;
-  width: 92%;
-  height: 19px;
-
-
-}
-
-::placeholder {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-}
-</style>
