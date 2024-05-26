@@ -210,7 +210,8 @@ const BorrarTipoLocal = async (id: number) => {
 const ModificarLocal = async (id: number) => {
   let nombre = prompt('Introduce el nuevo nombre del local')
   while (!nombre) {
-    nombre = prompt('El nombre no puede estar vacío, introduce un nuevo nombre')
+    alert('No puede haber campos vacios')
+    return
   }
   let tipoLocal = prompt('Introduce el nuevo tipo de local')
   let tipoModificar: any = 0
@@ -223,14 +224,8 @@ const ModificarLocal = async (id: number) => {
     }
   }
   while (!tipoLocal || !valido) {
-    tipoLocal = prompt('El tipo no puede estar vacío o no existe, introduce un nuevo tipo')
-    for (const tipo of tipoLocales.value) {
-      if (tipoLocal == tipo.nombre) {
-        tipoModificar = tipo
-        valido = true
-        break
-      }
-    }
+    alert('No puede haber campos vacios o no existe')
+    return
   }
 
   const comunidad = await communityService.listCommunityById(Number(comunidad_id.value))
@@ -244,7 +239,19 @@ const ModificarLocal = async (id: number) => {
 const ModificarTipoLocal = async (id: number) => {
   let nombre = prompt('Introduce el nuevo nombre del tipo de local')
   while (!nombre) {
-    nombre = prompt('El nombre no puede estar vacío, introduce un nuevo nombre')
+    alert('El nombre no puede estar vacío, introduce un nuevo nombre')
+    return    
+  }
+  let valido = true
+  for (const tipo of tipoLocales.value) {
+    if (nombre == tipo.nombre) {
+      valido = false
+      break
+    }
+  }
+  if (!valido) {
+    alert('El tipo ya existe')
+    return
   }
   let locales: any = []
   const response = await tipoLocalService.updateTipoLocal(id, nombre, locales)
@@ -281,6 +288,17 @@ const CrearLocal = async () => {
 const CrearTipoLocal = async () => {
   if (!nombreTipo.value) {
     alert('No puede haber campos vacios')
+    return
+  }
+  let valido = true
+  for (const tipo of tipoLocales.value) {
+    if (nombreTipo.value == tipo.nombre) {
+      valido = false
+      break
+    }
+  }
+  if (!valido) {
+    alert('El tipo ya existe')
     return
   }
   let locales: any = []

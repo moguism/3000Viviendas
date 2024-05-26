@@ -76,11 +76,13 @@ const BorrarComunidad = async(id: number) => {
 const ModificarComunidad = async(id: number) => {
   let nombre = prompt('Introduce el nuevo nombre de la comunidad')
   while (!nombre) {
-    nombre = prompt('El nombre no puede estar vacío, introduce un nuevo nombre')
+    alert('El nombre no puede estar vacío')
+    return
   }  
   let direccion = prompt('Introduce la nueva direccion de la comunidad')
   while (!direccion) {
-    direccion = prompt('La direccion no puede estar vacío, introduce una nueva')
+    alert('La dirección no puede estar vacía')
+    return
   }
   let bloques: any = []
   let locales: any = []
