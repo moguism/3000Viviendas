@@ -30,6 +30,11 @@ public class Vivienda {
     @JoinColumn(name = "vecino_id")
     @JsonBackReference(value = "vecino-vivienda")
     private Vecino vecino;
+    
+    private String escalera;
+    private String puerta;
+    private String planta;
+    private String letra;
 
     public Long getId() {
         return id;
@@ -53,6 +58,38 @@ public class Vivienda {
 
     public void setVecino(Vecino vecino) {
         this.vecino = vecino;
+    }
+
+    public String getEscalera() {
+        return escalera;
+    }
+
+    public void setEscalera(String escalera) {
+        this.escalera = escalera;
+    }
+
+    public String getPuerta() {
+        return puerta;
+    }
+
+    public void setPuerta(String puerta) {
+        this.puerta = puerta;
+    }
+
+    public String getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(String planta) {
+        this.planta = planta;
+    }
+
+    public String getLetra() {
+        return letra;
+    }
+
+    public void setLetra(String letra) {
+        this.letra = letra;
     }
     
 }
