@@ -73,7 +73,7 @@ INSERT INTO `mydb`.`viviendas` (`bloque_id`, `escalera`, `planta`, `puerta`, `le
 (2, 'B', '2', '2', 'B', 2);
 
 -- Inserciones para la tabla vecinos_mensualidades
-INSERT INTO `mydb`.`vecinos_mensualidades` (`vecino_id`, `mensualidad_id`, `fecha_pago`) VALUES 
+INSERT INTO `mydb`.`mensualidades_viviendas` (`vivienda_id`, `mensualidad_id`, `fecha_pago`) VALUES 
 (1, 1, '2024-01-05'),
 (2, 2, '2024-02-05');
 
