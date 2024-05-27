@@ -38,11 +38,6 @@ public class Vivienda {
     private String puerta;
     private String planta;
     private String letra;
-    
-    @ManyToMany(mappedBy = "viviendas")
-    @JsonBackReference(value = "mensualidad-vivienda")
-    @JsonIgnore
-    private Set<Mensualidad> mensualidades;
 
     public Long getId() {
         return id;
@@ -98,14 +93,6 @@ public class Vivienda {
 
     public void setLetra(String letra) {
         this.letra = letra;
-    }
-
-    public Set<Mensualidad> getMensualidades() {
-        return mensualidades;
-    }
-
-    public void setMensualidades(Set<Mensualidad> mensualidades) {
-        this.mensualidades = mensualidades;
     }
     
 }

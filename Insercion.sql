@@ -79,7 +79,7 @@ INSERT INTO `mydb`.`viviendas` (`bloque_id`, `escalera`, `planta`, `puerta`, `le
 (2, 'Escalera B', 'Planta 2', 'Puerta 2', 'B', 2); -- Referencia a `Bloque 2` y `Vecino B`
 
 -- Insertar datos en la tabla `mensualidades_viviendas`
-INSERT INTO `mydb`.`mensualidades_viviendas` (`mensualidad_id`, `vivienda_id`, `fecha_pago`) VALUES
+INSERT INTO `mydb`.`vecinos_mensualidades` (`mensualidad_id`, `vecino_id`, `fecha_pago`) VALUES
 (1, 1, '2023-01-15'), -- Referencia a `Mensualidad 1` y `Vivienda 1`
 (2, 2, '2023-02-15'); -- Referencia a `Mensualidad 2` y `Vivienda 2`
 
@@ -92,3 +92,4 @@ INSERT INTO `mydb`.`tipos_reuniones` (`nombre`) VALUES
 INSERT INTO `mydb`.`reuniones` (`tipo_reunion_id`, `fecha`, `descripcion`, `bloque_id`) VALUES
 (1, '2023-01-20', 'Reunión A1', 1), -- Referencia a `Tipo Reunión A` y `Bloque 1`
 (2, '2023-02-20', 'Reunión B1', 2); -- Referencia a `Tipo Reunión B` y `Bloque 2`
+
