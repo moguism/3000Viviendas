@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="vivienda" v-for="mensualiadad in mensualidades" :key="mensualiadad.id">
-                    <img class="vivienda-icon" src="../assets/building.svg">
+                    <img @click="CargarMensualidad(mensualiadad.id)" class="vivienda-icon" src="../assets/building.svg">
                     <h3 class="nombre-vivienda">Fecha: {{ mensualiadad.fecha }}</h3>
                     <h3 class="nombre-vivienda">Cuantía: {{ mensualiadad.cuantia }}</h3>
                     <div class="botones">
@@ -368,6 +368,11 @@ const BorrarMensualidad = async (id: number) => {
     const response = await mensualidadService.deleteMensualidad(id)
     console.log(response)
     await fetchBloques()
+}
+
+const CargarMensualidad = (mensualidad_id: number) => {
+let bloque = Number(bloque_id.value)
+  router.push({ name: 'Mensualidad', params: { mensualidad_id, bloque } })
 }
 
 </script>
