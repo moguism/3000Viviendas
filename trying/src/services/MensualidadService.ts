@@ -1,5 +1,6 @@
+import type IBloque from "@/interfaces/IBloque";
 import type IMensualidad from "@/interfaces/IMensualidad";
-import type IVecino from "@/interfaces/IVecino";
+import type IVivienda from "@/interfaces/IVivienda";
 
 export default class MensualidadService {
 
@@ -18,12 +19,13 @@ export default class MensualidadService {
         return response
     }
 
-    async createMensualidad(fecha: Date, cuantia: number, vecinos: Array<IVecino>){
+    async createMensualidad(fecha: Date, cuantia: number, viviendas: Array<IVivienda>, bloque: IBloque){
         const data:IMensualidad = {
             id: 0,
             fecha: fecha,
             cuantia: cuantia,
-            vecinos: vecinos
+            viviendas: viviendas,
+            bloque: bloque
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -44,12 +46,13 @@ export default class MensualidadService {
         })
     }
 
-    async updateMensualidad(id: number, fecha: Date, cuantia: number, vecinos: Array<IVecino>){
+    async updateMensualidad(id: number, fecha: Date, cuantia: number, viviendas: Array<IVivienda>, bloque: IBloque){
         const data:IMensualidad = {
             id: id,
             fecha: fecha,
             cuantia: cuantia,
-            vecinos: vecinos
+            viviendas: viviendas,
+            bloque: bloque
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {

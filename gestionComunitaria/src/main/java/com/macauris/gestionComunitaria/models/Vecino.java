@@ -46,11 +46,6 @@ public class Vecino {
     @ManyToMany
     @JsonIgnore
     private Set<Reunion> reuniones;
-    
-    @ManyToMany(mappedBy = "vecinos")
-    @JsonBackReference(value = "mensualidad-vecino")
-    @JsonIgnore
-    private Set<Mensualidad> mensualidades;
 
     public Long getId() {
         return id;
@@ -90,14 +85,6 @@ public class Vecino {
 
     public void setReuniones(Set<Reunion> reuniones) {
         this.reuniones = reuniones;
-    }
-
-    public Set<Mensualidad> getMensualidades() {
-        return mensualidades;
-    }
-
-    public void setMensualidades(Set<Mensualidad> mensualidades) {
-        this.mensualidades = mensualidades;
     }
    
 }

@@ -216,8 +216,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`mensualidades` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fecha` DATE NOT NULL,
   `cuantia` DOUBLE NOT NULL,
+  `bloque_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `fecha_UNIQUE` (`fecha` ASC) VISIBLE)
+  UNIQUE INDEX `fecha_UNIQUE` (`fecha` ASC) VISIBLE,
+  INDEX `fk_mensualidades_bloques1_idx` (`bloque_id` ASC) VISIBLE,
+  CONSTRAINT `fk_mensualidades_bloques1`
+    FOREIGN KEY (`bloque_id`)
+    REFERENCES `mydb`.`bloques` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -295,35 +302,19 @@ CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
   `puerta` VARCHAR(45) NULL DEFAULT NULL,
   `letra` VARCHAR(45) NULL DEFAULT NULL,
   `vecino_id` INT NOT NULL,
+  `ultima_mensualidad_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Viviendas_Bloques1_idx` (`bloque_id` ASC) VISIBLE,
   INDEX `fk_viviendas_vecinos1_idx` (`vecino_id` ASC) VISIBLE,
+  INDEX `fk_viviendas_mensualidades1_idx` (`ultima_mensualidad_id` ASC) VISIBLE,
   CONSTRAINT `fk_Viviendas_Bloques1`
     FOREIGN KEY (`bloque_id`)
     REFERENCES `mydb`.`bloques` (`id`),
   CONSTRAINT `fk_viviendas_vecinos1`
     FOREIGN KEY (`vecino_id`)
-    REFERENCES `mydb`.`vecinos` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`vecinos_mensualidades`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`vecinos_mensualidades` (
-  `vecino_id` INT NOT NULL,
-  `mensualidad_id` INT NOT NULL,
-  `fecha_pago` DATE NOT NULL,
-  INDEX `fk_vecinos_has_mensualidades_mensualidades1_idx` (`mensualidad_id` ASC) VISIBLE,
-  INDEX `fk_vecinos_has_mensualidades_vecinos1_idx` (`vecino_id` ASC) VISIBLE,
-  CONSTRAINT `fk_vecinos_has_mensualidades_vecinos1`
-    FOREIGN KEY (`vecino_id`)
-    REFERENCES `mydb`.`vecinos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_vecinos_has_mensualidades_mensualidades1`
-    FOREIGN KEY (`mensualidad_id`)
+    REFERENCES `mydb`.`vecinos` (`id`),
+  CONSTRAINT `fk_viviendas_mensualidades1`
+    FOREIGN KEY (`ultima_mensualidad_id`)
     REFERENCES `mydb`.`mensualidades` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

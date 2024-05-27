@@ -176,7 +176,6 @@ const fetchBloques = async () => {
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
     console.log(bloque)
     viviendas.value = bloque.viviendas
-    mensualidades.value = bloque.mensualidades
 
     for(const vivienda of viviendas.value){
 
@@ -188,7 +187,15 @@ const fetchBloques = async () => {
     
     }
 
+    await fetchMensualidades()
+
     loading.value = false
+}
+
+const fetchMensualidades = async () => {
+
+    mensualidades.value = await mensualidadService.listAllMensualidades()
+    
 }
 
 onMounted(fetchBloques)
@@ -261,9 +268,11 @@ const CrearMensualidad = async () => {
         return
     }
 
-    let vecinos: any = []
+    let viviendas: any = []
 
-    const response = await mensualidadService.createMensualidad(fecha, Number(cuantia), vecinos)
+    let bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
+
+    const response = await mensualidadService.createMensualidad(fecha, Number(cuantia), viviendas, bloque)
     console.log(response)
     await fetchBloques()
     
@@ -326,7 +335,7 @@ const ModificarVivienda = async (id: number) => {
 
 const ModificarMensualidad = async (id: number) => {
     let mensualiadad = await mensualidadService.listMensualidadById(id)
-    let vecinos = mensualiadad.vecinos
+    let viviendas = mensualiadad.viviendas
 
     let fechaString = prompt('Introduce la nueva fecha (fallará si no es válida)', 'YYYY-MM-DD')
     if(!fechaString){
@@ -342,7 +351,9 @@ const ModificarMensualidad = async (id: number) => {
         return
     }
 
-    const response = await mensualidadService.updateMensualidad(id, fecha, Number(cuantia), vecinos)
+    let bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
+
+    const response = await mensualidadService.updateMensualidad(id, fecha, Number(cuantia), viviendas, bloque)
     console.log(response)
     await fetchBloques()
 }
