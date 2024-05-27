@@ -1,17 +1,19 @@
 package com.macauris.gestionComunitaria.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.Date;
-import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 @Table(name = "mensualidades")
@@ -25,14 +27,14 @@ public class Mensualidad {
 
     private Date fecha;
 
-    @ManyToMany
-    @JoinTable(
-        name = "vecinos_mensualidades",
-        joinColumns = @JoinColumn(name = "mensualidad_id"),
-        inverseJoinColumns = @JoinColumn(name = "vecino_id")
-    )
-    @JsonManagedReference(value = "mensualidad-vecino")
-    private Set<Vecino> vecinos;
+    @OneToMany(mappedBy = "mensualidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "mensualidad-vivienda")
+    private List<Vivienda> viviendas;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bloque_id")
+    @JsonBackReference(value="bloque-mensualidad")
+    private Bloque bloque;
 
     public Long getId() {
         return id;
@@ -58,12 +60,20 @@ public class Mensualidad {
         this.fecha = fecha;
     }
 
-    public Set<Vecino> getVecinos() {
-        return vecinos;
+    public List<Vivienda> getViviendas() {
+        return viviendas;
     }
 
-    public void setVecinos(Set<Vecino> vecinos) {
-        this.vecinos = vecinos;
+    public void setViviendas(List<Vivienda> viviendas) {
+        this.viviendas = viviendas;
     }
-    
+
+    public Bloque getBloque() {
+        return bloque;
+    }
+
+    public void setBloque(Bloque bloque) {
+        this.bloque = bloque;
+    }
+
 }

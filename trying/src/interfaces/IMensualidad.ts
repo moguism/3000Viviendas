@@ -1,8 +1,10 @@
-import type IVecino from "./IVecino";
+import type IBloque from "./IBloque";
+import type IVivienda from "./IVivienda";
 
 export default interface IMensualidad {
     id: number,
     fecha: Date,
     cuantia: number,
-    vecinos: Array<IVecino>
+    bloque: IBloque,
+    viviendas: Array<IVivienda>
 }
