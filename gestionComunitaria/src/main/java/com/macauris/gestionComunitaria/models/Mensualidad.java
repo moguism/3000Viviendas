@@ -26,12 +26,12 @@ public class Mensualidad {
 
     @ManyToMany
     @JoinTable(
-        name = "vecinos_mensualidades",
+        name = "mensualidades_viviendas",
         joinColumns = @JoinColumn(name = "mensualidad_id"),
-        inverseJoinColumns = @JoinColumn(name = "vecino_id")
+        inverseJoinColumns = @JoinColumn(name = "vivienda_id")
     )
-    @JsonManagedReference(value = "mensualidad-vecino")
-    private Set<Vecino> vecinos;
+    @JsonManagedReference(value = "mensualidad-vivienda")
+    private Set<Vivienda> viviendas;
 
     public Long getId() {
         return id;
@@ -57,12 +57,12 @@ public class Mensualidad {
         this.fecha = fecha;
     }
 
-    public Set<Vecino> getVecinos() {
-        return vecinos;
+    public Set<Vivienda> getViviendas() {
+        return viviendas;
     }
 
-    public void setVecinos(Set<Vecino> vecinos) {
-        this.vecinos = vecinos;
+    public void setViviendas(Set<Vivienda> viviendas) {
+        this.viviendas = viviendas;
     }
 
 }

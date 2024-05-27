@@ -207,28 +207,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`vecinos_mensualidades`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`vecinos_mensualidades` (
-  `vecino_id` INT NOT NULL,
-  `mensualidad_id` INT NOT NULL,
-  `fecha_pago` DATE NOT NULL,
-  INDEX `fk_vecinos_has_Mensualidades_Mensualidades1_idx` (`mensualidad_id` ASC) VISIBLE,
-  INDEX `fk_vecinos_has_Mensualidades_vecinos1_idx` (`vecino_id` ASC) VISIBLE,
-  CONSTRAINT `fk_vecinos_has_Mensualidades_vecinos1`
-    FOREIGN KEY (`vecino_id`)
-    REFERENCES `mydb`.`vecinos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_vecinos_has_Mensualidades_Mensualidades1`
-    FOREIGN KEY (`mensualidad_id`)
-    REFERENCES `mydb`.`mensualidades` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mydb`.`tipos_reuniones`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`tipos_reuniones` (
@@ -349,6 +327,28 @@ CREATE TABLE IF NOT EXISTS `mydb`.`gastos` (
   CONSTRAINT `fk_gastos_comunidades1`
     FOREIGN KEY (`comunidad_id`)
     REFERENCES `mydb`.`comunidades` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`mensualidades_viviendas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`mensualidades_viviendas` (
+  `mensualidad_id` INT NOT NULL,
+  `vivienda_id` INT NOT NULL,
+  `fecha_pago` DATE NOT NULL,
+  INDEX `fk_mensualidades_has_viviendas_viviendas1_idx` (`vivienda_id` ASC) VISIBLE,
+  INDEX `fk_mensualidades_has_viviendas_mensualidades1_idx` (`mensualidad_id` ASC) VISIBLE,
+  CONSTRAINT `fk_mensualidades_has_viviendas_mensualidades1`
+    FOREIGN KEY (`mensualidad_id`)
+    REFERENCES `mydb`.`mensualidades` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mensualidades_has_viviendas_viviendas1`
+    FOREIGN KEY (`vivienda_id`)
+    REFERENCES `mydb`.`viviendas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

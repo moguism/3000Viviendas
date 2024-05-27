@@ -38,10 +38,6 @@ public class Vecino {
     @JsonManagedReference(value = "vecino-vivienda")
     private List<Vivienda> viviendas;
 
-    @ManyToMany(mappedBy = "vecinos")
-    @JsonIgnore
-    private Set<Mensualidad> mensualidades;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rol_id")
     @JsonBackReference(value = "rol-vecino")
@@ -73,14 +69,6 @@ public class Vecino {
 
     public void setViviendas(List<Vivienda> viviendas) {
         this.viviendas = viviendas;
-    }
-
-    public Set<Mensualidad> getMensualidades() {
-        return mensualidades;
-    }
-
-    public void setMensualidades(Set<Mensualidad> mensualidades) {
-        this.mensualidades = mensualidades;
     }
 
     public Rol getRol() {
