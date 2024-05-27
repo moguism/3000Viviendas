@@ -1,5 +1,6 @@
 package com.macauris.gestionComunitaria.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class Mensualidad {
         inverseJoinColumns = @JoinColumn(name = "vivienda_id")
     )
     @JsonManagedReference(value = "mensualidad-vivienda")
+    @JsonIgnore
     private Set<Vivienda> viviendas;
 
     public Long getId() {
