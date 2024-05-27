@@ -40,6 +40,7 @@ public class Vivienda {
     private String letra;
     
     @ManyToMany(mappedBy = "viviendas")
+    @JsonBackReference(value = "mensualidad-vivienda")
     @JsonIgnore
     private Set<Mensualidad> mensualidades;
 

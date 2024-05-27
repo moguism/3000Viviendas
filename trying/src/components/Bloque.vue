@@ -4,7 +4,6 @@
         <p v-if="loading" class="loading-message">Cargando datos...</p>
         <div v-else>
             <div class="botones">
-                <button class="boton">Pulsa aquí para acceder a las mensualidades</button>
                 <button class="boton">Pulsa aquí para acceder a los vecinos</button>
                 <button class="boton">Pulsa aquí para acceder a las reuniones</button>
             </div>
@@ -28,6 +27,26 @@
                     <div class="botones">
                         <button @click="ModificarVivienda(vivienda.id)" >Modificar</button>
                         <button @click="BorrarVivienda(vivienda.id)" >Eliminar</button>
+                    </div>
+                </div>
+            </div>
+            <h1 class="viviendas-title">Mensualidades</h1>
+            <div class="viviendas">
+                <div class="añadir-vivienda">
+                    <img class="añadir-vivienda-icon" src="../assets/building-fill-add.svg">
+                    <div class="insercion">
+                        <button class="boton-vivienda" @click="CrearMensualidad">
+                            <img src="../assets/arrow-return-left.svg">
+                        </button>
+                    </div>
+                </div>
+                <div class="vivienda" v-for="mensualiadad in mensualidades" :key="mensualiadad.id">
+                    <img class="vivienda-icon" src="../assets/building.svg">
+                    <h3 class="nombre-vivienda">Fecha: {{ mensualiadad.fecha }}</h3>
+                    <h3 class="nombre-vivienda">Cuantía: {{ mensualiadad.cuantia }}</h3>
+                    <div class="botones">
+                        <button @click="ModificarMensualidad(mensualiadad.id)" >Modificar</button>
+                        <button @click="BorrarMensualidad(mensualiadad.id)" >Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -123,15 +142,20 @@ import ViviendaService from '../services/ViviendaService'
 import { useRouter } from 'vue-router'
 import VecinoService from '@/services/VecinoService'
 import type IBloque from '@/interfaces/IBloque'
+import type IMensualidad from '@/interfaces/IMensualidad'
+import type IReunion from '@/interfaces/IReunion'
+import MensualidadService from '@/services/MensualidadService'
 
 const route = useRoute()
 const { bloque_id: bloque_id } = toRefs(route.params)
 
 const viviendas: Ref<Array<IVivienda>> = ref([])
+const mensualidades: Ref<Array<IMensualidad>> = ref([])
 
 const bloqueService = new BloqueService()
 const viviendaService = new ViviendaService()
 const vecinoService = new VecinoService()
+const mensualidadService = new MensualidadService()
 
 const loading = ref(true)
 
@@ -152,6 +176,7 @@ const fetchBloques = async () => {
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
     console.log(bloque)
     viviendas.value = bloque.viviendas
+    mensualidades.value = bloque.mensualidades
 
     for(const vivienda of viviendas.value){
 
@@ -220,6 +245,37 @@ const CrearVivienda = async () => {
     await fetchBloques()
 }
 
+const CrearMensualidad = async () => {
+
+    let fechaString = prompt('Introduce la fecha (fallará si no es válida)', 'YYYY-MM-DD')
+    if(!fechaString){
+        alert('No puede haber campos vacíos')
+        return
+    }
+
+    let fecha = new Date(fechaString)
+
+    let cuantia = prompt('Introduce la cuantia (fallará si no es válida)')
+    if(!cuantia){
+        alert('No puede haber campos vacíos')
+        return
+    }
+
+    let bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
+    let comunidad = bloque.comunidad
+    let viviendasBloque = bloque.viviendas
+    let viviendasMensualidad: any = []
+    let reuniones = bloque.reuniones
+    let mensualidades = bloque.mensualidades
+    mensualidades.push({id: 0, fecha: fecha, cuantia: Number(cuantia), viviendas: viviendasMensualidad})
+
+    //const response = await mensualidadService.createMensualidad(fecha, Number(cuantia), viviendas)
+    const response = await bloqueService.updateBloque(Number(bloque_id.value), comunidad, viviendasBloque, reuniones, mensualidades)
+    console.log(response)
+    await fetchBloques()
+    
+}
+
 const ModificarVivienda = async (id: number) => {
 
     let escalera = prompt('Introduce la escalera')
@@ -275,8 +331,37 @@ const ModificarVivienda = async (id: number) => {
     await fetchBloques()
 }
 
+const ModificarMensualidad = async (id: number) => {
+    let mensualiadad = await mensualidadService.listMensualidadById(id)
+    let viviendas = mensualiadad.viviendas
+
+    let fechaString = prompt('Introduce la nueva fecha (fallará si no es válida)', 'YYYY-MM-DD')
+    if(!fechaString){
+        alert('No puede haber campos vacíos')
+        return
+    }
+
+    let fecha = new Date(fechaString)
+
+    let cuantia = prompt('Introduce la nueva cuantia (fallará si no es válida)')
+    if(!cuantia){
+        alert('No puede haber campos vacíos')
+        return
+    }
+
+    const response = await mensualidadService.updateMensualidad(id, fecha, Number(cuantia), viviendas)
+    console.log(response)
+    await fetchBloques()
+}
+
 const BorrarVivienda = async (id: number) => {
     const response = await viviendaService.deleteVivienda(id)
+    console.log(response)
+    await fetchBloques()
+}
+
+const BorrarMensualidad = async (id: number) => {
+    const response = await mensualidadService.deleteMensualidad(id)
     console.log(response)
     await fetchBloques()
 }
