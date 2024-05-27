@@ -223,6 +223,41 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
+-- Table `mydb`.`tipos_reuniones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`tipos_reuniones` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`reuniones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`reuniones` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tipo_reunion_id` INT NOT NULL,
+  `fecha` DATE NOT NULL,
+  `descripcion` VARCHAR(255) NOT NULL,
+  `bloque_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Reuniones_TipoReunion1_idx` (`tipo_reunion_id` ASC) VISIBLE,
+  INDEX `fk_reuniones_bloques1_idx` (`bloque_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Reuniones_TipoReunion1`
+    FOREIGN KEY (`tipo_reunion_id`)
+    REFERENCES `mydb`.`tipos_reuniones` (`id`),
+  CONSTRAINT `fk_reuniones_bloques1`
+    FOREIGN KEY (`bloque_id`)
+    REFERENCES `mydb`.`bloques` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
 -- Table `mydb`.`roles`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`roles` (
@@ -274,53 +309,22 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`mensualidades_viviendas`
+-- Table `mydb`.`vecinos_mensualidades`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`mensualidades_viviendas` (
+CREATE TABLE IF NOT EXISTS `mydb`.`vecinos_mensualidades` (
+  `vecino_id` INT NOT NULL,
   `mensualidad_id` INT NOT NULL,
-  `vivienda_id` INT NOT NULL,
   `fecha_pago` DATE NOT NULL,
-  INDEX `fk_mensualidades_has_viviendas_viviendas1_idx` (`vivienda_id` ASC) VISIBLE,
-  INDEX `fk_mensualidades_has_viviendas_mensualidades1_idx` (`mensualidad_id` ASC) VISIBLE,
-  CONSTRAINT `fk_mensualidades_has_viviendas_mensualidades1`
+  INDEX `fk_vecinos_has_mensualidades_mensualidades1_idx` (`mensualidad_id` ASC) VISIBLE,
+  INDEX `fk_vecinos_has_mensualidades_vecinos1_idx` (`vecino_id` ASC) VISIBLE,
+  CONSTRAINT `fk_vecinos_has_mensualidades_vecinos1`
+    FOREIGN KEY (`vecino_id`)
+    REFERENCES `mydb`.`vecinos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_vecinos_has_mensualidades_mensualidades1`
     FOREIGN KEY (`mensualidad_id`)
-    REFERENCES `mydb`.`mensualidades` (`id`),
-  CONSTRAINT `fk_mensualidades_has_viviendas_viviendas1`
-    FOREIGN KEY (`vivienda_id`)
-    REFERENCES `mydb`.`viviendas` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`tipos_reuniones`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`tipos_reuniones` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`reuniones`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`reuniones` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `tipo_reunion_id` INT NOT NULL,
-  `fecha` DATE NOT NULL,
-  `descripcion` VARCHAR(255) NOT NULL,
-  `bloque_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Reuniones_TipoReunion1_idx` (`tipo_reunion_id` ASC) VISIBLE,
-  INDEX `fk_reuniones_bloques1_idx` (`bloque_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Reuniones_TipoReunion1`
-    FOREIGN KEY (`tipo_reunion_id`)
-    REFERENCES `mydb`.`tipos_reuniones` (`id`),
-  CONSTRAINT `fk_reuniones_bloques1`
-    FOREIGN KEY (`bloque_id`)
-    REFERENCES `mydb`.`bloques` (`id`)
+    REFERENCES `mydb`.`mensualidades` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
