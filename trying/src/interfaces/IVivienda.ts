@@ -10,6 +10,7 @@ export default interface IVivienda {
     puerta: string,
     letra: string,
     vecino: IVecino,
-    ultima_mensualidad: IMensualidad
+    ultima_mensualidad: IMensualidad,
+    idMensualidad: number
     nombreVecino: string
 }
