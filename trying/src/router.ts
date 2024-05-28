@@ -6,6 +6,7 @@ import Contrato from './components/Contrato.vue'
 import Bloque from './components/Bloque.vue'
 import Reunion from './components/Reunion.vue'
 import Ingreso from './components/Ingreso.vue'
+import Vecino from './components/Vecino.vue'
 
 const routes = [
   {
@@ -38,13 +39,19 @@ const routes = [
     props: true
   },
   {
-    path: '/reunion/:bloque_id1',
+    path: '/reuniones/:bloque_id1',
     name: 'Reunion',
     component: Reunion,
     props: true
   },
   {
-    path: '/ingreso/:comunidad_id',
+    path: '/vecinos/:bloque_id1',
+    name: 'Vecino',
+    component: Vecino,
+    props: true
+  },
+  {
+    path: '/ingresos/:comunidad_id',
     name: 'Ingreso',
     component: Ingreso,
     props: true

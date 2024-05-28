@@ -207,7 +207,7 @@ const BorrarContrato = async (id: number) => {
 
 const BorrarContratante = async (id: number) => {
     await contratanteService.deleteContratante(id)
-    await fetchContratantes()
+    await fetchContratos()
 }
 
 const ModificarContrato = async (id: number) => {
@@ -315,7 +315,7 @@ const CrearContratante = async () => {
     let contratos: any = []
     const response = await contratanteService.createContratante(nombreContratante.value, contratos)
     console.log(response)
-    await fetchContratos()
+    await fetchContratantes()
 }
 
 </script>

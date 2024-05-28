@@ -210,7 +210,7 @@
    
   const BorrarTipoIngreso = async (id: number) => {
     await tipoIngresoService.deleteTipoIngreso(id)
-    await fetchTipoIngresos()
+    await fetchIngresos()
   }
    
   const ModificarIngreso = async (id: number) => {
@@ -319,7 +319,7 @@
     let ingresos: any = [] // Aquí sí va vacío porque lo estoy creando
     const response = await tipoIngresoService.createTipoIngreso(nombreTipo.value, ingresos)
     console.log(response)
-    await fetchIngresos()
+    await fetchTipoIngresos()
   }
    
   </script>
