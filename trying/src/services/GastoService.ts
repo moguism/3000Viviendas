@@ -41,11 +41,9 @@ export default class GastoService {
 
     async deleteGasto(id: number){
         const uri = `${this.baseUri}/${id}`
-        const rawResponse = await fetch(uri, {
+        await fetch(uri, {
             method: 'DELETE'
         })
-        const response = await rawResponse.json()
-        return response
     }
 
     async updateGasto(id: number, monto: number, fecha: Date, tipoGasto: ITipoGasto, comunidad: ICommunity){
@@ -59,6 +57,9 @@ export default class GastoService {
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         const response = await rawResponse.json()

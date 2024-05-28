@@ -20,7 +20,7 @@
       <div class="botones">
         <button @click="CargarLocales" class="boton">Pulsa aquí para acceder a los locales</button>
         <button @click="CargarContratos" class="boton">Pulsa aquí para acceder a los contratos</button>
-        <button class="boton">Pulsa aquí para acceder a los ingresos</button>
+        <button @click="CargarIngresos" class="boton">Pulsa aquí para acceder a los ingresos</button>
         <button class="boton">Pulsa aquí para acceder a los gastos</button>
         <button class="boton">Pulsa aquí para acceder a las deudas</button>
       </div>
@@ -179,8 +179,6 @@ const fetchCommunities = async () => {
   locales.value = community.value.locales
   loading.value = false
 }
-const ingresos = ref('')
-const ingresosComunidad = async () => {}
 
 onMounted(fetchCommunities)
 
@@ -194,6 +192,10 @@ const CargarContratos = () => {
 
 const CargarBloque = (bloque_id: number) => {
   router.push({ name: 'Bloque', params: { bloque_id } })
+}
+
+const CargarIngresos = () => {
+  router.push({ name: 'Ingreso', params: { comunidad_id } })
 }
 
 const CrearBloque = async () => {
