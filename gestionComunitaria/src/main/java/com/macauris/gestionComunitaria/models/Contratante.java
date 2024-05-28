@@ -23,7 +23,7 @@ public class Contratante {
     
     public String nombre;
 
-    @OneToMany(mappedBy = "contratante", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contratante", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "contratante-contrato")
     private List<Contrato> contratos;
 

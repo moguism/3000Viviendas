@@ -26,7 +26,7 @@ public class TipoIngreso {
     
     public String nombre;
 
-    @OneToMany(mappedBy = "tipoIngreso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tipoIngreso", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "tipo-ingreso")
     private List<Ingreso> ingresos;
 

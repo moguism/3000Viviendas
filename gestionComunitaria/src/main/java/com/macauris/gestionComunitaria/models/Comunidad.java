@@ -22,27 +22,27 @@ public class Comunidad {
     private String nombre;
     private String direccion;
     
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value="comunidad-bloque")
     public List<Bloque> bloques;
 
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value ="comunidad-contrato")
     public List<Contrato> contratos;
 
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "comunidad-local")
     public List<Local> locales;
 
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value ="comunidad-deuda")
     public List<Deuda> deudas;
 
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "comunidad-ingreso")
     public List<Ingreso> ingresos;
 
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "comunidad-gasto")
     public List<Gasto> gastos;
 
