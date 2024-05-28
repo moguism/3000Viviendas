@@ -6,16 +6,6 @@
       <div class="comunidad-details">
         <h2>Nombre: {{ nombre }}</h2>
         <h3 class="direccion">Dirección: {{ direccion }}</h3>
-        <div class="top-cards">
-          <div class="card">
-            <p>(var IngresoTotal)</p>
-            <p>Ingresos</p>
-          </div>
-          <!-- Resto de las tarjetas -->
-        </div>
-        <div class="bottom-cards">
-          <!-- Tarjetas inferiores -->
-        </div>
       </div>
       <div class="botones">
         <button @click="CargarLocales" class="boton">Pulsa aquí para acceder a los locales</button>

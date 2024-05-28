@@ -3,7 +3,7 @@
     <h1 v-if="!loading" class="container">
       <div class="section">
         <div class="addCommunity">
-          <img class="addIcon" src="../assets/reunion.svg" alt="Add Community">
+          <img class="addIcon" src="../assets/userAdd.svg" alt="Add Community">
           <div class="insertion">
             <input class="insertField" type="text" placeholder="Nombre" v-model="nombreInsertar">
             <input class="insertField" type="text" placeholder="Rol" v-model="rolInsertar">
@@ -13,7 +13,7 @@
 
         <div class="communityList">
           <div class="community" v-for="vecino in vecinos" :key="vecino.id">
-            <img class="communityIcon" src="../assets/respuesta-alternativa.svg" alt="Community Icon">
+            <img class="communityIcon" src="../assets/user.svg" alt="Community Icon">
             <div class="info">
               <h3 class="communityName">Nombre: {{ vecino.nombre }}</h3>
               <p class="communityType">Rol: {{ vecino.nombreRol }}</p>
@@ -27,7 +27,7 @@
       </div>
       <div class="section">
         <div class="addCommunity">
-          <img class="addIcon" src="../assets/meeting_1_.svg" alt="Add Community">
+          <img class="addIcon" src="../assets/roleAdd.svg" alt="Add Community">
           <div class="insertion">
             <input class="insertField" type="text" placeholder="Nombre" v-model="nombreRol">
             <button class="actionButton" @click="CreateRol">Crear Rol</button>
@@ -35,7 +35,7 @@
         </div>
         <div class="typeList">
           <div class="type" v-for="rol in roles" :key="rol.id">
-            <img class="typeIcon" src="../assets/meeting.svg" alt="Type Icon">
+            <img class="typeIcon" src="../assets/role.svg" alt="Type Icon">
             <div class="info">
               <h3 class="typeName">Nombre: {{ rol.nombre }}</h3>
             </div>
