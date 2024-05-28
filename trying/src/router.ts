@@ -4,6 +4,7 @@ import Comunidad from './components/Comunidad.vue'
 import Local from './components/Local.vue'
 import Contrato from './components/Contrato.vue'
 import Bloque from './components/Bloque.vue'
+import Reunion from './components/Reunion.vue'
 
 const routes = [
   {
@@ -33,6 +34,12 @@ const routes = [
     path: '/bloque/:bloque_id',
     name: 'Bloque',
     component: Bloque,
+    props: true
+  },
+  {
+    path: '/reunion/:bloque_id',
+    name: 'Reunion',
+    component: Reunion,
     props: true
   }
 ]
