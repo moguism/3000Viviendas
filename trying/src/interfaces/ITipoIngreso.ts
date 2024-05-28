@@ -1,4 +1,7 @@
+import type IIngreso from "./IIngreso";
+
 export default interface ITipoIngreso {
     id: number,
-    nombre: string
+    nombre: string,
+    ingresos: Array<IIngreso>
 }
