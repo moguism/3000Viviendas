@@ -1,28 +1,31 @@
+import type IBloque from "@/interfaces/IBloque";
 import type IReunion from "@/interfaces/IReunion";
 import type ITipoReunion from "@/interfaces/ITipoReunion";
-
+ 
 export default class ReunionService{
-
+ 
     baseUri: string = "http://127.0.0.1:8080/api/reuniones"
-
+ 
     async listAllReuniones(): Promise<Array<IReunion>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
-
+ 
     async listReunionById(id: number): Promise<IReunion> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
-
-    async createReunion(tipoReunion: ITipoReunion, fecha: Date){
+ 
+    async createReunion(tipoReunion: ITipoReunion, fecha: Date, descripcion: String, bloque: IBloque){
         const data:IReunion = {
             id: 0,
             tipoReunion: tipoReunion,
-            fecha: fecha
+            fecha: fecha,
+            descripcion: descripcion,
+            bloque: bloque
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -35,19 +38,21 @@ export default class ReunionService{
         const response = await rawResponse.json()
         return response
     }
-
+ 
     async deleteReunion(id: number){
         const uri = `${this.baseUri}/${id}`
         await fetch(uri, {
             method: 'DELETE'
         })
     }
-
-    async updateReunion(id: number, tipoReunion: ITipoReunion, fecha: Date){
+ 
+    async updateReunion(id: number, tipoReunion: ITipoReunion, fecha: Date, descripcion: String, bloque: IBloque){
         const data:IReunion = {
             id: id,
             tipoReunion: tipoReunion,
-            fecha: fecha
+            fecha: fecha,
+            descripcion: descripcion,
+            bloque: bloque
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
@@ -60,5 +65,5 @@ export default class ReunionService{
         const response = await rawResponse.json()
         return response
     }
-    
+   
 }
