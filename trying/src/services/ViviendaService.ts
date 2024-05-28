@@ -21,6 +21,7 @@ export default class ViviendaService {
     }
 
     async createVivienda(bloque: IBloque, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino, ultima_mensualidad: IMensualidad){
+
         const data:IVivienda = {
             id: 0,
             bloque: bloque,
@@ -30,7 +31,8 @@ export default class ViviendaService {
             letra: letra,
             vecino: vecino,
             nombreVecino: vecino.nombre,
-            ultima_mensualidad: ultima_mensualidad
+            ultima_mensualidad: ultima_mensualidad,
+            idMensualidad: ultima_mensualidad.id
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -61,7 +63,8 @@ export default class ViviendaService {
             letra: letra,
             vecino: vecino,
             nombreVecino: vecino.nombre,
-            ultima_mensualidad: ultima_mensualidad
+            ultima_mensualidad: ultima_mensualidad,
+            idMensualidad: ultima_mensualidad.id
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {

@@ -4,7 +4,6 @@ import Comunidad from './components/Comunidad.vue'
 import Local from './components/Local.vue'
 import Contrato from './components/Contrato.vue'
 import Bloque from './components/Bloque.vue'
-import Mensualidad from './components/Mensualidad.vue'
 
 const routes = [
   {
@@ -35,13 +34,7 @@ const routes = [
     name: 'Bloque',
     component: Bloque,
     props: true
-  },
-  {
-    path: '/bloque/:bloque_id1/mensualidad/:mensualidad_id',
-    name: 'Mensualidad',
-    component: Mensualidad,
-    props: true
-  }  
+  }
 ]
 
 const router = createRouter({

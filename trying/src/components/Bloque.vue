@@ -19,12 +19,13 @@
                 </div>
                 <div class="vivienda" v-for="vivienda in viviendas" :key="vivienda.id">
                     <img class="vivienda-icon" src="../assets/usuario-de-la-casa.svg">
-                    <h3 class="nombre-vivienda">ID: {{ vivienda.id }} </h3>
-                    <h3 class="nombre-vivienda">Escalera: {{ vivienda.escalera }}</h3>
-                    <h3 class="nombre-vivienda">Planta: {{ vivienda.planta }}</h3>
-                    <h3 class="nombre-vivienda">Puerta: {{ vivienda.puerta }}</h3>
-                    <h3 class="nombre-vivienda">Letra: {{ vivienda.letra }}</h3>
-                    <h3 class="nombre-vivienda">Vecino: {{ vivienda.nombreVecino }}</h3>
+                    <h6 class="nombre-vivienda">ID: {{ vivienda.id }} </h6>
+                    <h6 class="nombre-vivienda">Escalera: {{ vivienda.escalera }}</h6>
+                    <h6 class="nombre-vivienda">Planta: {{ vivienda.planta }}</h6>
+                    <h6 class="nombre-vivienda">Puerta: {{ vivienda.puerta }}</h6>
+                    <h6 class="nombre-vivienda">Letra: {{ vivienda.letra }}</h6>
+                    <h6 class="nombre-vivienda">Vecino: {{ vivienda.nombreVecino }}</h6>
+                    <h6 class="nombre-vivienda">Última mensualidad: {{ vivienda.idMensualidad }}</h6>
                     <div class="botones">
                         <button @click="ModificarVivienda(vivienda.id)">Modificar</button>
                         <button @click="BorrarVivienda(vivienda.id)">Eliminar</button>
@@ -42,14 +43,11 @@
                     </div>
                 </div>
                 <div class="vivienda" v-for="mensualiadad in mensualidades" :key="mensualiadad.id">
-                    <img @click="CargarMensualidad(mensualiadad.id)" class="vivienda-icon" src="../assets/dolar-de-saco.svg">
-                    <h3 class="nombre-vivienda">Fecha: {{ mensualiadad.fecha }}</h3>
-                    <h3 class="nombre-vivienda">Cuantía: {{ mensualiadad.cuantia }}</h3>
-                    <div class="holas">
-                        <div class="hola" v-for="viviendaMensualidad in viviendasMensualidades">
-                            <h3 class="nombre-vivienda">ID: {{ viviendaMensualidad.id }}</h3>
-                        </div>
-                    </div>
+                    <img class="vivienda-icon"
+                        src="../assets/dolar-de-saco.svg">
+                    <h6 class="nombre-vivienda">ID: {{ mensualiadad.id }}</h6>
+                    <h6 class="nombre-vivienda">Fecha: {{ mensualiadad.fecha }}</h6>
+                    <h6 class="nombre-vivienda">Cuantía: {{ mensualiadad.cuantia }}</h6>
                     <div class="botones">
                         <button @click="ModificarMensualidad(mensualiadad.id)">Modificar</button>
                         <button @click="BorrarMensualidad(mensualiadad.id)">Eliminar</button>
@@ -159,8 +157,6 @@ const { bloque_id: bloque_id } = toRefs(route.params)
 const viviendas: Ref<Array<IVivienda>> = ref([])
 const mensualidades: Ref<Array<IMensualidad>> = ref([])
 
-const viviendasMensualidades: Ref<Array<IVivienda>> = ref([])
-
 const bloqueService = new BloqueService()
 const viviendaService = new ViviendaService()
 const vecinoService = new VecinoService()
@@ -181,6 +177,28 @@ const getTipo = async (id: number) => {
     }
 }
 
+const getMensualidad = async(id: number) => {
+    const mensualidades = await mensualidadService.listAllMensualidades()
+
+    for(const mensualidad of mensualidades){
+
+        console.log("mensualidad")
+
+        for(const vivienda of mensualidad.viviendas){
+
+            if(vivienda.id == id){
+
+                console.log("Encontrado")
+
+                return mensualidad.id
+
+            }
+
+        }
+
+    }
+}
+
 const fetchBloques = async () => {
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
     console.log(bloque)
@@ -197,9 +215,18 @@ const fetchBloques = async () => {
             console.log(vivienda.nombreVecino)
         }
 
+        let idMensualidad = await getMensualidad(vivienda.id)
+        if (idMensualidad != undefined){
+            vivienda.idMensualidad = idMensualidad
+            console.log(vivienda.idMensualidad)
+        } else {
+            console.log("No encontrado")
+        }
+
     }
 
     loading.value = false
+
 }
 
 
@@ -252,11 +279,66 @@ const CrearVivienda = async () => {
         return
     }
 
-    let ultima_mensualidad: any
+    let ultima_mensualidad = prompt('Introduce el id de la última mensualidad')
+    if(!ultima_mensualidad){
+        prompt('No puede haber campos vacíos')
+        return
+    }
 
-    const response = await viviendaService.createVivienda(bloque, escalera, planta, puerta, letra, vecinoInsertar, ultima_mensualidad)
-    console.log(response)
+    valido = false
+    let mensualiadad: any
+
+    for (const mensualidad of mensualidades.value) {
+
+        if (mensualidad.id == Number(ultima_mensualidad)) {
+
+            valido = true
+            mensualiadad = mensualidad
+            break
+
+        }
+
+    }
+
+    if (!valido) {
+
+        alert('No existe la mensualidad')
+        return
+
+    }
+
+    //console.log("Bloque")
+    //console.log(bloque)
+
+    const vivienda = await viviendaService.createVivienda(bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
+    //console.log("Vivienda")
+    //console.log(vivienda)
+
+    /*const adios = await viviendaService.updateVivienda(vivienda.id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
+    console.log("Adios")
+    console.log(adios)*/
+
+    mensualiadad.viviendas.push(vivienda)
+
+    /*const holaAdios = await viviendaService.updateVivienda(vivienda.id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
+    console.log("HolaAdios")
+    console.log(holaAdios)
+
+    console.log("MONDONGO:")
+
+    for(const vivienda of mensualiadad.viviendas){
+
+        const response = await viviendaService.updateVivienda(vivienda.id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
+        console.log(response)
+        
+    }*/
+
+    const hola = await mensualidadService.updateMensualidad(mensualiadad.id, mensualiadad.fecha, mensualiadad.cuantia, mensualiadad.viviendas, bloque)
+    console.log("Hola")
+    console.log(hola)
+    
     await fetchBloques()
+
 }
 
 const CrearMensualidad = async () => {
@@ -333,26 +415,21 @@ const ModificarVivienda = async (id: number) => {
         return
     }
 
-    const mensualidades = await mensualidadService.listAllMensualidades()
-
-    console.log("Mensualidades: ")
-    console.log(mensualidades)
-
-    let mensualiadad: any
+    let ultima_mensualidad = prompt('Introduce el id de la última mensualidad')
     valido = false
+    let mensualiadad: any
+
+    const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
+
+    const mensualidades = bloque.mensualidades
 
     for (const mensualidad of mensualidades) {
 
-        for (const vivienda of mensualidad.viviendas) {
+        if (mensualidad.id == Number(ultima_mensualidad)) {
 
-            if (vivienda.id == id) {
-
-                valido = true
-                mensualiadad = mensualidad
-                break
-
-
-            }
+            valido = true
+            mensualiadad = mensualidad
+            break
 
         }
 
@@ -360,19 +437,18 @@ const ModificarVivienda = async (id: number) => {
 
     if (!valido) {
 
-        alert('Error: no existe') // Spoiler: no sé que poner xd
+        alert('No existe la mensualidad')
         return
 
     }
 
-    console.log("Hola")
+    console.log("Mensualidad: ")
     console.log(mensualiadad)
-
-    const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
 
     const response = await viviendaService.updateVivienda(id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
     console.log(response)
     await fetchBloques()
+
 }
 
 const ModificarMensualidad = async (id: number) => {
@@ -410,11 +486,6 @@ const BorrarMensualidad = async (id: number) => {
     const response = await mensualidadService.deleteMensualidad(id)
     console.log(response)
     await fetchBloques()
-}
-
-const CargarMensualidad = (mensualidad_id: number) => {
-    let bloque_id1 = Number(bloque_id.value)
-    router.push({ name: 'Mensualidad', params: { bloque_id1, mensualidad_id } })
 }
 
 </script>
