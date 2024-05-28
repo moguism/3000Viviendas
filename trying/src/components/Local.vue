@@ -204,7 +204,7 @@ const BorrarLocal = async (id: number) => {
 
 const BorrarTipoLocal = async (id: number) => {
   await tipoLocalService.deleteTipoLocal(id)
-  await fetchTipoLocales()
+  await fetchLocales()
 }
 
 const ModificarLocal = async (id: number) => {
@@ -305,7 +305,7 @@ const CrearTipoLocal = async () => {
   let locales: any = [] // Aquí sí va vacío porque lo estoy creando
   const response = await tipoLocalService.createTipoLocal(nombreTipo.value, locales)
   console.log(response)
-  await fetchLocales()
+  await fetchTipoLocales()
 }
 
 </script>

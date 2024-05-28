@@ -1,3 +1,4 @@
+import type IRol from "@/interfaces/IRol";
 import type IVecino from "@/interfaces/IVecino";
 import type IVivienda from "@/interfaces/IVivienda";
 
@@ -18,11 +19,13 @@ export default class VecinoService {
         return response
     }
 
-    async createVecino(name: string, viviendas: Array<IVivienda>) {
+    async createVecino(name: string, viviendas: Array<IVivienda>, rol: IRol) {
         const data:IVecino = {
             id: 0,
             nombre: name,
-            viviendas: viviendas
+            viviendas: viviendas,
+            rol: rol,
+            nombreRol: rol.nombre
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -43,11 +46,13 @@ export default class VecinoService {
         })
     }
 
-    async updateVecino(id: number, name: string, viviendas: Array<IVivienda>) {
+    async updateVecino(id: number, name: string, viviendas: Array<IVivienda>, rol: IRol) {
         const data:IVecino = {
             id: id,
             nombre: name,
-            viviendas: viviendas
+            viviendas: viviendas,
+            rol: rol,
+            nombreRol: rol.nombre
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {

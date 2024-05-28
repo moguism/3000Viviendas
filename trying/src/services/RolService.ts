@@ -1,4 +1,5 @@
 import type IRol from "@/interfaces/IRol";
+import type IVecino from "@/interfaces/IVecino";
 
 export default class RolService {
 
@@ -17,10 +18,11 @@ export default class RolService {
         return response
     }
 
-    async createRol(nombre: string){
+    async createRol(nombre: string, vecinos: Array<IVecino>){
         const data:IRol = {
             id: 0,
             nombre: nombre,
+            vecinos: vecinos
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -41,11 +43,12 @@ export default class RolService {
         })
     }
 
-    async updateRol(id: number, nombre: string){
+    async updateRol(id: number, nombre: string, vecinos: Array<IVecino>){
         const uri = `${this.baseUri}/${id}`
         const data:IRol = {
             id: 0,
             nombre: nombre,
+            vecinos: vecinos
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

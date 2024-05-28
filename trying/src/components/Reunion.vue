@@ -207,7 +207,7 @@ const BorrarReunion = async (id: number) => {
  
 const BorrarTipoReunion = async (id: number) => {
   await tipoReunionService.deleteTipoReunion(id)
-  await fetchTipoReuniones()
+  await fetchReuniones()
 }
  
 const ModificarReunion = async (id: number) => {
@@ -316,7 +316,7 @@ const CrearTipoReunion = async () => {
   let reuniones: any = [] // Aquí sí va vacío porque lo estoy creando
   const response = await tipoReunionService.createTipoReunion(nombreTipo.value, reuniones)
   console.log(response)
-  await fetchReuniones()
+  await fetchTipoReuniones()
 }
  
 </script>

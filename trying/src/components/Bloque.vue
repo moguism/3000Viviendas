@@ -4,8 +4,8 @@
         <p v-if="loading" class="loading-message">Cargando datos...</p>
         <div v-else>
             <div class="botones">
-                <button class="boton">Pulsa aquí para acceder a los vecinos</button>
-                <button @click="CargarReunion" class="boton">Pulsa aquí para acceder a las reuniones</button>
+                <button @click="CargarVecinos" class="boton">Pulsa aquí para acceder a los vecinos</button>
+                <button @click="CargarReuniones" class="boton">Pulsa aquí para acceder a las reuniones</button>
             </div>
             <h1 class="viviendas-title">Viviendas</h1>
             <div class="viviendas">
@@ -487,9 +487,14 @@ const BorrarMensualidad = async (id: number) => {
     await fetchBloques()
 }
 
-const CargarReunion = () => {
+const CargarReuniones = () => {
     let bloque_id1 = Number(bloque_id.value)
     router.push({ name: 'Reunion', params: { bloque_id1 } })
+}
+
+const CargarVecinos = () => {
+    let bloque_id1 = Number(bloque_id.value)
+    router.push({ name: 'Vecino', params: { bloque_id1 } })
 }
 
 </script>
