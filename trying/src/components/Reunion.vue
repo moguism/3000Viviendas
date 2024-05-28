@@ -6,7 +6,7 @@
         <div class="addCommunity">
           <img class="addIcon" src="../assets/reunion.svg" alt="Add Community">
           <div class="insertion">
-            <input class="insertField" type="text" placeholder="Nombre" v-model="descriptionPrompt">
+            <input class="insertField" type="text" placeholder="Descripción" v-model="descriptionPrompt">
             <input class="insertField" type="text" placeholder="Tipo" v-model="tipoInsertar">
             <input class="insertField" type="date" placeholder="Fecha" v-model="fechaReunionInsertar">
             <button class="actionButton" @click="CrearReunion">Crear Reunion</button>
@@ -17,9 +17,9 @@
           <div class="community" v-for="reunion in reuniones" :key="reunion.id">
             <img class="communityIcon" src="../assets/respuesta-alternativa.svg" alt="Community Icon">
             <div class="info">
-              <p class="communityID">ID: {{ reunion.id }}</p>
-              <h3 class="communityName">Nombre: {{ reunion.nombre }}</h3>
-              <p class="communityType">Tipo de Local: {{ reunion.nombreTipo }}</p>
+              <h3 class="communityName">Descripción: {{ reunion.descripcion }}</h3>
+              <p class="communityType">Tipo de Reunión: {{ reunion.nombreTipo }}</p>
+              <p class="communityType">Fecha: {{ reunion.fecha }}</p>
             </div>
             <div class="actions">
               <button @click="BorrarReunion(reunion.id)">Borrar</button>
@@ -30,17 +30,16 @@
       </div>
       <div class="section">
         <div class="addCommunity">
-          <img class="addIcon" src="../assets/comprador-de-tienda.svg" alt="Add Community">
+          <img class="addIcon" src="../assets/meeting_1_.svg" alt="Add Community">
           <div class="insertion">
             <input class="insertField" type="text" placeholder="Nombre" v-model="nombreTipo">
-            <button class="actionButton" @click="CrearTipoReunion">Crear Tipo de Local</button>
+            <button class="actionButton" @click="CrearTipoReunion">Crear Tipo de Reunión</button>
           </div>
         </div>
         <div class="typeList">
           <div class="type" v-for="tipoReunion in tipoReuniones" :key="tipoReunion.id">
-            <img class="typeIcon" src="../assets/tienda-alt.svg" alt="Type Icon">
+            <img class="typeIcon" src="../assets/meeting.svg" alt="Type Icon">
             <div class="info">
-              <p class="typeID">ID: {{ tipoReunion.id }}</p>
               <h3 class="typeName">Nombre: {{ tipoReunion.nombre }}</h3>
             </div>
             <div class="actions">
@@ -186,6 +185,7 @@ const getTipo = async (id: number) => {
  
 const fetchReuniones = async () => {
   const bloque = await bloqueService.listBloqueById(Number(bloque_id1.value))
+  console.log(bloque)
   reuniones.value = bloque.reuniones
   for (const reunion of reuniones.value) {
     reunion.nombreTipo = await getTipo(reunion.id)
@@ -211,13 +211,13 @@ const BorrarTipoReunion = async (id: number) => {
 }
  
 const ModificarReunion = async (id: number) => {
-  let tipoReunionPrompt = prompt('Introduce el tipo de Reunion')
-  let descriptionPrompt = prompt('Introduce la descripcion de la reunion')
+  let tipoReunionPrompt = prompt('Introduce el tipo de reunión')
+  let descriptionPrompt = prompt('Introduce la descripcion de la reunión')
   if (!descriptionPrompt || !tipoReunionPrompt) {
     alert('No puede haber campos vacios')
     return
   }
-  let fechaReunionInsertar = prompt('Introduce la nueva fecha de la reunion (DD/MM/AAAA)')
+  let fechaReunionInsertar = prompt('Introduce la nueva fecha de la reunión (AAAA-MM-DD)')
   if (!fechaReunionInsertar) {
     alert('No puede haber campos vacios')
     return
@@ -246,7 +246,7 @@ const ModificarReunion = async (id: number) => {
 }
  
 const ModificarTipoReunion = async (id: number) => {
-  let nombre = prompt('Introduce el nuevo nombre del tipo de local')
+  let nombre = prompt('Introduce el nuevo nombre del tipo de reunión')
   while (!nombre) {
     alert('El nombre no puede estar vacío')
     return
@@ -264,28 +264,22 @@ const ModificarTipoReunion = async (id: number) => {
   }
   let tipo = await tipoReunionService.listTipoReunionById(id)
   let reuniones: any = tipo.reuniones
-  const response = await tipoReunionService.updateTipoReunion(id, nombre)
+  const response = await tipoReunionService.updateTipoReunion(id, nombre, reuniones)
   console.log(response)
   await fetchReuniones()
 }
  
 const CrearReunion = async () => {
-  let tipoReunionPrompt = prompt('Introduce el tipo de Reunion')
-  let descriptionPrompt = prompt('Introduce la descripcion de la reunion')
-  if (!descriptionPrompt || !tipoReunionPrompt) {
+  if (!descriptionPrompt || !tipoInsertar || !fechaReunionInsertar) {
     alert('No puede haber campos vacios')
     return
   }
-  let fechaReunionInsertar = prompt('Introduce la nueva fecha de la reunion (DD/MM/AAAA)')
-  if (!fechaReunionInsertar) {
-    alert('No puede haber campos vacios')
-    return
-  }
-  let fechaReunion = new Date(fechaReunionInsertar)
+
+  let fechaReunion = new Date(fechaReunionInsertar.value)
   let valido = false
   let tipoId
   for (const tipoReunion of tipoReuniones.value) {
-    if (tipoReunionPrompt == tipoReunion.nombre) {
+    if (tipoInsertar.value == tipoReunion.nombre) {
       tipoId = tipoReunion.id
       valido = true
       break
@@ -297,8 +291,8 @@ const CrearReunion = async () => {
   }
  
   const bloque = await bloqueService.listBloqueById(Number(bloque_id1.value))
-  const tipoInsertar = await tipoReunionService.listTipoReunionById(tipoId)
-  const response = await reunionService.createReunion(tipoInsertar, fechaReunion, descriptionPrompt, bloque)
+  const tipo = await tipoReunionService.listTipoReunionById(tipoId)
+  const response = await reunionService.createReunion(tipo, fechaReunion, descriptionPrompt.value, bloque)
   console.log(response)
   await fetchReuniones()
 }
@@ -319,8 +313,8 @@ const CrearTipoReunion = async () => {
     alert('El tipo ya existe')
     return
   }
-  let locales: any = [] // Aquí sí va vacío porque lo estoy creando
-  const response = await tipoReunionService.createTipoReunion(nombreTipo.value)
+  let reuniones: any = [] // Aquí sí va vacío porque lo estoy creando
+  const response = await tipoReunionService.createTipoReunion(nombreTipo.value, reuniones)
   console.log(response)
   await fetchReuniones()
 }

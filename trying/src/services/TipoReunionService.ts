@@ -1,26 +1,29 @@
+import Reunion from "@/components/Reunion.vue";
+import type IReunion from "@/interfaces/IReunion";
 import type ITipoReunion from "@/interfaces/ITipoReunion";
-
+ 
 export default class TipoReunionService {
-
+ 
     baseUri: string = "http://127.0.0.1:8080/api/tipos-reunion"
-
+ 
     async listAllTiposReunion(): Promise<Array<ITipoReunion>> {
         const rawResponse = await fetch(this.baseUri)
         const response = await rawResponse.json()
         return response
     }
-
+ 
     async listTipoReunionById(id: number): Promise<ITipoReunion> {
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri)
         const response = await rawResponse.json()
         return response
     }
-
-    async createTipoReunion(name: string) {
+ 
+    async createTipoReunion(name: string, reuniones: Array<IReunion>) {
         const data:ITipoReunion = {
             id: 0,
-            nombre: name
+            nombre: name,
+            reuniones: reuniones
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -33,18 +36,19 @@ export default class TipoReunionService {
         const response = await rawResponse.json()
         return response
     }
-
+ 
     async deleteTipoReunion(id: number){
         const uri = `${this.baseUri}/${id}`
         await fetch(uri, {
             method: 'DELETE'
         })
     }
-
-    async updateTipoReunion(id: number, name: string) {
+ 
+    async updateTipoReunion(id: number, name: string, reuniones: Array<IReunion>) {
         const data:ITipoReunion = {
             id: id,
-            nombre: name
+            nombre: name,
+            reuniones: reuniones
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
@@ -57,5 +61,5 @@ export default class TipoReunionService {
         const response = await rawResponse.json()
         return response
     }
-
+ 
 }

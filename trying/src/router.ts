@@ -37,7 +37,7 @@ const routes = [
     props: true
   },
   {
-    path: '/reunion/:bloque_id',
+    path: '/reunion/:bloque_id1',
     name: 'Reunion',
     component: Reunion,
     props: true

@@ -37,6 +37,10 @@ public class Bloque {
     @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "bloque-mensualidad")
     private List<Mensualidad> mensualidades;
+    
+    @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "bloque-reunion")
+    private List<Reunion> reuniones;
 
     public Long getId() {
         return id;
@@ -69,5 +73,13 @@ public class Bloque {
     public void setMensualidades(List<Mensualidad> mensualidades) {
         this.mensualidades = mensualidades;
     }
-    
+
+    public List<Reunion> getReuniones() {
+        return reuniones;
+    }
+
+    public void setReuniones(List<Reunion> reuniones) {
+        this.reuniones = reuniones;
+    }
+
 }

@@ -43,10 +43,6 @@ public class Vecino {
     @JsonBackReference(value = "rol-vecino")
     private Rol rol;
 
-    @ManyToMany
-    @JsonIgnore
-    private Set<Reunion> reuniones;
-
     public Long getId() {
         return id;
     }
@@ -78,13 +74,5 @@ public class Vecino {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-
-    public Set<Reunion> getReuniones() {
-        return reuniones;
-    }
-
-    public void setReuniones(Set<Reunion> reuniones) {
-        this.reuniones = reuniones;
-    }
-   
+    
 }
