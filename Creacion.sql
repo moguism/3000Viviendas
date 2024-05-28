@@ -302,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
   `puerta` VARCHAR(45) NULL DEFAULT NULL,
   `letra` VARCHAR(45) NULL DEFAULT NULL,
   `vecino_id` INT NOT NULL,
-  `ultima_mensualidad_id` INT NOT NULL,
+  `ultima_mensualidad_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Viviendas_Bloques1_idx` (`bloque_id` ASC) VISIBLE,
   INDEX `fk_viviendas_vecinos1_idx` (`vecino_id` ASC) VISIBLE,

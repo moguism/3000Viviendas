@@ -1,4 +1,5 @@
 import type IBloque from "./IBloque";
+import type IMensualidad from "./IMensualidad";
 import type IVecino from "./IVecino";
 
 export default interface IVivienda {
@@ -9,5 +10,6 @@ export default interface IVivienda {
     puerta: string,
     letra: string,
     vecino: IVecino,
+    ultima_mensualidad: IMensualidad
     nombreVecino: string
 }

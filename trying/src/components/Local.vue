@@ -3,7 +3,7 @@
     <h1 v-if="!loading" class="container">
       <div class="section">
         <div class="addCommunity">
-          <img class="addIcon" src="../assets/building-fill-add.svg" alt="Add Community">
+          <img class="addIcon" src="../assets/comprador-de-tienda.svg" alt="Add Community">
           <div class="insertion">
             <input class="insertField" type="text" placeholder="Nombre" v-model="nombreInsertar">
             <input class="insertField" type="text" placeholder="Tipo" v-model="tipoInsertar">
@@ -12,7 +12,7 @@
         </div>
         <div class="communityList">
           <div class="community" v-for="local in locales" :key="local.id">
-            <img class="communityIcon" src="../assets/building.svg" alt="Community Icon">
+            <img class="communityIcon" src="../assets/tienda-alt.svg" alt="Community Icon">
             <div class="info">
               <p class="communityID">ID: {{ local.id }}</p>
               <h3 class="communityName">Nombre: {{ local.nombre }}</h3>
@@ -27,7 +27,7 @@
       </div>
       <div class="section">
         <div class="addCommunity">
-          <img class="addIcon" src="../assets/building-fill-add.svg" alt="Add Community">
+          <img class="addIcon" src="../assets/vendedor.svg" alt="Add Community">
           <div class="insertion">
             <input class="insertField" type="text" placeholder="Nombre" v-model="nombreTipo">
             <button class="actionButton" @click="CrearTipoLocal">Crear Tipo de Local</button>
@@ -35,7 +35,7 @@
         </div>
         <div class="typeList">
           <div class="type" v-for="tipoLocal in tipoLocales" :key="tipoLocal.id">
-            <img class="typeIcon" src="../assets/building.svg" alt="Type Icon">
+            <img class="typeIcon" src="../assets/tienda-alt.svg" alt="Type Icon">
             <div class="info">
               <p class="typeID">ID: {{ tipoLocal.id }}</p>
               <h3 class="typeName">Nombre: {{ tipoLocal.nombre }}</h3>
