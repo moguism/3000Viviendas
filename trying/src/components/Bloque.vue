@@ -10,7 +10,7 @@
             <h1 class="viviendas-title">Viviendas</h1>
             <div class="viviendas">
                 <div class="añadir-vivienda">
-                    <img class="añadir-vivienda-icon" src="../assets/building-fill-add.svg">
+                    <img class="añadir-vivienda-icon" src="../assets/casa-chimenea-medica.svg">
                     <div class="insercion">
                         <button class="boton-vivienda" @click="CrearVivienda">
                             <img src="../assets/arrow-return-left.svg">
@@ -18,22 +18,23 @@
                     </div>
                 </div>
                 <div class="vivienda" v-for="vivienda in viviendas" :key="vivienda.id">
-                    <img class="vivienda-icon" src="../assets/building.svg">
+                    <img class="vivienda-icon" src="../assets/usuario-de-la-casa.svg">
+                    <h3 class="nombre-vivienda">ID: {{ vivienda.id }} </h3>
                     <h3 class="nombre-vivienda">Escalera: {{ vivienda.escalera }}</h3>
                     <h3 class="nombre-vivienda">Planta: {{ vivienda.planta }}</h3>
                     <h3 class="nombre-vivienda">Puerta: {{ vivienda.puerta }}</h3>
                     <h3 class="nombre-vivienda">Letra: {{ vivienda.letra }}</h3>
                     <h3 class="nombre-vivienda">Vecino: {{ vivienda.nombreVecino }}</h3>
                     <div class="botones">
-                        <button @click="ModificarVivienda(vivienda.id)" >Modificar</button>
-                        <button @click="BorrarVivienda(vivienda.id)" >Eliminar</button>
+                        <button @click="ModificarVivienda(vivienda.id)">Modificar</button>
+                        <button @click="BorrarVivienda(vivienda.id)">Eliminar</button>
                     </div>
                 </div>
             </div>
             <h1 class="viviendas-title">Mensualidades</h1>
             <div class="viviendas">
                 <div class="añadir-vivienda">
-                    <img class="añadir-vivienda-icon" src="../assets/building-fill-add.svg">
+                    <img class="añadir-vivienda-icon" src="../assets/salario-del-usuario.svg">
                     <div class="insercion">
                         <button class="boton-vivienda" @click="CrearMensualidad">
                             <img src="../assets/arrow-return-left.svg">
@@ -41,12 +42,17 @@
                     </div>
                 </div>
                 <div class="vivienda" v-for="mensualiadad in mensualidades" :key="mensualiadad.id">
-                    <img @click="CargarMensualidad(mensualiadad.id)" class="vivienda-icon" src="../assets/building.svg">
+                    <img @click="CargarMensualidad(mensualiadad.id)" class="vivienda-icon" src="../assets/dolar-de-saco.svg">
                     <h3 class="nombre-vivienda">Fecha: {{ mensualiadad.fecha }}</h3>
                     <h3 class="nombre-vivienda">Cuantía: {{ mensualiadad.cuantia }}</h3>
+                    <div class="holas">
+                        <div class="hola" v-for="viviendaMensualidad in viviendasMensualidades">
+                            <h3 class="nombre-vivienda">ID: {{ viviendaMensualidad.id }}</h3>
+                        </div>
+                    </div>
                     <div class="botones">
-                        <button @click="ModificarMensualidad(mensualiadad.id)" >Modificar</button>
-                        <button @click="BorrarMensualidad(mensualiadad.id)" >Eliminar</button>
+                        <button @click="ModificarMensualidad(mensualiadad.id)">Modificar</button>
+                        <button @click="BorrarMensualidad(mensualiadad.id)">Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -118,6 +124,7 @@
     width: 200px;
     text-align: center;
     margin-bottom: 5px;
+    margin-right: 100px
 }
 
 .vivienda-icon {
@@ -152,6 +159,8 @@ const { bloque_id: bloque_id } = toRefs(route.params)
 const viviendas: Ref<Array<IVivienda>> = ref([])
 const mensualidades: Ref<Array<IMensualidad>> = ref([])
 
+const viviendasMensualidades: Ref<Array<IVivienda>> = ref([])
+
 const bloqueService = new BloqueService()
 const viviendaService = new ViviendaService()
 const vecinoService = new VecinoService()
@@ -162,41 +171,37 @@ const loading = ref(true)
 const router = useRouter()
 
 const getTipo = async (id: number) => {
-  const vecinos = await vecinoService.listAllVecinos()
-  for (const vecino of vecinos) {
-    for (const vivienda of vecino.viviendas) {
-      if (vivienda.id == id) {
-        return vecino.nombre
-      }
+    const vecinos = await vecinoService.listAllVecinos()
+    for (const vecino of vecinos) {
+        for (const vivienda of vecino.viviendas) {
+            if (vivienda.id == id) {
+                return vecino.nombre
+            }
+        }
     }
-  }
 }
 
 const fetchBloques = async () => {
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
     console.log(bloque)
+
     viviendas.value = bloque.viviendas
 
-    for(const vivienda of viviendas.value){
+    mensualidades.value = bloque.mensualidades
+
+    for (const vivienda of viviendas.value) {
 
         let nombre = await getTipo(vivienda.id)
-        if(nombre != undefined){
+        if (nombre != undefined) {
             vivienda.nombreVecino = nombre
             console.log(vivienda.nombreVecino)
         }
-    
-    }
 
-    await fetchMensualidades()
+    }
 
     loading.value = false
 }
 
-const fetchMensualidades = async () => {
-
-    mensualidades.value = await mensualidadService.listAllMensualidades()
-    
-}
 
 onMounted(fetchBloques)
 
@@ -204,27 +209,27 @@ const CrearVivienda = async () => {
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
 
     let escalera = prompt('Introduce la escalera')
-    if(!escalera){
+    if (!escalera) {
         alert('No puede haber campos vacíos')
         return
     }
     let planta = prompt('Introduce la planta')
-    if(!planta){
+    if (!planta) {
         alert('No puede haber campos vacíos')
         return
     }
     let puerta = prompt('Introduce la puerta')
-    if(!puerta){
+    if (!puerta) {
         alert('No puede haber campos vacíos')
         return
     }
     let letra = prompt('Introduce la letra')
-    if(!letra){
+    if (!letra) {
         alert('No puede haber campos vacíos')
         return
     }
     let vecinoNombre = prompt('Introduce el vecino')
-    if(!vecinoNombre){
+    if (!vecinoNombre) {
         alert('No puede haber campos vacíos')
         return
     }
@@ -247,7 +252,9 @@ const CrearVivienda = async () => {
         return
     }
 
-    const response = await viviendaService.createVivienda(bloque, escalera, planta, puerta, letra, vecinoInsertar)
+    let ultima_mensualidad: any
+
+    const response = await viviendaService.createVivienda(bloque, escalera, planta, puerta, letra, vecinoInsertar, ultima_mensualidad)
     console.log(response)
     await fetchBloques()
 }
@@ -255,7 +262,7 @@ const CrearVivienda = async () => {
 const CrearMensualidad = async () => {
 
     let fechaString = prompt('Introduce la fecha (fallará si no es válida)', 'YYYY-MM-DD')
-    if(!fechaString){
+    if (!fechaString) {
         alert('No puede haber campos vacíos')
         return
     }
@@ -263,7 +270,7 @@ const CrearMensualidad = async () => {
     let fecha = new Date(fechaString)
 
     let cuantia = prompt('Introduce la cuantia (fallará si no es válida)')
-    if(!cuantia){
+    if (!cuantia) {
         alert('No puede haber campos vacíos')
         return
     }
@@ -275,37 +282,37 @@ const CrearMensualidad = async () => {
     const response = await mensualidadService.createMensualidad(fecha, Number(cuantia), viviendas, bloque)
     console.log(response)
     await fetchBloques()
-    
+
 }
 
 const ModificarVivienda = async (id: number) => {
 
     let escalera = prompt('Introduce la escalera')
-    if(!escalera){
+    if (!escalera) {
         alert('No puede haber campos vacíos')
         return
     }
-    
+
     let planta = prompt('Introduce la planta')
-    if(!planta){
+    if (!planta) {
         alert('No puede haber campos vacíos')
         return
     }
 
     let puerta = prompt('Introduce la puerta')
-    if(!puerta){
+    if (!puerta) {
         alert('No puede haber campos vacíos')
         return
     }
 
     let letra = prompt('Introduce la letra')
-    if(!letra){
+    if (!letra) {
         alert('No puede haber campos vacíos')
         return
     }
 
     let vecinoNombre = prompt('Introduce el vecino')
-    if(!vecinoNombre){
+    if (!vecinoNombre) {
         alert('No puede haber campos vacíos')
         return
     }
@@ -321,14 +328,49 @@ const ModificarVivienda = async (id: number) => {
             break
         }
     }
-    if (!valido){
+    if (!valido) {
         alert('El vecino no existe')
         return
     }
 
+    const mensualidades = await mensualidadService.listAllMensualidades()
+
+    console.log("Mensualidades: ")
+    console.log(mensualidades)
+
+    let mensualiadad: any
+    valido = false
+
+    for (const mensualidad of mensualidades) {
+
+        for (const vivienda of mensualidad.viviendas) {
+
+            if (vivienda.id == id) {
+
+                valido = true
+                mensualiadad = mensualidad
+                break
+
+
+            }
+
+        }
+
+    }
+
+    if (!valido) {
+
+        alert('Error: no existe') // Spoiler: no sé que poner xd
+        return
+
+    }
+
+    console.log("Hola")
+    console.log(mensualiadad)
+
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
 
-    const response = await viviendaService.updateVivienda(id, bloque, escalera, planta, puerta, letra, vecinoInsertar)
+    const response = await viviendaService.updateVivienda(id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
     console.log(response)
     await fetchBloques()
 }
@@ -338,7 +380,7 @@ const ModificarMensualidad = async (id: number) => {
     let viviendas = mensualiadad.viviendas
 
     let fechaString = prompt('Introduce la nueva fecha (fallará si no es válida)', 'YYYY-MM-DD')
-    if(!fechaString){
+    if (!fechaString) {
         alert('No puede haber campos vacíos')
         return
     }
@@ -346,7 +388,7 @@ const ModificarMensualidad = async (id: number) => {
     let fecha = new Date(fechaString)
 
     let cuantia = prompt('Introduce la nueva cuantia (fallará si no es válida)')
-    if(!cuantia){
+    if (!cuantia) {
         alert('No puede haber campos vacíos')
         return
     }
@@ -371,8 +413,8 @@ const BorrarMensualidad = async (id: number) => {
 }
 
 const CargarMensualidad = (mensualidad_id: number) => {
-let bloque = Number(bloque_id.value)
-  router.push({ name: 'Mensualidad', params: { mensualidad_id, bloque } })
+    let bloque_id1 = Number(bloque_id.value)
+    router.push({ name: 'Mensualidad', params: { bloque_id1, mensualidad_id } })
 }
 
 </script>

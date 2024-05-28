@@ -3,7 +3,7 @@
         <h1 v-if="!loading" class="container">
             <div class="section">
                 <div class="addCommunity">
-                    <img class="addIcon" src="../assets/building-fill-add.svg" alt="Add Contrato">
+                    <img class="addIcon" src="../assets/firma-del-archivo.svg" alt="Add Contrato">
                     <div class="insertion">
                         <input class="insertField" type="text" placeholder="Contratante" v-model="contratanteInsertar">
                         <input class="insertField" type="date" v-model="createdAtInsertar">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="contractList">
                     <div class="contract" v-for="contrato in contratos" :key="contrato.id">
-                        <img class="contractIcon" src="../assets/building.svg" alt="Contract Icon">
+                        <img class="contractIcon" src="../assets/diploma.svg" alt="Contract Icon">
                         <div class="info">
                             <p class="contractID">ID: {{ contrato.id }}</p>
                             <p class="contractType">Contratante: {{ contrato.nombreContratante }}</p>
@@ -27,7 +27,7 @@
             </div>
             <div class="section">
                 <div class="addCommunity">
-                    <img class="addIcon" src="../assets/building-fill-add.svg" alt="Add Contratante">
+                    <img class="addIcon" src="../assets/hombre-empleado-alt.svg" alt="Add Contratante">
                     <div class="insertion">
                         <input class="insertField" type="text" placeholder="Nombre" v-model="nombreContratante">
                         <button class="actionButton" @click="CrearContratante">Crear Contratante</button>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="typeList">
                     <div class="type" v-for="contratante in contratantes" :key="contratante.id">
-                        <img class="typeIcon" src="../assets/building.svg" alt="Contratante Icon">
+                        <img class="typeIcon" src="../assets/hombre-empleado.svg" alt="Contratante Icon">
                         <div class="info">
                             <p class="typeID">ID: {{ contratante.id }}</p>
                             <h3 class="typeName">Nombre: {{ contratante.nombre }}</h3>

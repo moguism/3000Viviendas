@@ -6,7 +6,7 @@
             <h1 class="viviendas-title">Viviendas</h1>
             <div class="viviendas">
                 <div class="añadir-vivienda">
-                    <img class="añadir-vivienda-icon" src="../assets/building-fill-add.svg">
+                    <img class="añadir-vivienda-icon" src="../assets/casa-chimenea-medica.svg">
                     <div class="insercion">
                         <button class="boton-vivienda" @click="InsertarVivienda">
                             <img src="../assets/arrow-return-left.svg">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="vivienda" v-for="vivienda in viviendas" :key="vivienda.id">
-                    <img class="vivienda-icon" src="../assets/building.svg">
+                    <img class="vivienda-icon" src="../assets/usuario-de-la-casa.svg">
                     <h3 class="nombre-vivienda">Vivienda: {{ vivienda.id }}</h3>
                     <div class="botones">
                         <button @click="BorrarVivienda(vivienda.id)" >Eliminar</button>
@@ -109,15 +109,17 @@ import type IBloque from '@/interfaces/IBloque'
 import type IMensualidad from '@/interfaces/IMensualidad'
 import type IReunion from '@/interfaces/IReunion'
 import MensualidadService from '@/services/MensualidadService'
+import VecinoService from '@/services/VecinoService'
 
 const route = useRoute()
-const { bloque_id: bloque_id, mensualidad_id: mensualidad_id} = toRefs(route.params)
+const { bloque_id1: bloque_id1, mensualidad_id: mensualidad_id} = toRefs(route.params)
 
 const viviendas: Ref<Array<IVivienda>> = ref([])
 
 const viviendaService = new ViviendaService()
 const bloqueService = new BloqueService()
 const mensualidadService = new MensualidadService()
+const vecinoService = new VecinoService()
 
 const loading = ref(true)
 
@@ -148,25 +150,25 @@ const InsertarVivienda = async () => {
 
     let mensualidad = await mensualidadService.listMensualidadById(Number(mensualidad_id.value))
 
-    let bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
+    let bloque = await bloqueService.listBloqueById(Number(bloque_id1.value))
 
-    let viviendaInsertar: any
+    let vivienda_id1: any
 
     for (const vivienda of bloque.viviendas){
-        if(vivienda.id == viviendaInsertar.value.id){
-            viviendaInsertar = vivienda
+        if(vivienda.id == Number(vivienda_id)){
+            vivienda_id1 = vivienda.id
             valido = true
             break
         }
     }
 
     if(!valido){
-        alert('La vivienda no existe')
+        alert('La vivienda existe en el bloque')
         return
     }
 
     for(const vivienda of mensualidad.viviendas){
-        if(vivienda.id == viviendaInsertar.value.id){
+        if(vivienda.id == Number(vivienda_id)){
             valido = false
             break
         }
@@ -177,10 +179,51 @@ const InsertarVivienda = async () => {
         return
     }
 
-    let viviendas = mensualidad.viviendas
-    viviendas.push(viviendaInsertar)
+    let vivienda = await viviendaService.listViviendaById(vivienda_id1)
+    console.log("Esta es la vivienda: ")
+    console.log(vivienda)
 
-    const response = await mensualidadService.updateMensualidad(Number(mensualidad_id.value), mensualidad.fecha, mensualidad.cuantia, viviendas, mensualidad.bloque)
+    let vecinos = await vecinoService.listAllVecinos()
+    let vecinoVivienda: any
+    valido = false
+
+    for(const vecino of vecinos){
+
+        for(const vivienda of vecino.viviendas){
+
+            if(vivienda.id = vivienda_id1){
+
+                vecinoVivienda = vecino
+                valido = true
+                break
+
+            }
+
+        }
+
+    }
+
+    if(!valido){
+
+        alert('Error')
+        return
+
+    }
+
+    let viviendaActualizada = await viviendaService.updateVivienda(vivienda.id, bloque, vivienda.escalera, vivienda.planta, vivienda.puerta, vivienda.letra, vecinoVivienda, mensualidad)
+    console.log("Esta es la vivienda actualizada: ")
+    console.log(viviendaActualizada)
+
+    const viviendasD: Array<IVivienda> = mensualidad.viviendas
+    viviendasD.push(viviendaActualizada)
+
+    console.log("Este es el bloque: ")
+    console.log(bloque)
+
+    console.log("Viviendas: ")
+    console.log(viviendas)
+
+    const response = await mensualidadService.updateMensualidad(Number(mensualidad_id.value), mensualidad.fecha, mensualidad.cuantia, viviendasD, bloque)
     console.log(response)
     await fetchViviendas()
 

@@ -37,7 +37,7 @@ const routes = [
     props: true
   },
   {
-    path: '/bloque/:bloque_id/mensualidad/:mensualidad_id',
+    path: '/bloque/:bloque_id1/mensualidad/:mensualidad_id',
     name: 'Mensualidad',
     component: Mensualidad,
     props: true

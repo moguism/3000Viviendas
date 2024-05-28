@@ -24,13 +24,13 @@
       <h1 class="bloques-title">Bloques</h1>
       <div class="bloques">
         <div class="añadir-bloque">
-          <img class="añadir-bloque-icon" src="../assets/building-fill-add.svg">
+          <img class="añadir-bloque-icon" src="../assets/flecha-del-circulo-del-edificio-hacia-la-derecha.svg">
           <div class="insercion">
             <button class="boton-bloque" @click="CrearBloque"><img src="../assets/arrow-return-left.svg"></button>
           </div>
         </div>
         <div class="bloque" v-for="bloque in bloques" :key="bloque.id">
-          <img @click="CargarBloque(bloque.id)" class="bloque-icon" src="../assets/building.svg">
+          <img @click="CargarBloque(bloque.id)" class="bloque-icon" src="../assets/ciudad.svg">
           <h3 class="nombre-bloque">{{ bloque.id }}</h3>
           <button @click="BorrarBloque(bloque.id)">Eliminar</button>
         </div>
