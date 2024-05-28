@@ -31,21 +31,16 @@ public class Reunion {
 
     public Date fecha;
     public String descripcion;
-
-    @ManyToMany
-    @JoinTable(
-        name = "reuniones_vecinos",
-        joinColumns = @JoinColumn(name = "reunion_id"),
-        inverseJoinColumns = @JoinColumn(name = "vecino_id")
-    )
-    @JsonManagedReference(value = "reunion-vecino")
-    private Set<Vecino> vecinos;
-
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_reunion_id")
     @JsonBackReference(value = "tipo-reunion")
     private TipoReunion tipoReunion;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bloque_id")
+    @JsonBackReference(value="bloque-reunion")
+    private Bloque bloque;
 
     public Long getId() {
         return id;
@@ -63,14 +58,6 @@ public class Reunion {
         this.fecha = fecha;
     }
 
-    public Set<Vecino> getVecinos() {
-        return vecinos;
-    }
-
-    public void setVecinos(Set<Vecino> vecinos) {
-        this.vecinos = vecinos;
-    }
-
     public TipoReunion getTipoReunion() {
         return tipoReunion;
     }
@@ -85,6 +72,14 @@ public class Reunion {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Bloque getBloque() {
+        return bloque;
+    }
+
+    public void setBloque(Bloque bloque) {
+        this.bloque = bloque;
     }
 
 }

@@ -20,6 +20,9 @@
       <div class="botones">
         <button @click="CargarLocales" class="boton">Pulsa aquí para acceder a los locales</button>
         <button @click="CargarContratos" class="boton">Pulsa aquí para acceder a los contratos</button>
+        <button class="boton">Pulsa aquí para acceder a los ingresos</button>
+        <button class="boton">Pulsa aquí para acceder a los gastos</button>
+        <button class="boton">Pulsa aquí para acceder a las deudas</button>
       </div>
       <h1 class="bloques-title">Bloques</h1>
       <div class="bloques">

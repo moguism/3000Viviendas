@@ -5,7 +5,7 @@
         <div v-else>
             <div class="botones">
                 <button class="boton">Pulsa aquí para acceder a los vecinos</button>
-                <button class="boton">Pulsa aquí para acceder a las reuniones</button>
+                <button @click="CargarReunion" class="boton">Pulsa aquí para acceder a las reuniones</button>
             </div>
             <h1 class="viviendas-title">Viviendas</h1>
             <div class="viviendas">
@@ -43,8 +43,7 @@
                     </div>
                 </div>
                 <div class="vivienda" v-for="mensualiadad in mensualidades" :key="mensualiadad.id">
-                    <img class="vivienda-icon"
-                        src="../assets/dolar-de-saco.svg">
+                    <img class="vivienda-icon" src="../assets/dolar-de-saco.svg">
                     <h6 class="nombre-vivienda">ID: {{ mensualiadad.id }}</h6>
                     <h6 class="nombre-vivienda">Fecha: {{ mensualiadad.fecha }}</h6>
                     <h6 class="nombre-vivienda">Cuantía: {{ mensualiadad.cuantia }}</h6>
@@ -177,16 +176,16 @@ const getTipo = async (id: number) => {
     }
 }
 
-const getMensualidad = async(id: number) => {
+const getMensualidad = async (id: number) => {
     const mensualidades = await mensualidadService.listAllMensualidades()
 
-    for(const mensualidad of mensualidades){
+    for (const mensualidad of mensualidades) {
 
         console.log("mensualidad")
 
-        for(const vivienda of mensualidad.viviendas){
+        for (const vivienda of mensualidad.viviendas) {
 
-            if(vivienda.id == id){
+            if (vivienda.id == id) {
 
                 console.log("Encontrado")
 
@@ -216,7 +215,7 @@ const fetchBloques = async () => {
         }
 
         let idMensualidad = await getMensualidad(vivienda.id)
-        if (idMensualidad != undefined){
+        if (idMensualidad != undefined) {
             vivienda.idMensualidad = idMensualidad
             console.log(vivienda.idMensualidad)
         } else {
@@ -280,7 +279,7 @@ const CrearVivienda = async () => {
     }
 
     let ultima_mensualidad = prompt('Introduce el id de la última mensualidad')
-    if(!ultima_mensualidad){
+    if (!ultima_mensualidad) {
         prompt('No puede haber campos vacíos')
         return
     }
@@ -336,7 +335,7 @@ const CrearVivienda = async () => {
     const hola = await mensualidadService.updateMensualidad(mensualiadad.id, mensualiadad.fecha, mensualiadad.cuantia, mensualiadad.viviendas, bloque)
     console.log("Hola")
     console.log(hola)
-    
+
     await fetchBloques()
 
 }
@@ -486,6 +485,11 @@ const BorrarMensualidad = async (id: number) => {
     const response = await mensualidadService.deleteMensualidad(id)
     console.log(response)
     await fetchBloques()
+}
+
+const CargarReunion = () => {
+    let bloque_id1 = Number(bloque_id.value)
+    router.push({ name: 'Reunion', params: { bloque_id1 } })
 }
 
 </script>
