@@ -25,7 +25,7 @@ public class TipoDeuda {
     
     public String nombre;
 
-    @OneToMany(mappedBy = "tipoDeuda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tipoDeuda", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value="tipo-deuda")
     private List<Deuda> deudas;
 

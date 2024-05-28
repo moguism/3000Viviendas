@@ -5,17 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
-import java.util.Set;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 //Prevision de futuro: No encuentro el jodido problema con Spring en esta puta clase y en la de vivienda, llegará mauricio el lunes a 3a y en aproximadamente 5 minutos lo arreglará.
@@ -34,7 +31,7 @@ public class Vecino {
 
     // private Long vivienda_id;  Esto supuestameno no es necesario, ni la documentacion ni gepeto dice nada
 
-    @OneToMany(mappedBy = "vecino", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "vecino", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "vecino-vivienda")
     private List<Vivienda> viviendas;
 

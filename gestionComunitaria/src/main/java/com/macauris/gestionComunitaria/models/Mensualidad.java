@@ -27,7 +27,7 @@ public class Mensualidad {
 
     private Date fecha;
 
-    @OneToMany(mappedBy = "mensualidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "mensualidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "mensualidad-vivienda")
     private List<Vivienda> viviendas;
     

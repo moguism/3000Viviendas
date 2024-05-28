@@ -30,15 +30,15 @@ public class Bloque {
     @JsonBackReference(value="comunidad-bloque")
     private Comunidad comunidad;
 
-    @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bloque", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "bloque-vivienda")
     private List<Vivienda> viviendas;
     
-    @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bloque", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "bloque-mensualidad")
     private List<Mensualidad> mensualidades;
     
-    @OneToMany(mappedBy = "bloque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bloque", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "bloque-reunion")
     private List<Reunion> reuniones;
 

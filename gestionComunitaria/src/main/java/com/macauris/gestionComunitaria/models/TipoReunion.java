@@ -27,7 +27,7 @@ public class TipoReunion {
     
     public String nombre;
 
-    @OneToMany(mappedBy = "tipoReunion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tipoReunion", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "tipo-reunion")
     private List<Reunion> reuniones;
 
