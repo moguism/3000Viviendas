@@ -17,13 +17,13 @@
                     <div class="community" v-for="Deuda in Deudas" :key="Deuda.id">
                         <img class="communityIcon" src="../assets/dolar-de-saco.svg" alt="Community Icon">
                         <div class="info">
-                            <h3 class="communityName">Monto: {{ deuda.monto }}</h3>
-                            <p class="communityType">Tipo de Deuda: {{ deuda.nombreTipo }}</p>
-                            <p class="communityType">Fecha: {{ deuda.fecha }}</p>
+                            <h3 class="communityName">Monto: {{ deudas.monto }}</h3>
+                            <p class="communityType">Tipo de Deuda: {{ deudas.nombreTipo }}</p>
+                            <p class="communityType">Fecha: {{ deudas.fecha }}</p>
                         </div>
                         <div class="actions">
-                            <button @click="BorrarDeuda(deuda.id)">Borrar</button>
-                            <button @click="ModificarDeuda(deuda.id)">Modificar</button>
+                            <button @click="BorrarDeuda(deudas.id)">Borrar</button>
+                            <button @click="ModificarDeuda(deudas.id)">Modificar</button>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="actions">
                             <button @click="BorrarTipoDeuda(tipoDeuda.id)">Borrar</button>
-                            <button @click="Modificar(tipoDeuda.id)">Modificar</button>
+                            <button @click="ModificarTipoDeuda(tipoDeuda.id)">Modificar</button>
                         </div>
                     </div>
                 </div>
@@ -53,3 +53,36 @@
         <h1 v-else>Cargando datos</h1>
     </div>
 </template>
+
+<script setup lang="ts">
+import { toRefs } from 'vue'
+import { useRoute } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import TipoDeudaService from '@/services/TipoDeudaService'
+import ComunidadService from '@/services/CommunityService'
+import DeudaService from '@/services/DeudaService'
+
+const tipoDeudaService = new TipoDeudaService
+const deudaService = new DeudaService
+const comunidadService = new ComunidadService
+
+const route = useRoute()
+const { comunidad_id } = toRefs(route.params)
+
+const deudas = ref()
+const tipoDeudas = ref()
+
+const montoPrompt = ref()
+
+const total = ref(0)
+
+const loading = ref(true)
+
+const BorrarTipoDeuda = async (id: number) => {
+    await tipoDeudaService.deleteTipoDeuda(id)
+    await fetchDeudas()
+}
+const ModificarTipoDeuda = async (id: number) => {
+    
+}
+</script>
