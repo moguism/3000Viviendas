@@ -20,18 +20,17 @@ export default class ViviendaService {
         return response
     }
 
-    async createVivienda(bloque: IBloque, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino, ultima_mensualidad: IMensualidad){
-
+    async createVivienda(bloque: IBloque, escalera: string, letra: string, ultima_mensualidad: IMensualidad, planta: string, puerta: string,  vecino: IVecino){
         const data:IVivienda = {
-            id: 0,
+            id: 100,
             bloque: bloque,
             escalera: escalera,
+            letra: letra,
+            ultima_mensualidad: ultima_mensualidad,
             planta: planta,
             puerta: puerta,
-            letra: letra,
             vecino: vecino,
             nombreVecino: vecino.nombre,
-            ultima_mensualidad: ultima_mensualidad,
             idMensualidad: ultima_mensualidad.id
         }
         const rawResponse = await fetch(this.baseUri, {
@@ -53,17 +52,17 @@ export default class ViviendaService {
         })
     }
 
-    async updateVivienda(id: number, bloque: IBloque, escalera: string, planta: string, puerta: string, letra: string, vecino: IVecino, ultima_mensualidad: IMensualidad){
+    async updateVivienda(id: number, bloque: IBloque, escalera: string, letra: string, ultima_mensualidad: IMensualidad, planta: string, puerta: string,  vecino: IVecino){
         const data:IVivienda = {
             id: id,
             bloque: bloque,
             escalera: escalera,
+            letra: letra,
+            ultima_mensualidad: ultima_mensualidad,
             planta: planta,
             puerta: puerta,
-            letra: letra,
             vecino: vecino,
             nombreVecino: vecino.nombre,
-            ultima_mensualidad: ultima_mensualidad,
             idMensualidad: ultima_mensualidad.id
         }
         const uri = `${this.baseUri}/${id}`
