@@ -183,12 +183,14 @@
         }
       }
     }
+    return "Mensualidad"
   }
    
   const fetchIngresos = async () => {
     const comunidad = await comunidadService.listCommunityById(Number(comunidad_id.value))
     console.log(comunidad)
     ingresos.value = comunidad.ingresos
+    total.value = 0
     for (const ingreso of ingresos.value) {
       ingreso.nombreTipo = await getTipo(ingreso.id)
       total.value += ingreso.monto

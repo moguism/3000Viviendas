@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ingresos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `monto` DOUBLE NOT NULL,
   `fecha` DATE NOT NULL,
-  `tipo_ingreso_id` INT NOT NULL,
+  `tipo_ingreso_id` INT NULL,
   `comunidad_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_ingresos_tipos_ingresos1_idx` (`tipo_ingreso_id` ASC) VISIBLE,
@@ -302,7 +302,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
   INDEX `fk_viviendas_mensualidades1_idx` (`mensualidad_id` ASC) VISIBLE,
   CONSTRAINT `fk_Viviendas_Bloques1`
     FOREIGN KEY (`bloque_id`)
-    REFERENCES `mydb`.`bloques` (`id`),
+    REFERENCES `mydb`.`bloques` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
   CONSTRAINT `fk_viviendas_vecinos1`
     FOREIGN KEY (`vecino_id`)
     REFERENCES `mydb`.`vecinos` (`id`),
@@ -328,3 +330,30 @@ INSERT INTO `mydb`.`comunidades` (`id`, `nombre`, `direccion`) VALUES (1, 'Prueb
 
 COMMIT;
 
+USE `mydb`;
+
+DELIMITER $$
+USE `mydb`$$
+CREATE TRIGGER after_vivienda_insert AFTER INSERT ON viviendas
+FOR EACH ROW
+BEGIN
+	DECLARE cantidad integer;
+    DECLARE comunidad integer;
+    SET cantidad = (SELECT cuantia FROM mensualidades WHERE id = NEW.mensualidad_id);
+    SET comunidad = (SELECT comunidad_id FROM bloques WHERE id = NEW.bloque_id); 
+	INSERT INTO ingresos(monto, fecha, comunidad_id) VALUES (cantidad, now(), comunidad);
+END$$
+
+USE `mydb`$$
+CREATE TRIGGER after_vivienda_update AFTER UPDATE ON viviendas
+FOR EACH ROW
+BEGIN
+	DECLARE cantidad integer;
+    DECLARE comunidad integer;
+    SET cantidad = (SELECT cuantia FROM mensualidades WHERE id = NEW.mensualidad_id);
+    SET comunidad = (SELECT comunidad_id FROM bloques WHERE id = NEW.bloque_id); 
+	INSERT INTO ingresos(monto, fecha, comunidad_id) VALUES (cantidad, now(), comunidad);
+END$$
+
+
+DELIMITER ;
