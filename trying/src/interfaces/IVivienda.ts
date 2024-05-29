@@ -7,7 +7,7 @@ export default interface IVivienda {
     bloque: IBloque,
     escalera: string,
     letra: string,
-    ultima_mensualidad: IMensualidad,
+    mensualidad: IMensualidad | null,
     planta: string,
     puerta: string,
     vecino: IVecino,

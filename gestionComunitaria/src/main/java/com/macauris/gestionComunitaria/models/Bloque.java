@@ -35,10 +35,6 @@ public class Bloque {
     private List<Vivienda> viviendas;
     
     @OneToMany(mappedBy = "bloque", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "bloque-mensualidad")
-    private List<Mensualidad> mensualidades;
-    
-    @OneToMany(mappedBy = "bloque", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "bloque-reunion")
     private List<Reunion> reuniones;
 
@@ -64,14 +60,6 @@ public class Bloque {
 
     public void setViviendas(List<Vivienda> viviendas) {
         this.viviendas = viviendas;
-    }
-
-    public List<Mensualidad> getMensualidades() {
-        return mensualidades;
-    }
-
-    public void setMensualidades(List<Mensualidad> mensualidades) {
-        this.mensualidades = mensualidades;
     }
 
     public List<Reunion> getReuniones() {

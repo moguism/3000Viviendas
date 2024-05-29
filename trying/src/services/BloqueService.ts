@@ -1,6 +1,5 @@
 import type IBloque from "@/interfaces/IBloque.ts"
 import type ICommunity from "@/interfaces/ICommunity"
-import type IMensualidad from "@/interfaces/IMensualidad"
 import type IReunion from "@/interfaces/IReunion"
 import type IVivienda from "@/interfaces/IVivienda"
 
@@ -22,13 +21,12 @@ export default class BloqueService {
         return response
     }
 
-    async createBloque(comunidad: ICommunity, viviendas: Array<IVivienda>, reuniones: Array<IReunion>, mensualidades: Array<IMensualidad>) {
+    async createBloque(comunidad: ICommunity, viviendas: Array<IVivienda>, reuniones: Array<IReunion>) {
         const data:IBloque = {
             id: 0,
             comunidad: comunidad,
             viviendas: viviendas,
-            reuniones: reuniones,
-            mensualidades: mensualidades
+            reuniones: reuniones
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -49,14 +47,13 @@ export default class BloqueService {
         })
     }
 
-    async updateBloque(id:number, comunidad: ICommunity, viviendas: Array<IVivienda>, reuniones: Array<IReunion>, mensualidades: Array<IMensualidad>) {
+    async updateBloque(id:number, comunidad: ICommunity, viviendas: Array<IVivienda>, reuniones: Array<IReunion>) {
         const uri = `${this.baseUri}/${id}`
         const data:IBloque = {
             id : 0,
             comunidad: comunidad,
             viviendas: viviendas,
-            reuniones: reuniones,
-            mensualidades: mensualidades
+            reuniones: reuniones
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',
