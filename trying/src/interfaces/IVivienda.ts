@@ -6,11 +6,11 @@ export default interface IVivienda {
     id: number,
     bloque: IBloque,
     escalera: string,
+    letra: string,
+    ultima_mensualidad: IMensualidad,
     planta: string,
     puerta: string,
-    letra: string,
     vecino: IVecino,
-    ultima_mensualidad: IMensualidad,
     idMensualidad: number
     nombreVecino: string
 }
