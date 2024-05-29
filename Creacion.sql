@@ -296,13 +296,13 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `bloque_id` INT NULL,
+  `bloque_id` INT NOT NULL,
   `escalera` VARCHAR(45) NULL DEFAULT NULL,
   `planta` VARCHAR(45) NULL DEFAULT NULL,
   `puerta` VARCHAR(45) NULL DEFAULT NULL,
   `letra` VARCHAR(45) NULL DEFAULT NULL,
-  `vecino_id` INT NULL,
-  `ultima_mensualidad_id` INT NULL,
+  `vecino_id` INT NOT NULL,
+  `ultima_mensualidad_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Viviendas_Bloques1_idx` (`bloque_id` ASC) VISIBLE,
   INDEX `fk_viviendas_vecinos1_idx` (`vecino_id` ASC) VISIBLE,
