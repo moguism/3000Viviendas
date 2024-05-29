@@ -1,4 +1,3 @@
-[14:08] ISMAEL RODRÍGUEZ CUENCA
 <template>
   <div>
     <h1 v-if="!loading" class="container">
