@@ -20,7 +20,7 @@ export default class ViviendaService {
         return response
     }
 
-    async createVivienda(bloque: IBloque, escalera: string, letra: string, ultima_mensualidad: IMensualidad | null, planta: string, puerta: string,  vecino: IVecino){
+    async createVivienda(bloque: IBloque, escalera: string | null, letra: string | null, ultima_mensualidad: IMensualidad, planta: string | null, puerta: string | null,  vecino: IVecino){
         const data:IVivienda = {
             id: 100,
             bloque: bloque,
@@ -52,7 +52,7 @@ export default class ViviendaService {
         })
     }
 
-    async updateVivienda(id: number, bloque: IBloque, escalera: string, letra: string, ultima_mensualidad: IMensualidad | null, planta: string, puerta: string,  vecino: IVecino){
+    async updateVivienda(id: number, bloque: IBloque, escalera: string | null, letra: string | null, ultima_mensualidad: IMensualidad, planta: string | null, puerta: string | null,  vecino: IVecino){
         const data:IVivienda = {
             id: id,
             bloque: bloque,
