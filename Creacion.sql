@@ -216,15 +216,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`mensualidades` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fecha` DATE NOT NULL,
   `cuantia` DOUBLE NOT NULL,
-  `bloque_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `fecha_UNIQUE` (`fecha` ASC) VISIBLE,
-  INDEX `fk_mensualidades_bloques1_idx` (`bloque_id` ASC) VISIBLE,
-  CONSTRAINT `fk_mensualidades_bloques1`
-    FOREIGN KEY (`bloque_id`)
-    REFERENCES `mydb`.`bloques` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `fecha_UNIQUE` (`fecha` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -300,13 +293,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
   `escalera` VARCHAR(45) NULL DEFAULT NULL,
   `planta` VARCHAR(45) NULL DEFAULT NULL,
   `puerta` VARCHAR(45) NULL DEFAULT NULL,
-  `letra` VARCHAR(45) NULL DEFAULT NULL,
+  `letra` VARCHAR(45) NULL,
   `vecino_id` INT NOT NULL,
-  `ultima_mensualidad_id` INT NOT NULL,
+  `mensualidad_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Viviendas_Bloques1_idx` (`bloque_id` ASC) VISIBLE,
   INDEX `fk_viviendas_vecinos1_idx` (`vecino_id` ASC) VISIBLE,
-  INDEX `fk_viviendas_mensualidades1_idx` (`ultima_mensualidad_id` ASC) VISIBLE,
+  INDEX `fk_viviendas_mensualidades1_idx` (`mensualidad_id` ASC) VISIBLE,
   CONSTRAINT `fk_Viviendas_Bloques1`
     FOREIGN KEY (`bloque_id`)
     REFERENCES `mydb`.`bloques` (`id`),
@@ -314,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
     FOREIGN KEY (`vecino_id`)
     REFERENCES `mydb`.`vecinos` (`id`),
   CONSTRAINT `fk_viviendas_mensualidades1`
-    FOREIGN KEY (`ultima_mensualidad_id`)
+    FOREIGN KEY (`mensualidad_id`)
     REFERENCES `mydb`.`mensualidades` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

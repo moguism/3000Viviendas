@@ -35,7 +35,7 @@ INSERT INTO `mydb`.`tipos_locales` (`nombre`) VALUES ('Prueba Tipo Local');
 INSERT INTO `mydb`.`locales` (`comunidad_id`, `tipo_local_id`, `nombre`) VALUES (1, 1, 'Local de Prueba');
 
 -- Insertar datos en la tabla `mensualidades`
-INSERT INTO `mydb`.`mensualidades` (`fecha`, `cuantia`, `bloque_id`) VALUES ('2024-05-01', 150.00, 1);
+INSERT INTO `mydb`.`mensualidades` (`fecha`, `cuantia`) VALUES ('2024-05-01', 150.00);
 
 -- Insertar datos en la tabla `tipos_reuniones`
 INSERT INTO `mydb`.`tipos_reuniones` (`nombre`) VALUES ('Prueba Tipo Reunion');
@@ -50,5 +50,5 @@ INSERT INTO `mydb`.`roles` (`nombre`) VALUES ('Prueba Rol');
 INSERT INTO `mydb`.`vecinos` (`nombre`, `rol_id`) VALUES ('Prueba Vecino', 1);
 
 -- Insertar datos en la tabla `viviendas`
-INSERT INTO `mydb`.`viviendas` (`bloque_id`, `escalera`, `planta`, `puerta`, `letra`, `vecino_id`, `ultima_mensualidad_id`) VALUES (1, 'A', '1', '1', 'A', 1, 1);
+INSERT INTO `mydb`.`viviendas` (`bloque_id`, `escalera`, `planta`, `puerta`, `letra`, `vecino_id`, `mensualidad_id`) VALUES (1, 'A', '1', '1', 'A', 1, 1);
 

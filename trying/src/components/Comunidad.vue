@@ -193,8 +193,7 @@ const CrearBloque = async () => {
   const comunidad = await communityService.listCommunityById(comunidad_id)
   let viviendas: any = []
   let reuniones: any = []
-  let mensualidades: any = []
-  const response = await bloqueService.createBloque(comunidad, viviendas, reuniones, mensualidades)
+  const response = await bloqueService.createBloque(comunidad, viviendas, reuniones)
   console.log(response)
   await fetchCommunities()
 }

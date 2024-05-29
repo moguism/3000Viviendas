@@ -31,7 +31,7 @@ public class Vivienda {
     private Vecino vecino;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ultima_mensualidad_id")
+    @JoinColumn(name = "mensualidad_id")
     @JsonBackReference(value = "mensualidad-vivienda")
     private Mensualidad mensualidad;
     

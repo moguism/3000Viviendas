@@ -178,9 +178,7 @@ const getTipo = async (id: number) => {
 
 const getMensualidad = async (id: number) => {
 
-    const mensualidades = await mensualidadService.listAllMensualidades()
-
-    for (const mensualidad of mensualidades) {
+    for (const mensualidad of mensualidades.value) {
 
         for (const vivienda of mensualidad.viviendas) {
 
@@ -277,40 +275,43 @@ const CrearVivienda = async () => {
     }
 
     let ultima_mensualidad = prompt('Introduce el id de la última mensualidad')
-    if (!ultima_mensualidad) {
-        prompt('No puede haber campos vacíos')
-        return
-    }
+    if (ultima_mensualidad) {
 
-    valido = false
+        valido = false
 
-    const mensualidades = await mensualidadService.listAllMensualidades()
+        for (const mensualidad of mensualidades.value) {
 
-    for (const mensualidad of mensualidades) {
+            if (mensualidad.id == Number(ultima_mensualidad)) {
 
-        if (mensualidad.id == Number(ultima_mensualidad)) {
+                valido = true
+                break
 
-            valido = true
-            break
+            }
 
         }
 
+        if (!valido) {
+
+            alert('No existe la mensualidad')
+            return
+
+        }
+
+        const mensualidad = await mensualidadService.listMensualidadById(Number(ultima_mensualidad))
+        console.log("Mensualidad: ", mensualidad)
+
+        const response = await viviendaService.createVivienda(bloque, escalera, letra, mensualidad, planta, puerta, vecinoInsertar)
+        console.log(response)
+
+        await fetchBloques()
+
+    } else {
+
+        const response = await viviendaService.createVivienda(bloque, escalera, letra, null, planta, puerta, vecinoInsertar)
+        console.log(response)
+        await fetchBloques()
+
     }
-
-    if (!valido) {
-
-        alert('No existe la mensualidad')
-        return
-
-    }
-
-    const mensualidad = await mensualidadService.listMensualidadById(Number(ultima_mensualidad))
-    console.log("Mensualidad: ", mensualidad)
-
-    const response = await viviendaService.createVivienda(bloque, escalera, letra, mensualidad, planta, puerta, vecinoInsertar)
-    console.log(response)
-
-    await fetchBloques()
 
 }
 
@@ -332,9 +333,7 @@ const CrearMensualidad = async () => {
 
     let viviendas: any = []
 
-    let bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
-
-    const response = await mensualidadService.createMensualidad(fecha, Number(cuantia), viviendas, bloque)
+    const response = await mensualidadService.createMensualidad(fecha, Number(cuantia), viviendas)
     console.log(response)
     await fetchBloques()
 
@@ -389,38 +388,48 @@ const ModificarVivienda = async (id: number) => {
     }
 
     let ultima_mensualidad = prompt('Introduce el id de la última mensualidad')
-    valido = false
 
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
 
-    const mensualidades = bloque.mensualidades
+    if (ultima_mensualidad) {
 
-    for (const mensualidad of mensualidades) {
+        valido = false
 
-        if (mensualidad.id == Number(ultima_mensualidad)) {
+        for (const mensualidad of mensualidades.value) {
 
-            valido = true
-            break
+            if (mensualidad.id == Number(ultima_mensualidad)) {
+
+                valido = true
+                break
+
+            }
 
         }
 
+        if (!valido) {
+
+            alert('No existe la mensualidad')
+            return
+
+        }
+
+        const mensualidad = await mensualidadService.listMensualidadById(Number(ultima_mensualidad))
+
+        console.log("Mensualidad: ")
+        console.log(mensualidad)
+
+        const response = await viviendaService.updateVivienda(id, bloque, escalera, letra, mensualidad, planta, puerta, vecinoInsertar)
+        console.log(response)
+        await fetchBloques()
+
+    } else {
+
+        const response = await viviendaService.updateVivienda(id, bloque, escalera, letra, null, planta, puerta, vecinoInsertar)
+        console.log(response)
+        await fetchBloques()
+
     }
 
-    if (!valido) {
-
-        alert('No existe la mensualidad')
-        return
-
-    }
-
-    const mensualidad = await mensualidadService.listMensualidadById(Number(ultima_mensualidad))
-
-    console.log("Mensualidad: ")
-    console.log(mensualidad)
-
-    const response = await viviendaService.updateVivienda(id, bloque, escalera, letra, mensualidad, planta, puerta, vecinoInsertar)
-    console.log(response)
-    await fetchBloques()
 
 }
 
@@ -442,9 +451,7 @@ const ModificarMensualidad = async (id: number) => {
         return
     }
 
-    let bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
-
-    const response = await mensualidadService.updateMensualidad(id, fecha, Number(cuantia), viviendas, bloque)
+    const response = await mensualidadService.updateMensualidad(id, fecha, Number(cuantia), viviendas)
     console.log(response)
     await fetchBloques()
 }
