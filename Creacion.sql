@@ -316,20 +316,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `mydb`.`comunidades`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `mydb`;
-INSERT INTO `mydb`.`comunidades` (`id`, `nombre`, `direccion`) VALUES (1, 'Prueba', 'Prueba');
-
-COMMIT;
-
 USE `mydb`;
 
 DELIMITER $$
@@ -349,11 +335,27 @@ CREATE TRIGGER after_vivienda_update AFTER UPDATE ON viviendas
 FOR EACH ROW
 BEGIN
 	DECLARE cantidad integer;
-    DECLARE comunidad integer;
-    SET cantidad = (SELECT cuantia FROM mensualidades WHERE id = NEW.mensualidad_id);
-    SET comunidad = (SELECT comunidad_id FROM bloques WHERE id = NEW.bloque_id); 
-	INSERT INTO ingresos(monto, fecha, comunidad_id) VALUES (cantidad, now(), comunidad);
+	DECLARE comunidad integer;
+	IF (NEW.mensualidad_id != OLD.mensualidad_id) THEN
+		SET cantidad = (SELECT cuantia FROM mensualidades WHERE id = NEW.mensualidad_id);
+		SET comunidad = (SELECT comunidad_id FROM bloques WHERE id = NEW.bloque_id); 
+		INSERT INTO ingresos(monto, fecha, comunidad_id) VALUES (cantidad, now(), comunidad);
+	END IF;
 END$$
 
 
 DELIMITER ;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`comunidades`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`comunidades` (`id`, `nombre`, `direccion`) VALUES (1, 'Prueba', 'Prueba');
+
+COMMIT;
+
