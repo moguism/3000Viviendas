@@ -1,5 +1,5 @@
 <template>
-  <p v-if="loading">Cargando datos...</p>
+  <p v-if="loading" class="loading">Cargando datos...</p>
 
   <div id="Comunidades" v-else>
     <div class="añadirComunidad">
@@ -14,14 +14,12 @@
     </div>
     <div class="Comunidad" v-for="community in communities" :key="community.id">
       <img class="imgComunidad1" src="../assets/building.svg" @click="CargarComunidad(community.id)">
-      <p class="idComunidad">{{ community.id }}</p>
       <h3 class="nombreComunidad">{{ community.nombre }}</h3>
       <p class="dirComunidad">{{ community.direccion }}</p>
-      <button @click="BorrarComunidad(community.id)">Borrar</button>
-      <button @click="ModificarComunidad(community.id)">Modificar</button>
+      <button class="action-button" @click="BorrarComunidad(community.id)">Borrar</button>
+      <button class="action-button" @click="ModificarComunidad(community.id)">Modificar</button>
     </div>
   </div>
-  
 </template>
 
 <script lang="ts" setup>
@@ -95,80 +93,115 @@ const ModificarComunidad = async(id: number) => {
   console.log(response)
   await fetchCommunities()
 }
-
 </script>
 
 <style>
-  .imgComunidad1{
-    width: 75px;
-  }
-  .imgAñadirComunidad{
-    width: 75px;
-    margin-top: 11px;
-    margin-left: 12px;
-  }
-  #insercion{
-    margin-top: 10px;
-  }
-  #lineaInferior{
-    display:flex;
-  }
-  #Comunidades{
-    display: flex;
-    margin-top: 40px;
-    flex-wrap: wrap;
-    justify-content: center;
-    
-  }
-  .Comunidad{
-    width: 100px;
-    margin-left: 20px;
-    text-align: center;
-  }
-  .dirComunidad{
-    font-family: monospace;
-  }
-  .Comunidad p{
-    margin: 5px;
-    font-style: italic;
-  }
-  .idComunidad {
-    visibility: collapse;
-  }
-  .Comunidad h3{
-    margin: 5px;
-    margin-top: -15px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
-  .Comunidad img{
-    margin-top: 10px;
-  }
-  #BotonComunidad{
-    background-color: rgb(245, 149, 80);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    border-style: groove;
-    border-radius: 4px;
-    width: 30px;
-    border-color: rgb(245, 149, 80);
-    border-style: double;
-  }
-  
-  .añadirComunidad{
-   
-    display: grid;
-    width: 100px;
-    height: 160px;
-    margin-left: 20px;
-  }
-  .insertar{
-    border-color: rgb(245, 149, 80);
-    border-radius: 4px;
-    width: 92%;
-    height: 19px;
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
 
-    
+.loading {
+  text-align: center;
+  font-size: 1.5em;
+  color: #555;
+}
+
+#Comunidades {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.añadirComunidad, .Comunidad {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+}
+
+.imgComunidad1, .imgAñadirComunidad {
+  width: 50px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+#insercion {
+  margin-top: 10px;
+}
+
+#lineaInferior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.insertar {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 70%;
+  margin-bottom: 10px;
+}
+
+#BotonComunidad {
+  background-color: #ff7043;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+}
+
+#BotonComunidad img {
+  width: 20px;
+}
+
+.action-button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+.nombreComunidad {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.dirComunidad {
+  font-family: monospace;
+  color: #555;
+}
+
+.Comunidad h3 {
+  margin: 10px 0;
+}
+
+.Comunidad p {
+  margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+  #Comunidades {
+    flex-direction: column;
+    align-items: center;
   }
-  ::placeholder{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
+}
 </style>
