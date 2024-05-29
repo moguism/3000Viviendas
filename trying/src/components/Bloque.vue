@@ -177,11 +177,10 @@ const getTipo = async (id: number) => {
 }
 
 const getMensualidad = async (id: number) => {
+
     const mensualidades = await mensualidadService.listAllMensualidades()
 
     for (const mensualidad of mensualidades) {
-
-        console.log("mensualidad")
 
         for (const vivienda of mensualidad.viviendas) {
 
@@ -200,11 +199,10 @@ const getMensualidad = async (id: number) => {
 
 const fetchBloques = async () => {
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
+    mensualidades.value = await mensualidadService.listAllMensualidades()
     console.log(bloque)
 
     viviendas.value = bloque.viviendas
-
-    mensualidades.value = bloque.mensualidades
 
     for (const vivienda of viviendas.value) {
 
@@ -285,14 +283,14 @@ const CrearVivienda = async () => {
     }
 
     valido = false
-    let mensualiadad: any
 
-    for (const mensualidad of mensualidades.value) {
+    const mensualidades = await mensualidadService.listAllMensualidades()
+
+    for (const mensualidad of mensualidades) {
 
         if (mensualidad.id == Number(ultima_mensualidad)) {
 
             valido = true
-            mensualiadad = mensualidad
             break
 
         }
@@ -306,35 +304,11 @@ const CrearVivienda = async () => {
 
     }
 
-    //console.log("Bloque")
-    //console.log(bloque)
+    const mensualidad = await mensualidadService.listMensualidadById(Number(ultima_mensualidad))
+    console.log("Mensualidad: ", mensualidad)
 
-    const vivienda = await viviendaService.createVivienda(bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
-    //console.log("Vivienda")
-    //console.log(vivienda)
-
-    /*const adios = await viviendaService.updateVivienda(vivienda.id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
-    console.log("Adios")
-    console.log(adios)*/
-
-    mensualiadad.viviendas.push(vivienda)
-
-    /*const holaAdios = await viviendaService.updateVivienda(vivienda.id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
-    console.log("HolaAdios")
-    console.log(holaAdios)
-
-    console.log("MONDONGO:")
-
-    for(const vivienda of mensualiadad.viviendas){
-
-        const response = await viviendaService.updateVivienda(vivienda.id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
-        console.log(response)
-        
-    }*/
-
-    const hola = await mensualidadService.updateMensualidad(mensualiadad.id, mensualiadad.fecha, mensualiadad.cuantia, mensualiadad.viviendas, bloque)
-    console.log("Hola")
-    console.log(hola)
+    const response = await viviendaService.createVivienda(bloque, escalera, letra, mensualidad, planta, puerta, vecinoInsertar)
+    console.log(response)
 
     await fetchBloques()
 
@@ -416,7 +390,6 @@ const ModificarVivienda = async (id: number) => {
 
     let ultima_mensualidad = prompt('Introduce el id de la última mensualidad')
     valido = false
-    let mensualiadad: any
 
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
 
@@ -427,7 +400,6 @@ const ModificarVivienda = async (id: number) => {
         if (mensualidad.id == Number(ultima_mensualidad)) {
 
             valido = true
-            mensualiadad = mensualidad
             break
 
         }
@@ -441,10 +413,12 @@ const ModificarVivienda = async (id: number) => {
 
     }
 
-    console.log("Mensualidad: ")
-    console.log(mensualiadad)
+    const mensualidad = await mensualidadService.listMensualidadById(Number(ultima_mensualidad))
 
-    const response = await viviendaService.updateVivienda(id, bloque, escalera, planta, puerta, letra, vecinoInsertar, mensualiadad)
+    console.log("Mensualidad: ")
+    console.log(mensualidad)
+
+    const response = await viviendaService.updateVivienda(id, bloque, escalera, letra, mensualidad, planta, puerta, vecinoInsertar)
     console.log(response)
     await fetchBloques()
 
