@@ -1,3 +1,4 @@
+import type IDeuda from "@/interfaces/IDeuda";
 import type ITipoDeuda from "@/interfaces/ITipoDeuda";
 
 export default class TipoDeudaService {
@@ -17,10 +18,11 @@ export default class TipoDeudaService {
         return response
     }
 
-    async createTipoDeuda(name: string) {
+    async createTipoDeuda(name: string, deudas : Array<IDeuda>) {
         const data:ITipoDeuda = {
             id: 0,
-            nombre: name
+            nombre: name,
+            deudas : deudas
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -41,10 +43,11 @@ export default class TipoDeudaService {
         })
     }
 
-    async updateTipoDeuda(id: number, name: string) {
+    async updateTipoDeuda(id: number, name: string, deudas : Array<IDeuda>) {
         const data:ITipoDeuda = {
             id: id,
-            nombre: name
+            nombre: name,
+            deudas : deudas
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
