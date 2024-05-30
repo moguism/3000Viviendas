@@ -5,7 +5,6 @@ export default interface IDeuda {
     id: number,
     tipoDeuda: ITipoDeuda,
     comunidad: ICommunity,
-    created_at: Date,
-    updated_at: Date,
+    fecha: Date,
     cuantia: number
 }
