@@ -10,15 +10,28 @@
       </div>
       <div class="info">
         <div class="cards">
-        <button @click="CargarIngresos" class="boton"><img class="localesImg" src="../assets/growth.png"><p>INGRESOS</p><p>{{fetchIngresos()}}</p></button>
-        <button @click="CargarGastos" class="boton"><img class="localesImg" src="../assets/expense.png"><p>GASTOS</p></button>
-        <button @click="CargarDeudas" class="boton"><img class="localesImg" src="../assets/liability.png"><p>DEUDAS</p><p>{{}}</p></button>
-      </div>
-      <div class="botones">
-        <button @click="CargarLocales" class="boton"><img class="localesImg" src="../assets/warehouse.png"><p>LOCALES</p></button>
-        <button @click="CargarContratos" class="boton"><img class="localesImg" src="../assets/invoice.png"><p>CONTRATOS</p></button>
-        
-      </div>
+          <button @click="CargarIngresos" class="boton"><img class="localesImg" src="../assets/growth.png">
+            <p>INGRESOS</p>
+            <p>{{ totalIngresos }}€</p>
+          </button>
+          <button @click="CargarGastos" class="boton"><img class="localesImg" src="../assets/expense.png">
+            <p>GASTOS</p>
+            <p>{{ totalGastos }}€</p>
+          </button>
+          <button @click="CargarDeudas" class="boton"><img class="localesImg" src="../assets/liability.png">
+            <p>DEUDAS</p>
+            <p>{{ totalDeudas }}€</p>
+          </button>
+        </div>
+        <div class="botones">
+          <button @click="CargarLocales" class="boton"><img class="localesImg" src="../assets/warehouse.png">
+            <p>LOCALES</p>
+          </button>
+          <button @click="CargarContratos" class="boton"><img class="localesImg" src="../assets/invoice.png">
+            <p>CONTRATOS</p>
+          </button>
+
+        </div>
       </div>
       <h1 class="bloques-title">Bloques</h1>
       <div class="bloques">
@@ -39,19 +52,23 @@
 </template>
 
 <style scoped>
-.info{
+.info {
   width: 100%;
   justify-content: center;
 }
-.cards{
-margin:20px;
-}
-.botones{
+
+.cards {
   margin: 20px;
 }
-.localesImg{
+
+.botones {
+  margin: 20px;
+}
+
+.localesImg {
   width: 50px;
 }
+
 .comunidad-container {
   max-width: 800px;
   margin: 0 auto;
@@ -173,7 +190,12 @@ const direccion = ref('')
 const locales = ref()
 
 const ingresos = ref()
-const total = ref()
+const gastos = ref()
+const deudas = ref()
+
+const totalIngresos = ref()
+const totalGastos = ref()
+const totalDeudas = ref()
 
 const communityService = new CommunityService()
 const bloqueService = new BloqueService()
@@ -191,6 +213,9 @@ const fetchCommunities = async () => {
   direccion.value = community.value.direccion
   bloques.value = community.value.bloques
   locales.value = community.value.locales
+  fetchIngresos()
+  fetchGastos()
+  fetchDeudas()
   loading.value = false
 }
 
@@ -225,7 +250,6 @@ const CrearBloque = async () => {
   const comunidad = await communityService.listCommunityById(comunidad_id)
   let viviendas: any = []
   let reuniones: any = []
-  let mensualidades: any = []
   const response = await bloqueService.createBloque(comunidad, viviendas, reuniones)
   console.log(response)
   await fetchCommunities()
@@ -238,12 +262,34 @@ const BorrarBloque = async (id: number) => {
 }
 
 const fetchIngresos = async () => {
-    const comunidad = await communityService.listCommunityById(Number(id.value))
-    console.log(comunidad)
-    ingresos.value = comunidad.ingresos
-    for (const ingreso of ingresos.value) {
-      total.value += ingreso.monto
-    }
-    console.log(total.value)
+  const comunidad = await communityService.listCommunityById(Number(id.value))
+  console.log(comunidad)
+  ingresos.value = comunidad.ingresos
+  totalIngresos.value = 0
+  for (const ingreso of ingresos.value) {
+    totalIngresos.value += ingreso.monto
   }
+  console.log(totalIngresos.value)
+}
+
+const fetchGastos = async () => {
+  const comunidad = await communityService.listCommunityById(Number(id.value))
+  console.log(comunidad)
+  gastos.value = comunidad.gastos
+  totalGastos.value = 0
+  for (const gasto of gastos.value) {
+    totalGastos.value += gasto.monto
+  }
+}
+
+const fetchDeudas = async () => {
+  const comunidad = await communityService.listCommunityById(Number(id.value))
+  console.log(comunidad)
+  deudas.value = comunidad.deudas
+  totalDeudas.value = 0
+  for (const deuda of deudas.value) {
+    totalDeudas.value += deuda.monto
+  }
+}
+
 </script>
