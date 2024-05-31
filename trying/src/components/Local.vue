@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div>
     <h1 v-if="!loading" class="container">
       <div class="section">
@@ -151,6 +152,7 @@ import { ref, onMounted } from 'vue'
 import TipoLocalService from '@/services/TipoLocalService'
 import CommunityService from '../services/CommunityService'
 import LocalService from '@/services/LocalService'
+import Header from './Header.vue'
 
 const communityService = new CommunityService()
 const localService = new LocalService()

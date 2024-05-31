@@ -146,10 +146,9 @@ import BloqueService from '../services/BloqueService'
 import ViviendaService from '../services/ViviendaService'
 import { useRouter } from 'vue-router'
 import VecinoService from '@/services/VecinoService'
-import type IBloque from '@/interfaces/IBloque'
 import type IMensualidad from '@/interfaces/IMensualidad'
-import type IReunion from '@/interfaces/IReunion'
 import MensualidadService from '@/services/MensualidadService'
+import Header from './Header.vue'
 
 const route = useRoute()
 const { bloque_id: bloque_id } = toRefs(route.params)

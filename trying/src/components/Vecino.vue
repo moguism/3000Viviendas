@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div>
     <h1 v-if="!loading" class="container">
       <div class="section">
@@ -151,6 +152,7 @@ import RolService from '@/services/RolService'
 import VecinoService from '@/services/VecinoService'
 import type IVecino from '@/interfaces/IVecino'
 import type { Ref } from 'vue'
+import Header from './Header.vue'
 
 const bloqueService = new BloqueService()
 const vecinoService = new VecinoService()

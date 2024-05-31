@@ -1,4 +1,5 @@
 <template>
+    <Header />
     <div>
         <h1 v-if="!loading" class="container">
             <div class="section">
@@ -152,6 +153,7 @@ import { ref, onMounted } from 'vue'
 import ContratanteService from '../services/ContratanteService'
 import CommunityService from '../services/CommunityService'
 import ContratoService from '../services/ContratoService'
+import Header from './Header.vue'
 
 const communityService = new CommunityService()
 const contratoService = new ContratoService()
