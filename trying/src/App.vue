@@ -1,21 +1,22 @@
-<!--<template>
-<Header></Header>
-<Home></Home>
-</template>
-
-<script lang="ts" setup>
-import Header from './components/Header.vue'
-import Home from './components/Home.vue'
-</script>-->
-<!-- src/App.vue -->
 <template>
-    <div id="app">
-      <router-view></router-view>
-    </div>
-  </template>
-  
-  <script lang="ts">
-  export default {
-    name: 'App'
-  }
-  </script>
+  <div id="app">
+    <Header></Header>
+    <router-view></router-view>
+  </div>
+</template>
+<style>
+body {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  background-color: rgb(246, 230, 192);
+  font-family: Arial, Helvetica, sans-serif
+}
+</style>
+
+<script lang="ts">
+import Header from './components/Header.vue';
+export default {
+  name: 'App'
+}
+
+</script>
