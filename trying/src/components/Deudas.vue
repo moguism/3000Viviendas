@@ -96,6 +96,18 @@ const getTipo = async (id:number) => {
 
 const fetchDeudas = async () => {
     const comunidad = await comunidadService.listCommunityById(Number(comunidad_id.value))
+    console.log(comunidad)
+    deudas.value = comunidad.deudas
+    total.value = 0
+    for (const deuda of deudas.value){
+        deuda.nombreTipo = await getTipo(deuda.id)
+        total.value += deuda.monto
+    }
+}
+
+const fetchTipoDeudas = async () => {
+    tipoDeudas.value = await tipoDeudaService.listAllTiposDeuda()
+    loading.value = false
 }
 
 
@@ -103,6 +115,21 @@ const BorrarTipoDeuda = async (id: number) => {
     await tipoDeudaService.deleteTipoDeuda(id)
     await fetchDeudas()
 }
+
+const BorrarDeuda = async (id: number) => {
+    await deudaService.deleteDeuda(id)
+    await fetchDeudas()
+}
+
+const ModificarDeuda = async (id: number) => {
+    let tipoDeudaPrompt = prompt('Introduce el tipo de deuda')
+    let montoPrompt = prompt('Introduce el monto del ingreso')
+    if(!montoPrompt || !tipoDeudaPrompt){
+        alert('No puede haber campos vacios')
+        return
+    }
+}
+
 const ModificarTipoDeuda = async (id: number) => {
     let nombre = prompt('Introduce el nuevo nombre del tipo de deuda')
     while (!nombre){
