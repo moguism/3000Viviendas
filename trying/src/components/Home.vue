@@ -1,33 +1,182 @@
 <template>
-  <p v-if="loading" class="loading">Cargando datos...</p>
-
+  <Header></Header>
+  <p v-if="loading">Cargando datos...</p>
   <div id="Comunidades" v-else>
-    <div class="añadirComunidad">
-      <img class="imgAñadirComunidad" src="../assets/building-fill-add.svg">
-      <div id="insercion">
-        <input class="insertar" type="text" placeholder="Nombre" v-model="name"> <br>
-        <div id="lineaInferior">
-          <input class="insertar" type="text" placeholder="Direccion" v-model="address"> <br>
-          <button id="BotonComunidad" @click="CrearComunidad"><img src="../assets/arrow-return-left.svg"></button>
+    <div class="Comunidad">
+      <img class="imgComunidadInsertar" src="../assets/building-fill-add.svg">
+
+      <div id="divInsercion">
+        <input class="insertarNombre" type="text" placeholder="Nombre" v-model="name">
+        <br>
+        <input class="insertarDireccion" type="text" placeholder="Direccion" v-model="address">
+        <br>
+        <button class="createComunidad" @click="CrearComunidad"><p>Agregar Comunidad</p><img class="imagenCreateComunidad" src="../assets/arrow-return-left.svg"></button>
+        <div id="dialogoDelete" v-show="false" >
+
         </div>
       </div>
     </div>
+
+
     <div class="Comunidad" v-for="community in communities" :key="community.id">
-      <img class="imgComunidad1" src="../assets/building.svg" @click="CargarComunidad(community.id)">
-      <h3 class="nombreComunidad">{{ community.nombre }}</h3>
+
+      <img class="imgComunidad" src="../assets/building.svg" @click="CargarComunidad(community.id)">
+      <p class="nombreComunidad">{{ community.nombre }}</p>
       <p class="dirComunidad">{{ community.direccion }}</p>
-      <button class="action-button" @click="BorrarComunidad(community.id)">Borrar</button>
-      <button class="action-button" @click="ModificarComunidad(community.id)">Modificar</button>
+
+      <div class="options">
+        <img id="delete" class="deleteButton" src="../assets/delete.png" @click="BorrarComunidad(community.id)">
+        <img class="modifyButton" src="../assets/edit-button.png" @click="ModificarComunidad(community.id)">
+      </div>
+
     </div>
   </div>
+
 </template>
 
+<style>
+#Comunidades {
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Comunidad {
+  height: auto;
+  padding: 1%;
+  border-radius: 20px;
+  display: grid;
+  width: 100px;
+  min-width: 150px;
+  margin-left: 20px;
+  text-align: center;
+  align-items: center;
+  margin: 1%;
+  background-color: white;
+}
+.Comunidad p {
+  margin: 5px;
+}
+
+.idComunidad {
+  visibility: collapse;
+}
+.BotonComunidad {
+  background-color: rgb(245, 149, 80);
+  border-radius: 5px;
+  border: none;
+}
+.nombreComunidad{
+  font-weight: bold;
+  width: 90%;
+  margin: auto;
+  word-break: break-all;
+}
+.dirComunidad{
+  word-break: break-all;
+
+}
+
+button.BotonComunidad {
+  height: 30px;
+  width: 30px;
+  padding: 0%;
+  margin: 0%;
+}
+
+.imgComunidadInsertar {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 75px;
+}
+
+#divInsercion {
+  justify-content:center;
+  margin-top: 10px;
+}
+
+.insertarNombre {
+  margin: 2px 2px 2px 2px;
+  border-color:rgb(219, 181, 125);
+  border-style: solid;
+  border-radius: 4px;
+  width: 90%;
+  height: 19px;
+  margin-bottom: 2%
+}
+
+.insertarDireccion {
+  margin: 2px 2px 2px 2px;
+  border-style: solid;
+  border-color: rgb(219, 181, 125);
+  border-radius: 4px;
+  width: 90%;
+  height: 19px;
+}
+
+.imagenCreateComunidad {
+  margin-right: 5%;
+  margin-top: 0%;
+  padding: 0%;
+}
+
+.createComunidad{
+  margin-top: 5%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(245, 209, 156);
+  font-weight: bold
+}
+
+.imgComunidad {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 75px;
+}
+.dirComunidad {
+  padding: 0 0 0 0;
+}
+
+.options {
+  display: flex;
+  height: 30px;
+  justify-content: center;
+}
+.deleteButton {
+  width: 20px;
+  margin: auto;
+  margin-right: 7%
+}
+
+.modifyButton {
+  width: 20px;
+  margin: auto;
+  margin-left: 7%
+}
+
+.Comunidad h3 {
+  width: 99%;
+  margin-top: -15px;
+
+}
+</style>
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
+
 import type ICommunity from '../interfaces/ICommunity.ts' 
 import type { Ref } from 'vue'
 import CommunityService from '../services/CommunityService'
 import { useRouter } from 'vue-router'
+import Header from './Header.vue'
 
 const name = ref('')
 const address = ref('')
@@ -94,114 +243,3 @@ const ModificarComunidad = async(id: number) => {
   await fetchCommunities()
 }
 </script>
-
-<style>
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f0f2f5;
-  margin: 0;
-  padding: 0;
-}
-
-.loading {
-  text-align: center;
-  font-size: 1.5em;
-  color: #555;
-}
-
-#Comunidades {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 20px;
-  gap: 20px;
-}
-
-.añadirComunidad, .Comunidad {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 250px;
-  text-align: center;
-}
-
-.imgComunidad1, .imgAñadirComunidad {
-  width: 50px;
-  cursor: pointer;
-  margin-bottom: 15px;
-}
-
-#insercion {
-  margin-top: 10px;
-}
-
-#lineaInferior {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.insertar {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  width: 70%;
-  margin-bottom: 10px;
-}
-
-#BotonComunidad {
-  background-color: #ff7043;
-  border: none;
-  border-radius: 4px;
-  padding: 10px;
-  cursor: pointer;
-  color: #fff;
-  font-size: 14px;
-}
-
-#BotonComunidad img {
-  width: 20px;
-}
-
-.action-button {
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 15px;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.action-button:hover {
-  background-color: #0056b3;
-}
-
-.nombreComunidad {
-  font-size: 1.2em;
-  color: #333;
-}
-
-.dirComunidad {
-  font-family: monospace;
-  color: #555;
-}
-
-.Comunidad h3 {
-  margin: 10px 0;
-}
-
-.Comunidad p {
-  margin: 5px 0;
-}
-
-@media (max-width: 600px) {
-  #Comunidades {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-</style>
