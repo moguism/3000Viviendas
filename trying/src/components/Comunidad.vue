@@ -1,35 +1,39 @@
 <template>
   <Header />
   <div class="comunidad-container">
-    <h1 class="comunidad-title">Comunidad ID: {{ id }}</h1>
+
     <p v-if="loading" class="loading-message">Cargando datos...</p>
     <div v-else>
       <div class="comunidad-details">
-        <h1>{{ nombre }}</h1>
-        <h3 class="direccion">{{ direccion }}</h3>
+        <h1 class="nombreCom">{{ nombre }}</h1>
+        <p class="direccion">{{ direccion }}</p>
       </div>
+      <br>
       <div class="info">
-        <div class="cards">
-          <button @click="CargarIngresos" class="boton"><img class="localesImg" src="../assets/growth.png">
-            <p>INGRESOS</p>
-            <p>{{ totalIngresos }}€</p>
-          </button>
-          <button @click="CargarGastos" class="boton"><img class="localesImg" src="../assets/expense.png">
-            <p>GASTOS</p>
-            <p>{{ totalGastos }}€</p>
-          </button>
-          <button @click="CargarDeudas" class="boton"><img class="localesImg" src="../assets/liability.png">
-            <p>DEUDAS</p>
-            <p>{{ totalDeudas }}€</p>
-          </button>
+        <div class="cardsInfo">
+          <div class="cardsButtons" @click="CargarIngresos"><img class="imgCards" src="../assets/growth.png">
+            <p class="tituloCards">INGRESOS</p>
+            <p class="ingresoTotal" id="infoCards">{{ totalIngresos }}€</p>
+
+          </div>
+          <div class="cardsButtons" @click="CargarGastos"><img class="imgCards" src="../assets/expense.png">
+            <p class="tituloCards">GASTOS</p>
+            <p class="gastosTotal" id="infoCards">{{ totalGastos }}€</p>
+          </div>
+          <div class="cardsButtons" @click="CargarDeudas"><img class="imgCards" src="../assets/liability.png">
+            <p class="tituloCards">DEUDAS</p>
+            <p class="deudaTotal" id="infoCards">{{ totalDeudas }}€</p>
+
+          </div>
         </div>
-        <div class="botones">
-          <button @click="CargarLocales" class="boton"><img class="localesImg" src="../assets/warehouse.png">
-            <p>LOCALES</p>
-          </button>
-          <button @click="CargarContratos" class="boton"><img class="localesImg" src="../assets/invoice.png">
-            <p>CONTRATOS</p>
-          </button>
+        <div class="cardsInfo">
+          <div @click="CargarLocales" class="cardsButtons"><img class="imgCards" src="../assets/warehouse.png">
+            <p class="tituloCards">LOCALES</p>
+          </div>
+
+          <div @click="CargarContratos" class="cardsButtons"> <img class="imgCards" src="../assets/invoice.png">
+            <p class="tituloCards">CONTRATOS</p>
+          </div>
 
         </div>
       </div>
@@ -52,35 +56,69 @@
 </template>
 
 <style scoped>
-.info {
-  width: 100%;
+.nombreCom {
+  margin: 0%;
+  margin-top: 2%;
+}
+
+.direccion {
+  margin-bottom: 2%;
+  font-size: large
+}
+
+.cardsInfo {
+  height: auto;
   justify-content: center;
+  margin: auto;
+  display: flex;
 }
 
-.cards {
-  margin: 20px;
+.cardsButtons {
+  text-align: center;
+  width: 150px;
+  background-color: #f8ef7e;
+  margin: 2%;
+  padding: 1%;
+  border-radius: 10px;
+
 }
 
-.botones {
-  margin: 20px;
+.tituloCards {
+  margin: 5%;
+  font-size: larger;
+  font-weight: bold;
 }
 
-.localesImg {
+.ingresoTotal {
+  font-weight: bold;
+  color: rgb(148, 207, 71);
+}
+
+.gastosTotal {
+  font-weight: bold;
+  color: rgb(200, 49, 49);
+}
+
+.deudaTotal {
+  font-weight: bold;
+  color: rgb(158, 94, 30);
+}
+
+#infoCards {
+  margin: 5%;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.imgCards {
   width: 50px;
 }
 
 .comunidad-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f7f7f7;
+  width: 60%;
+  margin: auto;
+  padding: 5px;
   border-radius: 8px;
-}
-
-.comunidad-title {
-  display: none;
-  font-size: 24px;
-  margin-bottom: 20px;
 }
 
 .loading-message {
@@ -88,45 +126,14 @@
 }
 
 .comunidad-details {
-
+  
+  padding: 4px;
+  border-radius: 20px;
   text-align: center;
   align-items: center;
-  margin-bottom: 30px;
 }
 
-.direccion {
-  font-style: normal;
-}
 
-.top-cards,
-.bottom-cards {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.card {
-  width: calc(33.33% - 10px);
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.botones {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.boton {
-  padding: 10px 20px;
-  margin: 0 10px;
-  background-color: #f8ef7e;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
 .bloques-title {
   font-size: 20px;

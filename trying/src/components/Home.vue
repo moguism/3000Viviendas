@@ -70,14 +70,7 @@
   font-weight: bold;
   width: 90%;
   margin: auto;
-  word-break: break-all;
-  font-size: small;
 }
-.dirComunidad{
-  font-size: small;
-  word-break: break-all;
-}
-
 button.BotonComunidad {
   height: 30px;
   width: 30px;
@@ -212,6 +205,9 @@ const CrearComunidad = async () => {
   const response = await communityService.createCommunity(name.value, address.value, bloques, locales, contratos, ingresos, gastos, deudas)
   console.log(response)
   await fetchCommunities() // Actualiza el listado de comunidades después de crear una nueva
+  name.value = ''
+  address.value = ''  
+  
 }
 
 const BorrarComunidad = async(id: number) => {
