@@ -54,6 +54,97 @@
     </div>
 </template>
 
+<style scoped>
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+ 
+.section {
+  flex: 1;
+  margin-right: 20px;
+}
+ 
+.addCommunity {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+ 
+.addIcon {
+  width: 50px;
+  margin-right: 10px;
+}
+ 
+.insertion {
+  display: flex;
+  align-items: center;
+}
+ 
+.insertField {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+  padding: 5px;
+}
+ 
+.actionButton {
+  background-color: #f59550;
+  border: 1px solid #f59550;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+ 
+.community {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+ 
+.communityIcon {
+  width: 50px;
+  margin-right: 10px;
+}
+ 
+.info {
+  flex: 1;
+}
+ 
+.actions button {
+  background-color: #f59550;
+  border: 1px solid #f59550;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+ 
+.typeList {
+  margin-top: 40px;
+}
+ 
+.type {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+ 
+.typeIcon {
+  width: 50px;
+  margin-right: 10px;
+}
+</style>
+
 <script setup lang="ts">
 import { toRefs } from 'vue'
 import { useRoute } from 'vue-router'
@@ -110,6 +201,7 @@ const fetchTipoDeudas = async () => {
     loading.value = false
 }
 
+onMounted(fetchDeudas)
 
 const BorrarTipoDeuda = async (id: number) => {
     await tipoDeudaService.deleteTipoDeuda(id)
