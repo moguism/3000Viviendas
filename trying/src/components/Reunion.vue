@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div>
     <h1 v-if="!loading" class="container">
       <div class="section">
@@ -151,7 +152,8 @@ import { ref, onMounted } from 'vue'
 import TipoReunionService from '@/services/TipoReunionService'
 import BloqueService from '../services/BloqueService'
 import ReunionService from '@/services/ReunionService'
- 
+import Header from './Header.vue' 
+
 const bloqueService = new BloqueService()
 const reunionService = new ReunionService()
 const tipoReunionService = new TipoReunionService()

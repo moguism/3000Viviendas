@@ -73,10 +73,11 @@
   width: 90%;
   margin: auto;
   word-break: break-all;
+  font-size: small;
 }
 .dirComunidad{
+  font-size: small;
   word-break: break-all;
-
 }
 
 button.BotonComunidad {
