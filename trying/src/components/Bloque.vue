@@ -1,4 +1,5 @@
 <template>
+    <Header></Header> 
     <div class="bloque-container">
         <h1 class="bloque-title">Bloque ID: {{ bloque_id }}</h1>
         <p v-if="loading" class="loading-message">Cargando datos...</p>
