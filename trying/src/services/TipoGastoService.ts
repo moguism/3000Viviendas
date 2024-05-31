@@ -1,3 +1,4 @@
+import type IGasto from "@/interfaces/IGasto";
 import type ITipoGasto from "@/interfaces/ITipoGasto";
 
 export default class TipoGastoService {
@@ -17,10 +18,11 @@ export default class TipoGastoService {
         return response
     }
 
-    async createTipoGasto(name: string) {
+    async createTipoGasto(name: string, gastos: Array<IGasto>) {
         const data:ITipoGasto = {
             id: 0,
-            nombre: name
+            nombre: name,
+            gastos: gastos
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -41,10 +43,11 @@ export default class TipoGastoService {
         })
     }
 
-    async updateTipoGasto(id: number, name: string) {
+    async updateTipoGasto(id: number, name: string, gastos: Array<IGasto>) {
         const data:ITipoGasto = {
             id: id,
-            nombre: name
+            nombre: name,
+            gastos: gastos
         }
         const uri = `${this.baseUri}/${id}`
         const rawResponse = await fetch(uri, {
