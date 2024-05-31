@@ -48,9 +48,7 @@
   padding: 1%;
   border-radius: 20px;
   display: grid;
-  width: 100px;
-  min-width: 150px;
-  margin-left: 20px;
+  width: 150px;
   text-align: center;
   align-items: center;
   margin: 1%;
@@ -72,10 +70,8 @@
   font-weight: bold;
   width: 90%;
   margin: auto;
-  word-break: break-all;
 }
 .dirComunidad{
-  word-break: break-all;
 
 }
 
@@ -94,6 +90,7 @@ button.BotonComunidad {
 }
 
 #divInsercion {
+  align-items: center;
   justify-content:center;
   margin-top: 10px;
 }
@@ -132,7 +129,7 @@ button.BotonComunidad {
   border: none;
   border-radius: 10px;
   background-color: rgb(245, 209, 156);
-  font-weight: bold
+  font-weight: bold;
 }
 
 .imgComunidad {
