@@ -14,7 +14,7 @@ INSERT INTO `mydb`.`contratos` (`contratante_id`, `created_at`, `comunidad_id`) 
 INSERT INTO `mydb`.`tipos_deudas` (`nombre`) VALUES ('Prueba Tipo Deuda');
 
 -- Insertar datos en la tabla `deudas`
-INSERT INTO `mydb`.`deudas` (`tipo_deuda_id`, `comunidad_id`, `created_at`, `cuantia`, `updated_at`) VALUES (1, 1, '2024-05-27', 100.00, '2024-05-27');
+INSERT INTO `mydb`.`deudas` (`tipo_deuda_id`, `comunidad_id`, `fecha`, `monto`) VALUES (1, 1, '2024-05-27', 100.00);
 
 -- Insertar datos en la tabla `tipos_gastos`
 INSERT INTO `mydb`.`tipos_gastos` (`nombre`) VALUES ('Prueba Tipo Gasto');

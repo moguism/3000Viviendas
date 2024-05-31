@@ -11,8 +11,8 @@
       <div class="info">
         <div class="cards">
         <button @click="CargarIngresos" class="boton"><img class="localesImg" src="../assets/growth.png"><p>INGRESOS</p><p>{{fetchIngresos()}}</p></button>
-        <button class="boton"><img class="localesImg" src="../assets/expense.png"><p>GASTOS</p></button>
-        <button class="boton"><img class="localesImg" src="../assets/liability.png"><p>DEUDAS</p><p>{{}}</p></button>
+        <button @click="CargarGastos" class="boton"><img class="localesImg" src="../assets/expense.png"><p>GASTOS</p></button>
+        <button @click="CargarDeudas" class="boton"><img class="localesImg" src="../assets/liability.png"><p>DEUDAS</p><p>{{}}</p></button>
       </div>
       <div class="botones">
         <button @click="CargarLocales" class="boton"><img class="localesImg" src="../assets/warehouse.png"><p>LOCALES</p></button>
@@ -210,6 +210,14 @@ const CargarBloque = (bloque_id: number) => {
 
 const CargarIngresos = () => {
   router.push({ name: 'Ingreso', params: { comunidad_id } })
+}
+
+const CargarDeudas = () => {
+  router.push({ name: 'Deudas', params: { comunidad_id } })
+}
+
+const CargarGastos = () => {
+  router.push({ name: 'Gastos', params: { comunidad_id } })
 }
 
 const CrearBloque = async () => {

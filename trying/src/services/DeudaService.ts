@@ -19,13 +19,13 @@ export default class DeudaService {
         return response
     }
 
-    async createDeuda(tipoDeuda: ITipoDeuda, comunidad: ICommunity, fecha: Date, cuantia: number){
+    async createDeuda(tipoDeuda: ITipoDeuda, comunidad: ICommunity, fecha: Date, monto: number){
         const data:IDeuda = {
             id: 0,
             tipoDeuda: tipoDeuda,
             comunidad: comunidad,
             fecha : fecha,
-            cuantia: cuantia
+            monto: monto
         }
         const rawResponse = await fetch(this.baseUri, {
             method: 'POST',
@@ -46,14 +46,14 @@ export default class DeudaService {
         })
     }
 
-    async updateDeuda(id: number, tipoDeuda: ITipoDeuda, comunidad: ICommunity,  fecha: Date, cuantia: number){
+    async updateDeuda(id: number, tipoDeuda: ITipoDeuda, comunidad: ICommunity,  fecha: Date, monto: number){
         const uri = `${this.baseUri}/${id}`
         const data:IDeuda = {
             id: 0,
             tipoDeuda: tipoDeuda,
             comunidad: comunidad,
             fecha : fecha,
-            cuantia: cuantia
+            monto: monto
         }
         const rawResponse = await fetch(uri, {
             method: 'PUT',

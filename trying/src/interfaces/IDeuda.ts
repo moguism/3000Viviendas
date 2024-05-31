@@ -6,5 +6,5 @@ export default interface IDeuda {
     tipoDeuda: ITipoDeuda,
     comunidad: ICommunity,
     fecha: Date,
-    cuantia: number
+    monto: number
 }
