@@ -7,6 +7,8 @@ import Bloque from './components/Bloque.vue'
 import Reunion from './components/Reunion.vue'
 import Ingreso from './components/Ingreso.vue'
 import Vecino from './components/Vecino.vue'
+import Deudas from './components/Deudas.vue'
+import Gastos from './components/Gastos.vue'
 
 const routes = [
   {
@@ -54,6 +56,18 @@ const routes = [
     path: '/ingresos/:comunidad_id',
     name: 'Ingreso',
     component: Ingreso,
+    props: true
+  },
+  {
+    path: '/deudas/:comunidad_id',
+    name: 'Deudas',
+    component: Deudas,
+    props: true
+  },
+  {
+    path: '/gastos/:comunidad_id',
+    name: 'Gastos',
+    component: Gastos,
     props: true
   }
 ]

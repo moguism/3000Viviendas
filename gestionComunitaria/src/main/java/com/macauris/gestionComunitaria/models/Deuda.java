@@ -22,9 +22,9 @@ public class Deuda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    public double cuantia;
+    public double monto;
 
-    public Date updated_at;
+    public Date fecha;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id")
@@ -43,22 +43,6 @@ public class Deuda {
         this.id = id;
     }
 
-    public double getCuantia() {
-        return cuantia;
-    }
-
-    public void setCuantia(double cuantia) {
-        this.cuantia = cuantia;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
-    }
-
     public Comunidad getComunidad() {
         return comunidad;
     }
@@ -74,4 +58,21 @@ public class Deuda {
     public void setTipoDeuda(TipoDeuda tipoDeuda) {
         this.tipoDeuda = tipoDeuda;
     }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
 }
