@@ -95,9 +95,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`deudas` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `tipo_deuda_id` INT NOT NULL,
   `comunidad_id` INT NOT NULL,
-  `created_at` DATE NOT NULL,
-  `cuantia` DOUBLE NOT NULL,
-  `updated_at` DATE NOT NULL,
+  `fecha` DATE NOT NULL,
+  `monto` DOUBLE NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Deudas_TiposDeuda1_idx` (`tipo_deuda_id` ASC) VISIBLE,
   INDEX `fk_Deudas_Comunidades1_idx` (`comunidad_id` ASC) VISIBLE,
@@ -316,6 +315,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`viviendas` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`comunidades`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`comunidades` (`id`, `nombre`, `direccion`) VALUES (1, 'Prueba', 'Prueba');
+
+COMMIT;
+
 USE `mydb`;
 
 DELIMITER $$
@@ -334,28 +347,13 @@ USE `mydb`$$
 CREATE TRIGGER after_vivienda_update AFTER UPDATE ON viviendas
 FOR EACH ROW
 BEGIN
+	
 	DECLARE cantidad integer;
-	DECLARE comunidad integer;
-	IF (NEW.mensualidad_id != OLD.mensualidad_id) THEN
-		SET cantidad = (SELECT cuantia FROM mensualidades WHERE id = NEW.mensualidad_id);
-		SET comunidad = (SELECT comunidad_id FROM bloques WHERE id = NEW.bloque_id); 
-		INSERT INTO ingresos(monto, fecha, comunidad_id) VALUES (cantidad, now(), comunidad);
-	END IF;
+    DECLARE comunidad integer;
+    SET cantidad = (SELECT cuantia FROM mensualidades WHERE id = NEW.mensualidad_id);
+    SET comunidad = (SELECT comunidad_id FROM bloques WHERE id = NEW.bloque_id); 
+	INSERT INTO ingresos(monto, fecha, comunidad_id) VALUES (cantidad, now(), comunidad);
 END$$
 
 
 DELIMITER ;
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `mydb`.`comunidades`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `mydb`;
-INSERT INTO `mydb`.`comunidades` (`id`, `nombre`, `direccion`) VALUES (1, 'Prueba', 'Prueba');
-
-COMMIT;
-
