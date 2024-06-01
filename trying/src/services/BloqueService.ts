@@ -21,9 +21,10 @@ export default class BloqueService {
         return response
     }
 
-    async createBloque(comunidad: ICommunity, viviendas: Array<IVivienda>, reuniones: Array<IReunion>) {
+    async createBloque(numero:Number,comunidad: ICommunity, viviendas: Array<IVivienda>, reuniones: Array<IReunion>) {
         const data:IBloque = {
             id: 0,
+            numero: numero,
             comunidad: comunidad,
             viviendas: viviendas,
             reuniones: reuniones
@@ -47,10 +48,11 @@ export default class BloqueService {
         })
     }
 
-    async updateBloque(id:number, comunidad: ICommunity, viviendas: Array<IVivienda>, reuniones: Array<IReunion>) {
+    async updateBloque(id:number, comunidad: ICommunity, numero: Number, viviendas: Array<IVivienda>, reuniones: Array<IReunion>) {
         const uri = `${this.baseUri}/${id}`
         const data:IBloque = {
             id : 0,
+            numero: numero,
             comunidad: comunidad,
             viviendas: viviendas,
             reuniones: reuniones

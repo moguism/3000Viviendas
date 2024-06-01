@@ -1,7 +1,7 @@
 <template>
     <Header></Header> 
     <div class="bloque-container">
-        <h1 class="bloque-title">Bloque ID: {{ bloque_id }}</h1>
+        <h1 class="bloque-title">Bloque ID: Mauricio HELP</h1> <!--COÑO COÑO HAGO PARA QUE ME APAREZCA L NUMERO QUE NO EL ID DEL BLOQUE :(-->
         <p v-if="loading" class="loading-message">Cargando datos...</p>
         <div v-else>
             <div class="botones">
@@ -25,6 +25,10 @@
                     <h6 class="nombre-vivienda">Planta: {{ vivienda.planta }}</h6>
                     <h6 class="nombre-vivienda">Puerta: {{ vivienda.puerta }}</h6>
                     <h6 class="nombre-vivienda">Letra: {{ vivienda.letra }}</h6>
+                    <select >
+                      <!-- COMO COÑO HAGO UN BUCLE EN TS PARA PODER MOSTRAR VECINOS EN UN SELECT Y LUEGO PASARLE EL JODIDO ID COMO KEY AL MAMHUEVO HIJO DE PUTA
+                         <option v-for="vecinoNombre in listaVecinos" :value="vecinoNombre"></option>-->
+                    </select>
                     <h6 class="nombre-vivienda">Vecino: {{ vivienda.nombreVecino }}</h6>
                     <h6 class="nombre-vivienda">Última mensualidad: {{ vivienda.idMensualidad }}</h6>
                     <div class="botones">
@@ -156,16 +160,18 @@ const { bloque_id: bloque_id } = toRefs(route.params)
 const viviendas: Ref<Array<IVivienda>> = ref([])
 const mensualidades: Ref<Array<IMensualidad>> = ref([])
 
+
 const bloqueService = new BloqueService()
 const viviendaService = new ViviendaService()
 const vecinoService = new VecinoService()
 const mensualidadService = new MensualidadService()
+const numero = ref()
 
 const loading = ref(true)
 
 const router = useRouter()
 
-const getTipo = async (id: number) => {
+const getNombreVecino = async (id: number) => {
     const vecinos = await vecinoService.listAllVecinos()
     for (const vecino of vecinos) {
         for (const vivienda of vecino.viviendas) {
@@ -175,6 +181,7 @@ const getTipo = async (id: number) => {
         }
     }
 }
+
 
 const getMensualidad = async (id: number) => {
 
@@ -199,12 +206,10 @@ const fetchBloques = async () => {
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
     mensualidades.value = await mensualidadService.listAllMensualidades()
     console.log(bloque)
-
     viviendas.value = bloque.viviendas
-
     for (const vivienda of viviendas.value) {
 
-        let nombre = await getTipo(vivienda.id)
+        let nombre = await getNombreVecino(vivienda.id)
         if (nombre != undefined) {
             vivienda.nombreVecino = nombre
             console.log(vivienda.nombreVecino)
@@ -347,7 +352,7 @@ const ModificarVivienda = async (id: number) => {
     valido = false
 
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
-
+    
     for (const mensualidad of mensualidades.value) {
 
         if (mensualidad.id == Number(ultima_mensualidad)) {

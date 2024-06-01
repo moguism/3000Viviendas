@@ -3,7 +3,7 @@
   <p v-if="loading">Cargando datos...</p>
   <div id="Comunidades" v-else>
     <div class="Comunidad">
-      <img class="imgComunidadInsertar" src="../assets/building-fill-add.svg">
+      <img class="imgComunidadInsertar" src="../assets/icons8-city-buildings-100 (1).png">
 
       <div id="divInsercion">
         <input class="insertarNombre" type="text" placeholder="Nombre" v-model="name">
@@ -20,7 +20,7 @@
 
     <div class="Comunidad" v-for="community in communities" :key="community.id">
 
-      <img class="imgComunidad" src="../assets/building.svg" @click="CargarComunidad(community.id)">
+      <img class="imgComunidad" src="../assets/icons8-city-buildings-100.png" @click="CargarComunidad(community.id)">
       <p class="nombreComunidad">{{ community.nombre }}</p>
       <p class="dirComunidad">{{ community.direccion }}</p>
 

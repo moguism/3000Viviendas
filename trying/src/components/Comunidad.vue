@@ -4,51 +4,61 @@
 
     <p v-if="loading" class="loading-message">Cargando datos...</p>
     <div v-else>
-      <div class="comunidad-details">
-        <h1 class="nombreCom">{{ nombre }}</h1>
-        <p class="direccion">{{ direccion }}</p>
-      </div>
-      <br>
-      <div class="info">
-        <div class="cardsInfo">
-          <div class="cardsButtons" @click="CargarIngresos"><img class="imgCards" src="../assets/growth.png">
-            <p class="tituloCards">INGRESOS</p>
-            <p class="ingresoTotal" id="infoCards">{{ totalIngresos }}€</p>
+      <div class="containerComunidad">
+        <div class="comunidad-details">
+          <h1 class="nombreCom">{{ nombre }}</h1>
+          <p class="direccion">{{ direccion }}</p>
+        </div>
+        <br>
+        <div class="info">
+          <div class="cardsInfo">
+            <div class="cardsButtons" @click="CargarIngresos"><img class="imgCards" src="../assets/growth.png">
+              <p class="tituloCards">INGRESOS</p>
+              <p class="ingresoTotal" id="infoCards">{{ totalIngresos }}€</p>
 
+            </div>
+            <div class="cardsButtons" @click="CargarGastos"><img class="imgCards" src="../assets/expense.png">
+              <p class="tituloCards">GASTOS</p>
+              <p class="gastosTotal" id="infoCards">{{ totalGastos }}€</p>
+            </div>
+            <div class="cardsButtons" @click="CargarDeudas"><img class="imgCards" src="../assets/liability.png">
+              <p class="tituloCards">DEUDAS</p>
+              <p class="deudaTotal" id="infoCards">{{ totalDeudas }}€</p>
+
+            </div>
           </div>
-          <div class="cardsButtons" @click="CargarGastos"><img class="imgCards" src="../assets/expense.png">
-            <p class="tituloCards">GASTOS</p>
-            <p class="gastosTotal" id="infoCards">{{ totalGastos }}€</p>
-          </div>
-          <div class="cardsButtons" @click="CargarDeudas"><img class="imgCards" src="../assets/liability.png">
-            <p class="tituloCards">DEUDAS</p>
-            <p class="deudaTotal" id="infoCards">{{ totalDeudas }}€</p>
+          <div class="cardsInfo">
+            <div @click="CargarLocales" class="cardsButtons"><img class="imgCards" src="../assets/warehouse.png">
+              <p class="tituloCards">LOCALES</p>
+            </div>
+
+            <div @click="CargarContratos" class="cardsButtons"> <img class="imgCards" src="../assets/invoice.png">
+              <p class="tituloCards">CONTRATOS</p>
+            </div>
 
           </div>
         </div>
-        <div class="cardsInfo">
-          <div @click="CargarLocales" class="cardsButtons"><img class="imgCards" src="../assets/warehouse.png">
-            <p class="tituloCards">LOCALES</p>
-          </div>
-
-          <div @click="CargarContratos" class="cardsButtons"> <img class="imgCards" src="../assets/invoice.png">
-            <p class="tituloCards">CONTRATOS</p>
-          </div>
-
-        </div>
       </div>
+
+
       <h1 class="bloques-title">Bloques</h1>
       <div class="bloques">
-        <div class="añadir-bloque">
-          <img class="añadir-bloque-icon" src="../assets/flecha-del-circulo-del-edificio-hacia-la-derecha.svg">
-          <div class="insercion">
-            <button class="boton-bloque" @click="CrearBloque"><img src="../assets/arrow-return-left.svg"></button>
+        <div class="bloqueAgregar">
+          <img class="imgBloqueAgregar" src="../assets/icons8-building-100 (1).png">
+          <input id="numeroInsertar" type="number" placeholder="Nº Bloque" v-model="numero"></input>
+          <div class="buttonAgregar" @click="CrearBloque">
+            <p class="textoAgregar">AGREGAR BLOQUE</p>
+            <img class ="imgAgregar" src="../assets/arrow-return-left.svg">
           </div>
         </div>
+
         <div class="bloque" v-for="bloque in bloques" :key="bloque.id">
-          <img @click="CargarBloque(bloque.id)" class="bloque-icon" src="../assets/ciudad.svg">
-          <h3 class="nombre-bloque">{{ bloque.id }}</h3>
-          <button @click="BorrarBloque(bloque.id)">Eliminar</button>
+          <img @click="CargarBloque(bloque.id)" class="bloque-icon" src="../assets/icons8-building-100.png">
+          <h3 class="nombre-bloque">Nº: {{ bloque.numero }}</h3>
+          <div class="options">
+            
+            <button @click="BorrarBloque(bloque.id)">Eliminar</button>
+          </div>
         </div>
       </div>
     </div>
@@ -56,13 +66,25 @@
 </template>
 
 <style scoped>
+.containerComunidad {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: rgb(249 138 3 / 30%);
+  border-radius: 20px;
+
+}
+
 .nombreCom {
+  color: rgb(255, 255, 255);
+  text-shadow: rgb(255, 140, 0) 1px 1px 1px;
   margin: 0%;
   margin-top: 2%;
 }
 
 .direccion {
-  margin-bottom: 2%;
+  margin: 0%;
+  color: rgb(198, 41, 23);
   font-size: large
 }
 
@@ -71,6 +93,7 @@
   justify-content: center;
   margin: auto;
   display: flex;
+  padding-bottom: 5px;
 }
 
 .cardsButtons {
@@ -115,9 +138,9 @@
 }
 
 .comunidad-container {
-  width: 60%;
+  width: 75%;
   margin: auto;
-  padding: 5px;
+  padding: 30px;
   border-radius: 8px;
 }
 
@@ -126,51 +149,104 @@
 }
 
 .comunidad-details {
-  
   padding: 4px;
   border-radius: 20px;
   text-align: center;
   align-items: center;
 }
 
-
+.bloques {
+  height: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+}
 
 .bloques-title {
+  text-align: center;
   font-size: 20px;
   margin-bottom: 20px;
 }
 
-.bloques {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.añadir-bloque {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.añadir-bloque-icon {
-  width: 50px;
-  margin-right: 10px;
-}
-
-.insercion {
-  margin-top: 10px;
-}
 
 .bloque {
-  width: 100px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin-bottom: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  margin-bottom: 3%;
+  margin-right: 3%;
+  margin-left: 3%;
+  width: 150px;
 }
 
-.bloque-icon {
+.bloqueAgregar {
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  width: 150px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 3%;
+  margin-right: 3%;
+  margin-left: 3%;
+}
+
+.bloque-icon{
+  margin: auto;
+  margin-bottom: 10%;
+  padding-top: 10%;
   width: 75px;
 }
 
+.buttonAgregar {
+  border-radius: 10px;
+  background-color: rgb(245, 209, 156);
+  display: flex;
+  font-weight: bold;
+  margin: 15%;
+  margin-top: 4%;
+  margin-bottom: 6%;
+  padding-left: 5%;
+  padding-right: 5%;
+  border-radius: 10px;
+  
+}
+.options{
+  margin: 15%;
+  margin-top: 4%;
+  margin-bottom: 6%;
+  padding-left: 5%;
+  padding-right: 5%;
+  border-radius: 10px;
+}
+.imgAgregar{
+  margin-left: 10%;
+  width: 30px;
+}
+input {
+  width: 70%;
+  margin-bottom: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  border-color:rgb(219, 181, 125);
+  border-style: solid;
+  border-radius: 4px;
+}
+
+.textoAgregar {
+  font-size: small;
+}
+
+.imgBloqueAgregar{
+  margin: auto;
+  margin-bottom: 10%;
+  padding-top: 10%;
+  width: 75px;
+}
 .nombre-bloque {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -208,6 +284,7 @@ const communityService = new CommunityService()
 const bloqueService = new BloqueService()
 const loading = ref(true)
 
+const numero = ref()
 const bloques: Ref<Array<IBloque>> = ref([])
 
 const router = useRouter()
@@ -215,6 +292,7 @@ const router = useRouter()
 const fetchCommunities = async () => {
   community.value = await communityService.listCommunityById(Number(id.value))
   console.log(community.value)
+  numero.value = community.value.numero
   comunidad_id = community.value.id
   nombre.value = community.value.nombre
   direccion.value = community.value.direccion
@@ -253,11 +331,12 @@ const CargarGastos = () => {
 }
 
 const CrearBloque = async () => {
+
   console.log(comunidad_id)
   const comunidad = await communityService.listCommunityById(comunidad_id)
   let viviendas: any = []
   let reuniones: any = []
-  const response = await bloqueService.createBloque(comunidad, viviendas, reuniones)
+  const response = await bloqueService.createBloque(numero.value, comunidad, viviendas, reuniones)
   console.log(response)
   await fetchCommunities()
 }

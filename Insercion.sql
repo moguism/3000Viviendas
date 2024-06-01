@@ -2,7 +2,7 @@
 INSERT INTO `mydb`.`comunidades` (`nombre`, `direccion`) VALUES ('Prueba Comunidad', 'Dirección de Prueba');
 
 -- Insertar datos en la tabla `bloques`
-INSERT INTO `mydb`.`bloques` (`comunidad_id`) VALUES (1);
+INSERT INTO `mydb`.`bloques` (`comunidad_id`,`numero`) VALUES (1,69);
 
 -- Insertar datos en la tabla `contratantes`
 INSERT INTO `mydb`.`contratantes` (`nombre`) VALUES ('Prueba Contratante');

@@ -33,6 +33,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`bloques` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `numero` INT NOT NULL,
   `comunidad_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Bloques_Comunidades_idx` (`comunidad_id` ASC) VISIBLE,
