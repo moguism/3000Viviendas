@@ -24,6 +24,8 @@ public class Bloque {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //"Indica" que es autoincremental
     private Long id;
+
+    private Long numero;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id")
@@ -68,6 +70,14 @@ public class Bloque {
 
     public void setReuniones(List<Reunion> reuniones) {
         this.reuniones = reuniones;
+    }
+
+    public Long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Long numero) {
+        this.numero = numero;
     }
 
 }

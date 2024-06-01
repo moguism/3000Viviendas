@@ -4,6 +4,7 @@ import type IVivienda from "./IVivienda";
 
 export default interface IBloque {
     id: number,
+    numero: Number,
     comunidad: ICommunity,
     viviendas: Array<IVivienda>,
     reuniones: Array<IReunion>
