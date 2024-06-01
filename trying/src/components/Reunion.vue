@@ -19,7 +19,7 @@
             <div class="info">
               <h3 class="communityName">Descripción: {{ reunion.descripcion }}</h3>
               <p class="communityType">Tipo de Reunión: {{ reunion.nombreTipo }}</p>
-              <p class="communityType">Fecha: {{ reunion.fecha }}</p>
+              <p class="communityType">Fecha: {{ stringAfecha(reunion.fecha) }}</p>
             </div>
             <div class="actions">
               <button @click="BorrarReunion(reunion.id)">Borrar</button>
@@ -171,7 +171,12 @@ const fechaReunionInsertar = ref('')
 const nombreTipo = ref('')
  
 const loading = ref(true)
- 
+
+const stringAfecha = (str: Date) => {
+    const date = new Date(str)
+    return date.toISOString().split('T')[0]
+}
+
 const getTipo = async (id: number) => {
   const tipos = await tipoReunionService.listAllTiposReunion()
   for (const tipo of tipos) {

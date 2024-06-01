@@ -1,17 +1,23 @@
 <template>
     <Header></Header> 
     <div class="bloque-container">
-        <h1 class="bloque-title">Bloque ID: Mauricio HELP</h1> <!--COÑO COÑO HAGO PARA QUE ME APAREZCA L NUMERO QUE NO EL ID DEL BLOQUE :(-->
+        <h1 class="bloque-title">Bloque {{ numero }}</h1>
         <p v-if="loading" class="loading-message">Cargando datos...</p>
         <div v-else>
             <div class="botones">
-                <button @click="CargarVecinos" class="boton">Pulsa aquí para acceder a los vecinos</button>
-                <button @click="CargarReuniones" class="boton">Pulsa aquí para acceder a las reuniones</button>
+                <div @click="CargarVecinos" class="boton">
+                    <img src="../assets/icons8-vecino-100.png" class="imgInfo" alt="">
+                    <p class="tituloInfo">VECINOS</p>
+                </div>
+                <div @click="CargarReuniones" class="boton">
+                    <img src="../assets/icons8-sala-de-reuniones-100.png" class="imgInfo" alt="">
+                    <p class="tituloInfo">REUNIONES</p>
+                </div>
             </div>
             <h1 class="viviendas-title">Viviendas</h1>
             <div class="viviendas">
                 <div class="añadir-vivienda">
-                    <img class="añadir-vivienda-icon" src="../assets/casa-chimenea-medica.svg">
+                    <img class="añadir-vivienda-icon" src="../assets/icons8-home (1).svg">
                     <div class="insercion">
                         <button class="boton-vivienda" @click="CrearVivienda">
                             <img src="../assets/arrow-return-left.svg">
@@ -19,16 +25,11 @@
                     </div>
                 </div>
                 <div class="vivienda" v-for="vivienda in viviendas" :key="vivienda.id">
-                    <img class="vivienda-icon" src="../assets/usuario-de-la-casa.svg">
-                    <h6 class="nombre-vivienda">ID: {{ vivienda.id }} </h6>
+                    <img class="vivienda-icon" src="../assets/icons8-home.svg">
                     <h6 class="nombre-vivienda">Escalera: {{ vivienda.escalera }}</h6>
                     <h6 class="nombre-vivienda">Planta: {{ vivienda.planta }}</h6>
                     <h6 class="nombre-vivienda">Puerta: {{ vivienda.puerta }}</h6>
                     <h6 class="nombre-vivienda">Letra: {{ vivienda.letra }}</h6>
-                    <select >
-                      <!-- COMO COÑO HAGO UN BUCLE EN TS PARA PODER MOSTRAR VECINOS EN UN SELECT Y LUEGO PASARLE EL JODIDO ID COMO KEY AL MAMHUEVO HIJO DE PUTA
-                         <option v-for="vecinoNombre in listaVecinos" :value="vecinoNombre"></option>-->
-                    </select>
                     <h6 class="nombre-vivienda">Vecino: {{ vivienda.nombreVecino }}</h6>
                     <h6 class="nombre-vivienda">Última mensualidad: {{ vivienda.idMensualidad }}</h6>
                     <div class="botones">
@@ -50,7 +51,7 @@
                 <div class="vivienda" v-for="mensualiadad in mensualidades" :key="mensualiadad.id">
                     <img class="vivienda-icon" src="../assets/dolar-de-saco.svg">
                     <h6 class="nombre-vivienda">ID: {{ mensualiadad.id }}</h6>
-                    <h6 class="nombre-vivienda">Fecha: {{ mensualiadad.fecha }}</h6>
+                    <h6 class="nombre-vivienda">Fecha: {{ stringAfecha(mensualiadad.fecha) }}</h6>
                     <h6 class="nombre-vivienda">Cuantía: {{ mensualiadad.cuantia }}</h6>
                     <div class="botones">
                         <button @click="ModificarMensualidad(mensualiadad.id)">Modificar</button>
@@ -160,7 +161,6 @@ const { bloque_id: bloque_id } = toRefs(route.params)
 const viviendas: Ref<Array<IVivienda>> = ref([])
 const mensualidades: Ref<Array<IMensualidad>> = ref([])
 
-
 const bloqueService = new BloqueService()
 const viviendaService = new ViviendaService()
 const vecinoService = new VecinoService()
@@ -182,6 +182,10 @@ const getNombreVecino = async (id: number) => {
     }
 }
 
+const stringAfecha = (str: Date) => {
+    const date = new Date(str)
+    return date.toISOString().split('T')[0]
+}
 
 const getMensualidad = async (id: number) => {
 
@@ -205,10 +209,11 @@ const getMensualidad = async (id: number) => {
 const fetchBloques = async () => {
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
     mensualidades.value = await mensualidadService.listAllMensualidades()
+    numero.value = bloque.numero
     console.log(bloque)
     viviendas.value = bloque.viviendas
     for (const vivienda of viviendas.value) {
-
+    
         let nombre = await getNombreVecino(vivienda.id)
         if (nombre != undefined) {
             vivienda.nombreVecino = nombre
