@@ -56,7 +56,6 @@
           <img @click="CargarBloque(bloque.id)" class="bloque-icon" src="../assets/icons8-building-100.png">
           <h3 class="nombre-bloque">Nº: {{ bloque.numero }}</h3>
           <div class="options">
-            
             <button @click="BorrarBloque(bloque.id)">Eliminar</button>
           </div>
         </div>
@@ -216,12 +215,7 @@
   
 }
 .options{
-  margin: 15%;
-  margin-top: 4%;
   margin-bottom: 6%;
-  padding-left: 5%;
-  padding-right: 5%;
-  border-radius: 10px;
 }
 .imgAgregar{
   margin-left: 10%;
