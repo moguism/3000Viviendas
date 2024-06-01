@@ -1,10 +1,13 @@
 <template>
-    <Header></Header> 
-    <div class="bloque-container">
-        <h1 class="bloque-title">Bloque {{ numero }}</h1>
+    <Header></Header>
+    <div class="">
+        
         <p v-if="loading" class="loading-message">Cargando datos...</p>
-        <div v-else>
+        <div v-else class="divBloque">
+           <div class="bloqueInfo">
+            <h1 class="bloque-title">Bloque {{ numero }}</h1>
             <div class="botones">
+                
                 <div @click="CargarVecinos" class="boton">
                     <img src="../assets/icons8-vecino-100.png" class="imgInfo" alt="">
                     <p class="tituloInfo">VECINOS</p>
@@ -14,9 +17,10 @@
                     <p class="tituloInfo">REUNIONES</p>
                 </div>
             </div>
+           </div>
             <h1 class="viviendas-title">Viviendas</h1>
             <div class="viviendas">
-                <div class="añadir-vivienda">
+                <div class="vivienda">
                     <img class="añadir-vivienda-icon" src="../assets/icons8-home (1).svg">
                     <div class="insercion">
                         <button class="boton-vivienda" @click="CrearVivienda">
@@ -64,6 +68,27 @@
 </template>
 
 <style scoped>
+.bloqueInfo{
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: #fea13759;
+    border-radius: 20px;
+    padding-top: 1px;
+    padding-bottom: 3%;
+    
+}
+.divBloque{
+   padding-top: 30px;
+   width: 75%;
+   align-items: center;
+   margin-left: auto;
+   margin-right: auto;
+}
 .bloque-container {
     max-width: 800px;
     margin: 0 auto;
@@ -73,8 +98,10 @@
 }
 
 .bloque-title {
-    font-size: 24px;
-    margin-bottom: 20px;
+    color: rgb(255, 255, 255);
+    text-shadow: rgb(255, 140, 0) 1px 1px 1px;
+    margin: 0%;
+    margin-top: 2%;
 }
 
 .loading-message {
@@ -84,20 +111,37 @@
 .botones {
     display: flex;
     justify-content: center;
+    text-align: center;
+    
+    margin-top: 10px;
     margin-bottom: 20px;
+    border-radius: 20px;
+    padding-top: 1px;
+    
 }
 
 .boton {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #007bff;
-    color: #fff;
+    min-width: 23%;
+    padding: 20px 20px;
+    margin: 5px 10px;
+    margin-top: 10px;
+    background-color:#f8ef7e;
+    color: #000000;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
+}
+.imgInfo{
+    width: 70px;
+}
+.tituloInfo {
+    margin: 5%;
+    font-size: larger;
+    font-weight: bold;
 }
 
 .viviendas-title {
+    text-align: center;
     font-size: 20px;
     margin-bottom: 20px;
 }
@@ -213,7 +257,7 @@ const fetchBloques = async () => {
     console.log(bloque)
     viviendas.value = bloque.viviendas
     for (const vivienda of viviendas.value) {
-    
+
         let nombre = await getNombreVecino(vivienda.id)
         if (nombre != undefined) {
             vivienda.nombreVecino = nombre
@@ -357,7 +401,7 @@ const ModificarVivienda = async (id: number) => {
     valido = false
 
     const bloque = await bloqueService.listBloqueById(Number(bloque_id.value))
-    
+
     for (const mensualidad of mensualidades.value) {
 
         if (mensualidad.id == Number(ultima_mensualidad)) {

@@ -71,7 +71,6 @@
   margin-bottom: 20px;
   background-color: rgb(249 138 3 / 30%);
   border-radius: 20px;
-
 }
 
 .nombreCom {
