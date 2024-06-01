@@ -67,7 +67,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f7f7f7;
+    /*background-color: #f7f7f7;*/
     border-radius: 8px;
 }
 
