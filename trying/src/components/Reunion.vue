@@ -173,8 +173,8 @@ const nombreTipo = ref('')
 const loading = ref(true)
 
 const stringAfecha = (str: Date) => {
-    const date = new Date(str)
-    return date.toISOString().split('T')[0]
+    const date = new Date(str);
+    return date.toLocaleDateString('en-CA'); // Esto devuelve el formato 'YYYY-MM-DD'
 }
 
 const getTipo = async (id: number) => {

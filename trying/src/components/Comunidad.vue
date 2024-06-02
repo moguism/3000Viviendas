@@ -48,7 +48,7 @@
           <input id="numeroInsertar" type="number" placeholder="Nº Bloque" v-model="numero"></input>
           <div class="buttonAgregar" @click="CrearBloque">
             <p class="textoAgregar">AGREGAR BLOQUE</p>
-            <img class ="imgAgregar" src="../assets/arrow-return-left.svg">
+            <img class="imgAgregar" src="../assets/arrow-return-left.svg">
           </div>
         </div>
 
@@ -102,7 +102,6 @@
   margin: 2%;
   padding: 1%;
   border-radius: 10px;
-
 }
 
 .tituloCards {
