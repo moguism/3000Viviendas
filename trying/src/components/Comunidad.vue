@@ -56,6 +56,7 @@
           <img @click="CargarBloque(bloque.id)" class="bloque-icon" src="../assets/icons8-building-100.png">
           <h3 class="nombre-bloque">Nº: {{ bloque.numero }}</h3>
           <div class="options">
+            <button @click="ModificarBloque(bloque.id)">Modificar</button>
             <button @click="BorrarBloque(bloque.id)">Eliminar</button>
           </div>
         </div>
@@ -336,6 +337,18 @@ const CrearBloque = async () => {
 
 const BorrarBloque = async (id: number) => {
   const response = await bloqueService.deleteBloque(id)
+  console.log(response)
+  await fetchCommunities()
+}
+
+const ModificarBloque = async (id: number) => {
+  const bloque = await bloqueService.listBloqueById(id)
+  let numero = prompt('Introduce el nuevo numero de bloque')
+  while (!numero) {
+    alert('El numero de bloque no puede estar vacío')
+    return
+  }
+  const response = await bloqueService.updateBloque(id, community.value, Number(numero), bloque.viviendas, bloque.reuniones)
   console.log(response)
   await fetchCommunities()
 }
