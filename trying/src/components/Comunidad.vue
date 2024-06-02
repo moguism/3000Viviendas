@@ -206,13 +206,15 @@
   display: flex;
   font-weight: bold;
   margin: 15%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 4%;
   margin-bottom: 6%;
   padding-left: 5%;
   padding-right: 5%;
   border-radius: 10px;
-  
 }
+
 .options{
   margin-bottom: 6%;
 }

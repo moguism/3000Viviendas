@@ -19,22 +19,21 @@
         </div>
         <h1 class="viviendas-title">Viviendas</h1>
         <div class="bloques">
-            <div class="bloqueAgregar">
-                <img class="imgBloqueAgregar" src="../assets/icons8-building-100 (1).png">
+            <div class="bloque">
+                <img class="bloque-icon" src="../assets/casa-chimenea-medica.svg">
                 <input class="numeroInsertar" type="text" placeholder="Escalera" v-model="escalera"></input>
                 <input class="numeroInsertar" type="text" placeholder="Planta" v-model="planta"></input>
                 <input class="numeroInsertar" type="text" placeholder="Puerta" v-model="puerta"></input>
                 <input class="numeroInsertar" type="text" placeholder="Letra" v-model="letra"></input>
                 <input class="numeroInsertar" type="text" placeholder="Vecino" v-model="nombreVecino"></input>
-                <input class="numeroInsertar" type="number" placeholder="Mensualidad"
-                    v-model="ultima_mensualidad"></input>
+                <input class="numeroInsertar" type="number" placeholder="Mensualidad"v-model="ultima_mensualidad"></input>
                 <div class="buttonAgregar" @click="CrearVivienda">
                     <p class="textoAgregar">AGREGAR VIVIENDA</p>
                     <img class="imgAgregar" src="../assets/arrow-return-left.svg">
                 </div>
             </div>
             <div class="bloque" v-for="vivienda in viviendas" :key="vivienda.id">
-                <img class="bloque-icon" src="../assets/icons8-building-100.png">
+                <img class="bloque-icon" src="../assets/chimenea-de-la-casa.svg">
                 <h3 class="nombre-bloque">Escalera: {{ vivienda.escalera }}</h3>
                 <h3 class="nombre-bloque">Planta: {{ vivienda.planta }}</h3>
                 <h3 class="nombre-bloque">Puerta: {{ vivienda.puerta }}</h3>
@@ -48,23 +47,23 @@
             </div>
         </div>
         <h1 class="viviendas-title">Mensualidades</h1>
-        <div class="viviendas">
-            <div class="añadir-vivienda">
-                <img class="añadir-vivienda-icon" src="../assets/salario-del-usuario.svg">
-                <div class="insercion">
-                    <button class="boton-vivienda" @click="CrearMensualidad">
-                        <img src="../assets/arrow-return-left.svg">
-                    </button>
+        <div class="bloques">
+            <div class="bloque">
+                <img class="bloque-icon" src="../assets/salario-del-usuario.svg">
+                <input class="numeroInsertar" type="date" placeholder="Fecha" v-model="fecha"></input>
+                <input class="numeroInsertar" type="number" placeholder="Cuantia" v-model="cuantia"></input>
+                <div class="buttonAgregar" @click="CrearMensualidad">
+                    <p class="textoAgregar">AGREGAR MENSUALIDAD</p>
+                    <img class="imgAgregar" src="../assets/arrow-return-left.svg">
                 </div>
             </div>
-            <div class="vivienda" v-for="mensualiadad in mensualidades" :key="mensualiadad.id">
-                <img class="vivienda-icon" src="../assets/dolar-de-saco.svg">
-                <h6 class="nombre-vivienda">ID: {{ mensualiadad.id }}</h6>
-                <h6 class="nombre-vivienda">Fecha: {{ stringAfecha(mensualiadad.fecha) }}</h6>
-                <h6 class="nombre-vivienda">Cuantía: {{ mensualiadad.cuantia }}</h6>
-                <div class="botones">
-                    <button @click="ModificarMensualidad(mensualiadad.id)">Modificar</button>
-                    <button @click="BorrarMensualidad(mensualiadad.id)">Eliminar</button>
+            <div class="bloque" v-for="mensualidad in mensualidades" :key="mensualidad.id">
+                <img class="bloque-icon" src="../assets/dolar-de-saco.svg">
+                <h3 class="nombre-bloque">Fecha: {{ stringAfecha(mensualidad.fecha) }}</h3>
+                <h3 class="nombre-bloque">Cuantia: {{ mensualidad.cuantia }}</h3>
+                <div class="options">
+                    <button @click="ModificarMensualidad(mensualidad.id)">Modificar</button>
+                    <button @click="BorrarMensualidad(mensualidad.id)">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -138,50 +137,12 @@
     margin-bottom: 20px;
 }
 
-.añadir-vivienda {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-}
-
-.añadir-vivienda-icon {
-    width: 50px;
-    margin-right: 10px;
-}
-
-.insercion {
-    margin-top: 10px;
-}
-
-.vivienda {
-    width: 200px;
-    text-align: center;
-    margin-bottom: 5px;
-    margin-right: 100px
-}
-
-.vivienda-icon {
-    width: 75px;
-    margin-bottom: 30px;
-}
-
-.nombre-vivienda {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
 .bloques {
     height: auto;
     justify-content: center;
     flex-wrap: wrap;
     display: flex;
 }
-
-.bloques-title {
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-
 
 .bloque {
     display: grid;
@@ -196,21 +157,9 @@
     width: 150px;
 }
 
-.bloqueAgregar {
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    width: 150px;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 3%;
-    margin-right: 3%;
-    margin-left: 3%;
-}
-
 .bloque-icon {
-    margin: auto;
+    margin-right: auto;
+    margin-left: auto;
     margin-bottom: 10%;
     padding-top: 10%;
     width: 75px;
@@ -222,6 +171,8 @@
     display: flex;
     font-weight: bold;
     margin: 15%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 4%;
     margin-bottom: 6%;
     padding-left: 5%;
@@ -252,16 +203,10 @@ input {
     font-size: small;
 }
 
-.imgBloqueAgregar {
-    margin: auto;
-    margin-bottom: 10%;
-    padding-top: 10%;
-    width: 75px;
-}
-
 .nombre-bloque {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
 </style>
 
 <script setup lang="ts">
@@ -297,7 +242,7 @@ const planta = ref('')
 const nombreVecino = ref()
 const ultima_mensualidad = ref()
 
-const cuantia = ref(0)
+const cuantia = ref()
 const fecha = ref()
 
 const loading = ref(true)
