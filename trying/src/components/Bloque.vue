@@ -53,7 +53,7 @@
                 <input class="numeroInsertar" type="date" placeholder="Fecha" v-model="fecha"></input>
                 <input class="numeroInsertar" type="number" placeholder="Cuantia" v-model="cuantia"></input>
                 <div class="buttonAgregar" @click="CrearMensualidad">
-                    <p class="textoAgregar">AGREGAR MENSUALIDAD</p>
+                    <p class="textoAgregar">AGREGAR</p>
                     <img class="imgAgregar" src="../assets/arrow-return-left.svg">
                 </div>
             </div>
@@ -171,10 +171,9 @@
     display: flex;
     font-weight: bold;
     margin: 15%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 6%;
+    margin-right: 6%;
     margin-top: 4%;
-    margin-bottom: 6%;
     padding-left: 5%;
     padding-right: 5%;
     border-radius: 10px;
