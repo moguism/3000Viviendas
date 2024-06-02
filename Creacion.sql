@@ -33,8 +33,8 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`bloques` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `numero` INT NOT NULL,
   `comunidad_id` INT NOT NULL,
+  `numero` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Bloques_Comunidades_idx` (`comunidad_id` ASC) VISIBLE,
   CONSTRAINT `fk_Bloques_Comunidades`
@@ -348,12 +348,13 @@ USE `mydb`$$
 CREATE TRIGGER after_vivienda_update AFTER UPDATE ON viviendas
 FOR EACH ROW
 BEGIN
-	
 	DECLARE cantidad integer;
     DECLARE comunidad integer;
-    SET cantidad = (SELECT cuantia FROM mensualidades WHERE id = NEW.mensualidad_id);
-    SET comunidad = (SELECT comunidad_id FROM bloques WHERE id = NEW.bloque_id); 
-	INSERT INTO ingresos(monto, fecha, comunidad_id) VALUES (cantidad, now(), comunidad);
+    IF (NEW.mensualidad_id != OLD.mensualidad_id) THEN
+		SET cantidad = (SELECT cuantia FROM mensualidades WHERE id = NEW.mensualidad_id);
+		SET comunidad = (SELECT comunidad_id FROM bloques WHERE id = NEW.bloque_id); 
+		INSERT INTO ingresos(monto, fecha, comunidad_id) VALUES (cantidad, now(), comunidad);
+	END IF;
 END$$
 
 
