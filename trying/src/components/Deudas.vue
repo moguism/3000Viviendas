@@ -19,7 +19,7 @@
                         <div class="info">
                             <h3 class="communityName">Monto: {{ deuda.monto }}</h3>
                             <p class="communityType">Tipo de Deuda: {{ deuda.nombreTipo }}</p>
-                            <p class="communityType">Fecha: {{ deuda.fecha }}</p>
+                            <p class="communityType">Fecha: {{ stringAfecha(deuda.fecha) }}</p>
                         </div>
                         <div class="actions">
                             <button @click="BorrarDeuda(deuda.id)">Borrar</button>
@@ -184,6 +184,11 @@ const getTipo = async (id: number) => {
         }
     }
     return "Mensualidad"
+}
+
+const stringAfecha = (str: Date) => {
+    const date = new Date(str);
+    return date.toLocaleDateString('en-CA'); // Esto devuelve el formato 'YYYY-MM-DD'
 }
 
 const fetchDeudas = async () => {
