@@ -1,10 +1,10 @@
 <template>
     <div class="header">
         
-        <div id="HomeButton" @click="goHome()" >
+        <div id="HomeButton" >
             
-            <p class="home">GESTOR DE<br>COMUNIDADES</p>
-            <img class="logo" src="../assets/administracion.png" >
+            <p class="home"  @click="goHome()">GESTOR DE<br>COMUNIDADES</p>
+            <img class="logo" src="../assets/administracion.png"  @click="goHome()">
         </div>
 
         <div id="User">
